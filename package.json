@@ -1,0 +1,14 @@
+{
+  "name": "server-files",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "pm2 start ragemp-server.exe --watch"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "pm2": "^5.1.2"
+  }
+}

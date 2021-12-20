@@ -1,0 +1,9 @@
+const { SERVER_NAME } = process.env
+
+mp.events.add('playerJoin', player => {
+    console.log(`[${SERVER_NAME.yellow}] - ${player.name} joined to the server` );
+})
+
+mp.events.add('playerLeft', player => {
+    console.log(`[${SERVER_NAME.yellow}] - ${player.name} left the server` );
+})
