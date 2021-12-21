@@ -1,6 +1,6 @@
 const browser = mp.browsers.new('package://Coords/index.html');
 const player = mp.players.local;
-browser.active= true;
+browser.active= false;
 
 mp.events.add('viewCoords', () => {
     browser.active = !browser.active;
