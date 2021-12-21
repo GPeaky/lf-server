@@ -5,7 +5,7 @@ mp.events.addCommand('vehBring', (player, vehId) => {
 })
 
 mp.events.addCommand('veh', (player, vehicle) => {
-    player.spawnVehicle(vehicle)
+    player.spawnVehicle(vehicle, player.position, player.heading)
 })
 
 mp.events.addCommand('dv', player => {

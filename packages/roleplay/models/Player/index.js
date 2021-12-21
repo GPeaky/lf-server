@@ -1,8 +1,9 @@
-mp.events.add('playerReady', player => {
+mp.events.add('playerReady', (player, position, heading) => {
     player.spawnVehicle = vehicle => {
         if (vehicle) {
-            const veh = mp.vehicles.new(mp.joaat(vehicle), player.position, {
-                dimension: player.dimension,
+            const veh = mp.vehicles.new(mp.joaat(vehicle), new mp.Vector3(position), {
+                heading,
+                dimension: player.dimension
             })
             player.putIntoVehicle(veh, 0);
         } else player.notify('Vehicle not found.');
