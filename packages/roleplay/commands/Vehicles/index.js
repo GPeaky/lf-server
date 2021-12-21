@@ -9,12 +9,19 @@ mp.events.addCommand('veh', (player, vehicle) => {
 })
 
 mp.events.addCommand('dv', player => {
-    if(player.vehicle) return player.vehicle.destroy(), player.notify('Vehicle Deleted.');
-    player.notify('You are not in a vehicle.');
+    player.deleteVehicle()
 })
 
-mp.events.addCommand('giveWep', (player, weapon) => {
-    if(!player.hasWeapon(weapon)) {
-        player.giveWeapon(mp.joaat(weapon), 1000);
-    }
+mp.events.addCommand('giveWep', (player, weapon, ammo) => {
+    if (!player.hasWeapon(weapon)) {
+        player.giveWeapon(mp.joaat(weapon), ammo);
+        player.notify(`You have been given ${weapon}`);
+    } else player.notify('You already have this weapon.'); 
+})
+
+mp.events.addCommand('removeWep', (player, weapon) => {
+    if (player.hasWeapon(weapon)) {
+        player.removeWeapon(mp.joaat(weapon));
+        player.notify(`You have removed ${weapon}`);
+    } else player.notify('You don\'t have this weapon.');
 })
