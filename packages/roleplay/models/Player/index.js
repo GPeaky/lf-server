@@ -1,5 +1,5 @@
-mp.events.add('playerReady', (player, position, heading) => {
-    player.spawnVehicle = vehicle => {
+mp.events.add('playerReady', (player) => {
+    player.spawnVehicle = (vehicle, position, heading) => {
         if (vehicle) {
             const veh = mp.vehicles.new(mp.joaat(vehicle), new mp.Vector3(position), {
                 heading,
