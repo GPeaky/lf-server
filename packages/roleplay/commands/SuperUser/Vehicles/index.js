@@ -2,7 +2,7 @@ mp.events.addCommand('veh', (player, vehicle) => {
     player.spawnVehicle(vehicle, player.position, player.heading)
 });
 
-mp.events.addCommand('repair', player => {
+mp.events.addCommand('fix', player => {
     player.repairVehicle(player)
 })
 
