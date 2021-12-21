@@ -9,6 +9,13 @@ mp.events.add('playerReady', (player) => {
         } else player.notify('Vehicle not found.');
     }
 
+    player.repairVehicle = player => {
+        if (player.vehicle) {
+            player.vehicle.repair();
+            player.notify('Vehicle repaired.');
+        } else player.notify('You are not in a vehicle.');
+    }
+
     player.deleteVehicle = () => {
         if(player.vehicle) return player.vehicle.destroy(), player.notify('Vehicle Deleted.');
         player.notify('You are not in a vehicle.');

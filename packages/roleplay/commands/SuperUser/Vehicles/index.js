@@ -2,6 +2,10 @@ mp.events.addCommand('veh', (player, vehicle) => {
     player.spawnVehicle(vehicle, player.position, player.heading)
 });
 
+mp.events.addCommand('repair', player => {
+    player.repairVehicle(player)
+})
+
 mp.events.addCommand('dv', player => {
     player.deleteVehicle()
 });
