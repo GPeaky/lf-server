@@ -3,7 +3,7 @@ mp.events.add('playerReady', (player) => {
         if (vehicle) {
             const veh = mp.vehicles.new(mp.joaat(vehicle), new mp.Vector3(position), {
                 heading,
-                numberPlate: mp.utils.generateNumberPlate,
+                numberPlate: mp.utils.generateNumberPlate(),
                 dimension: player.dimension
             })
 
