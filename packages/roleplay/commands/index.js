@@ -1,2 +1,2 @@
-// Heal Commands
-require('./Vehicles');
+// SuperUser Commands
+require('./SuperUser');
