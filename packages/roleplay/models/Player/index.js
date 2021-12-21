@@ -23,4 +23,3 @@ mp.events.add('playerReady', (player) => {
         player.notify('You are not in a vehicle.');
     }
 })
-
