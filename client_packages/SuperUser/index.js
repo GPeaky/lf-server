@@ -2,13 +2,13 @@
 mp.events.add('playerCommand', command => {
     if(command === 'tpm') {
         if (mp.game.invoke('0x1DD1F58F493F1DA5')) {
-            let blipIterator = mp.game.invoke('0x186E5D252FA50E7D');
+            const blipIterator = mp.game.invoke('0x186E5D252FA50E7D');
             const FirstInfoId = mp.game.invoke('0x1BEDE233E6CD2A1F', blipIterator);
             const NextInfoId = mp.game.invoke('0x14F96AA50D6FBEA7', blipIterator);
             for (let i = FirstInfoId; mp.game.invoke('0xA6DB27D19ECBB7DA', i) != 0; i = NextInfoId) {
                 if (mp.game.invoke('0xBE9B0959FFD0779B', i) == 4) {
                     const oldpos = mp.players.local.position;
-                    let coord = mp.game.ui.getBlipInfoIdCoord(i);
+                    const coord = mp.game.ui.getBlipInfoIdCoord(i);
     
                     coord.z = mp.game.gameplay.getGroundZFor3dCoord(coord.x, coord.y, i * 50, 0, false); // try calcualte Z
                     mp.players.local.setCoordsKeepVehicle(coord.x, coord.y, coord.z);
