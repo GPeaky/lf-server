@@ -1,2 +1,2 @@
 // Heal Commands
-require('./vehicles');
+require('./Vehicles');
