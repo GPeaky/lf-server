@@ -6,3 +6,6 @@ require('./Weapons')
 
 // Health 
 require('./Health')
+
+// Coords 
+require('./Coords')

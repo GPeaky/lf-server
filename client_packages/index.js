@@ -1,5 +1,5 @@
-// Utils 
-require('./utils')
+// Coords 
+require('./Coords')
 
 // Require Discord
 require('./Discord')
