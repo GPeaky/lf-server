@@ -5,20 +5,21 @@ body {
 }
 
 #hud {
-    margin-top: -10px;
+    margin-left: 42%;
+    width: 15%;
 }
 
 #hud > .coords > .text {
     background-color: rgba(0, 0, 0, 0.767);
-    padding: 7px;
+    padding: 1vh;
     text-align: center;
-    font-family: 'Fira Code', monospace;
+    font-family: Cascadia Code;
     letter-spacing: -1px;
     font-size: 0.7rem;
     color: white;
     border-radius: 0.4vh;
     margin-left: 10px;
-    float: left;
+    float: right;
 }
 
 #hud > .coords > .text {
