@@ -1,6 +1,6 @@
 require('colors');
 require('dotenv').config();
-const syncDatabase = require('../../database')
+const syncDatabase = require('./database')
 
 const main = async () => {
     try {
