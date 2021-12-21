@@ -1,8 +1,10 @@
-.coords {
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+#hud {
     margin-top: -10px;
 }
 
-.coords > .text {
+#hud > .coords > .text {
     background-color: rgba(0, 0, 0, 0.767);
     padding: 7px;
     text-align: center;
@@ -16,7 +18,7 @@
     float: left;
 }
 
-.coords > .text {
+#hud > .coords > .text {
     margin-top: 50px;
     margin-bottom: -25px;
 }

@@ -8,14 +8,7 @@ mp.events.add('viewCoords', () => {
         browser.active = !browser.active;
 
         if (browser.active) {
-            browser.execute(`
-                document.getElementById('coords').innerHTML = 
-                <p class="text" id="x">x: ${player.position.x}</p>
-                <p class="text" id="y">y: ${player.position.y}</p>
-                <p class="text" id="z">z: ${player.position.z}</p>
-                <p class="text" id="h">h: ${player.heading}</p>
-                ;
-            `)
+            browser.execute(`setCoords(${player.position}, ${player.heading})`);
         }
     })
 })
