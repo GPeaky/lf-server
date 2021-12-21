@@ -25,10 +25,10 @@
         </div>
 
         <script>
-            const setCoords = ({x, y, z}, heading) => {
-                document.getElementById('.coords > #x').innerText = `x: ${x}`;
-                document.getElementById('.coords > #y').innerText = `y: ${y}`;
-                document.getElementById('.coords > #z').innerText = `z: ${z}`;
+            const setCoords = (PositionX, PositionY, PositionZ, heading) => {
+                document.getElementById('.coords > #x').innerText = `x: ${PositionX}`;
+                document.getElementById('.coords > #y').innerText = `y: ${PositionY}`;
+                document.getElementById('.coords > #z').innerText = `z: ${PositionZ}`;
                 document.getElementById('.coords > #h').innerText = `h: ${heading}`;
             };
         </script>
