@@ -1,13 +1,13 @@
-mp.events.addCommand('giveWep', (player, weapon, ammo) => {
-    if (!player.hasWeapon(weapon)) {
-        player.giveWeapon(mp.joaat(weapon), ammo);
+mp.events.addCommand('giveWep', (player, args, weapon, ammo) => {
+    if ( weapon ){
+        player.giveWeapon(mp.joaat(`weapon_${weapon}`), parseInt(ammo) || 250);
         player.notify(`You have been given ${weapon}`);
-    } else player.notify('You already have this weapon.'); 
+    } else player.notify('Please enter a weapon name.');
 })
 
 mp.events.addCommand('removeWep', (player, weapon) => {
-    if (player.hasWeapon(weapon)) {
-        player.removeWeapon(mp.joaat(weapon));
-        player.notify(`You have removed ${weapon}`);
-    } else player.notify('You don\'t have this weapon.');
+    if( weapon ) {
+        player.removeWeapon(mp.joaat(`weapon_${weapon}`));
+        player.notify(`You have been removed ${weapon}`);
+    } else player.notify('Invalid Weapon')
 })
