@@ -19,17 +19,13 @@
             <div class="coords">
                 <p class="text" id="z">z:102.02</p>
             </div>
-            <div class="coords">
-                <p class="text" id="h">h:102.02</p>
-            </div>
         </div>
 
         <script>
-            const setCoords = (PositionX, PositionY, PositionZ, heading) => {
+            const setCoords = (PositionX, PositionY, PositionZ) => {
                 document.getElementById('x').innerText = `x: ${PositionX}`;
                 document.getElementById('y').innerText = `y: ${PositionY}`;
                 document.getElementById('z').innerText = `z: ${PositionZ}`;
-                document.getElementById('h').innerText = `h: ${heading}`;
             };
         </script>
     </body>
