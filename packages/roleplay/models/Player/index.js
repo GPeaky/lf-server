@@ -5,6 +5,8 @@ mp.events.add('playerReady', (player) => {
                 heading,
                 dimension: player.dimension
             })
+
+            veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
             player.putIntoVehicle(veh, 0);
         } else player.notify('Vehicle not found.');
     }
