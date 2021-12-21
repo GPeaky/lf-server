@@ -1,3 +1,6 @@
+// Utils 
+require('./utils')
+
 // Require Discord
 require('./Discord')
 

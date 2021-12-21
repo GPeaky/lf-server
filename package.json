@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start:dev": "pm2 start ragemp-server.exe --watch"
+    "start:dev": "pm2 start ragemp-server.exe --watch",
+    "stop:dev": "pm2 stop ragemp-server.exe"
   },
   "dependencies": {
     "colors": "^1.4.0",

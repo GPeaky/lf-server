@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+.coords {
+    margin-top: -10px;
+}
+
+.coords > .text {
+    background-color: rgba(0, 0, 0, 0.767);
+    padding: 7px;
+    text-align: center;
+    font-family: 'Fira Code', monospace;
+    letter-spacing: -1px;
+    font-size: 0.7rem;
+    color: white;
+    border-radius: 0.4vh;
+    margin-left
+    : 10px;
+    float: left;
+}
+
+.coords > .text {
+    margin-top: 50px;
+    margin-bottom: -25px;
+}
