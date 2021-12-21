@@ -6,8 +6,10 @@ const main = async () => {
     try {
         await syncDatabase();
 
+        // Utils
+        require('./utils')
         // Models
-        require('./Models')
+        require('./models')
         // Events
         require('./events')
         // Commands 
