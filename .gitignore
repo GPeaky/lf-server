@@ -3,3 +3,6 @@ bin/
 .env
 yarn.lock
 package-lock.json
+client_packages/.listcache
+linux_x64.tar.gz
+dotnet/
