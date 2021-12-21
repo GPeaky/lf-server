@@ -1,11 +1,20 @@
 require('colors');
 require('dotenv').config();
+const syncDatabase = require('./databases')
 
-// Models
-require('./Models')
+const main = async () => {
+    try {
+        await syncDatabase();
 
-// Events
-require('./events')
+        // Models
+        require('./Models')
+        // Events
+        require('./events')
+        // Commands 
+        require('./commands')
+    } catch ( err ) {
+        console.log('Database Error: '.red);
+    }
+}
 
-// Commands 
-require('./commands')
+main();
