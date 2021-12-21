@@ -8,6 +8,8 @@ const main = async () => {
 
         // Utils
         require('./utils')
+        // Controllers
+        require('./controllers')
         // Models
         require('./models')
         // Events
