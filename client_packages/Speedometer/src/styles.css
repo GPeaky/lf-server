@@ -25,18 +25,15 @@
 
 .hud .speed {
     position: absolute;
-    display: flex;
     padding: 4px;
     background-color: #010101b9;
     color: white;
     border-radius: 5px;
-    bottom: 0;
-    left: 1;
+    bottom: 300px;
+    left: 43%;
     text-align: center;
-    margin: 12px;
-    bottom: 0;
+    bottom: 10%;
     font-size: 12px;
-    margin-left: 72px;
 }
 
 .circles {
