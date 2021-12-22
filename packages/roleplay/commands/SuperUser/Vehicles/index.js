@@ -1,3 +1,5 @@
+const { Instantiate } = require('../../../controllers/VehicleController')
+
 mp.events.addCommand('veh', (player, vehicle) => {
     player.spawnVehicle(vehicle, player.position, player.heading)
 });
