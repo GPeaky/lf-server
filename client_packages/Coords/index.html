@@ -27,6 +27,16 @@
                 document.getElementById('y').innerText = `y: ${PositionY}`;
                 document.getElementById('z').innerText = `z: ${PositionZ}`;
             };
+
+            const copyCoords = (posX, posY, posZ, posH) => {
+                const text = `${posX} , ${posY} , ${posZ} , ${posH}`;
+                const el = document.createElement('textarea');
+                el.value = text;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+            };
         </script>
     </body>
 </html>
