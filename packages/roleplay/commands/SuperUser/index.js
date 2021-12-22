@@ -11,5 +11,10 @@ require('./Teleport')
 require('./Health')
 
 // Coords 
-require('./Coords')// Weather 
+require('./Coords')
+
+// Weather 
 require('./Weather')
+
+// Kick 
+require('./Kick')
