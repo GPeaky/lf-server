@@ -12,7 +12,7 @@ mp.events.add('playerReady', (player) => {
         } else player.notify('Vehicle not found.');
     }
 
-    player.repairVehicle = player => {
+    player.repairVehicle = () => {
         if (player.vehicle) {
             player.vehicle.repair();
             player.notify('Vehicle repaired.');
