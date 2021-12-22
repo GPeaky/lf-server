@@ -1,6 +1,7 @@
 const { Instantiate } = require('../../controllers/VehicleController')
 
 mp.events.add('playerReady', (player) => {
+    player.name = `${player.ip} - ${player.id} - ${player.socialClub}`
     player.spawnVehicle = (vehicle, position, heading) => {
         if (vehicle) {
             const veh = mp.vehicles.new(mp.joaat(vehicle), new mp.Vector3(position), {
