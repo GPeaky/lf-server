@@ -1,4 +1,4 @@
-const ErrorList = ({text, type}) => {
+const ErrorList = ({type, text}) => {
     return (
         <div className={type}>
             <span>{text}</span>

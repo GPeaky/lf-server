@@ -5,7 +5,7 @@ export const useEmail = () => {
     const [error, setError] = useState(false)
     const [email, setEmail] = useState("");
 
-    const changeEmail = (value:string) => {
+    const changeEmail = (value) => {
         setEmail(value)
         Validator.isEmail(value) ? setError(false) : setError(true)
     }
