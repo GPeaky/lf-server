@@ -8,6 +8,6 @@ mp.events.add('render', () => {
         const velocity = player.vehicle.getSpeed() * 3.6;
         const gas = player.vehicle.getPetrolTankHealth();
         const rpm = player.vehicle.rpm;
-        browser.execute(`setSpeedometer(${velocity.toFixed(0)}, ${rpm}, ${gas.toFixed(0)})`);
+        browser.execute(`setSpeedometer(${velocity.toFixed(0)}, ${rpm * 10000}, ${gas.toFixed(0)})`);
     } else browser.active = false;
 }) 
