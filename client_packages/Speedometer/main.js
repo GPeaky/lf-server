@@ -49,8 +49,8 @@ rpmCircle.anumationSpeed = 1000;
 rpmCircle.set(10000)
 
 const setSpeedometer = (speed, rpm, fuel) => {
-    const speedCounter = document.querySelector('.speed')
-    speedCounter.innerHTML = speed+'KMH'
-    rpmCircle.set(rpm)
-    kmhCircle.set(speed)
+  const speedCounter = document.querySelector('.speed')
+  speedCounter.innerHTML = speed+'KMH'
+  rpmCircle.set(rpm)
+  kmhCircle.set(speed)
 }
