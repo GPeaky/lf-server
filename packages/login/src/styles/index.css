@@ -1,0 +1,33 @@
+body {
+    font-family: 'Muli', sans-serif;
+}
+
+.loginForm {
+    margin-top: -35%;
+    display: flex;
+    flex-direction: column;
+    /* width: 500px; */
+    background: #0101;
+    align-items: center;
+    padding: 30px;
+}
+
+.tittle {
+    text-align: center;
+}
+
+.page {
+    margin-top: 50%;
+}
+
+.sucess {
+    color: green;
+    margin: 15px;
+    margin-left: 0px;
+}
+
+.error {
+    color: red;
+    margin: 15px;
+    margin-left: 0px;
+}
