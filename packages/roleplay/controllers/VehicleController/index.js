@@ -1,3 +1,4 @@
+const { parse } = require('dotenv');
 const Vehicles = require('../../database/models/Vehicles');
 
 const Instantiate = vehicle => {
@@ -5,7 +6,10 @@ const Instantiate = vehicle => {
         position: vehicle.position,  
         color: vehicle.getColorRGB(),
         dimension: vehicle.dimension,
-        heading: vehicle.heading
+        heading: vehicle.heading,
+        engineHealth: vehicle.engineHealth,
+        bodyHealth: vehicle.bodyHealth,
+        locked: vehicle.locked
     })
     Vehicles.create({
         id: vehicle.numberPlate,
@@ -20,7 +24,10 @@ const Save = vehicle => {
         position: vehicle.position,  
         color: vehicle.getColorRGB(),
         dimension: vehicle.dimension,
-        heading: vehicle.heading
+        heading: vehicle.heading,
+        engineHealth: vehicle.engineHealth,
+        bodyHealth: vehicle.bodyHealth,
+        locked: vehicle.locked
     })
     Vehicles.update({ data: vehicleData }, {
         where: {
@@ -45,7 +52,12 @@ const spawnVehicle = ({ id, model, data }) => {
         heading: vehicleData.heading,
         dimension: vehicleData.dimension,
         numberPlate: id,
+        locked: vehicleData.locked
     })
+    
+    vehicle.engineHealth = parseFloat(vehicleData.engineHealth)
+    vehicle.bodyHe = parseFloat(vehicleData.bodyHealth)
+    
     vehicle.setColorRGB(vehicleData.color)
     vehicle.isPersistent = true
     console.log(`Vehicle with ID: ${id} spawned.`)
