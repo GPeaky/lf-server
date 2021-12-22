@@ -3,7 +3,7 @@ mp.events.addCommand('veh', (player, vehicle) => {
 });
 
 mp.events.addCommand('fix', player => {
-    player.repairVehicle(player)
+    player.repairVehicle()
 })
 
 mp.events.addCommand('dv', player => {
