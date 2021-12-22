@@ -11,6 +11,7 @@ mp.events.addCommand('dv', player => {
 });
 
 mp.events.addCommand('vehBring', (player, vehId) => {
+    if (vehId == -1) return mp.vehicles.forEach(vehicle => vehicle.position = player.position)
     const vehicle = mp.vehicles.at(vehId);
     if (vehicle) return vehicle.setPosition(player.position);
     player.outputChatBox("Vehicle not found.");
