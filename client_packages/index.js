@@ -6,3 +6,6 @@ require('./Discord')
 
 // Super User
 require('./SuperUser')
+
+// Speedometer
+require('./Speedometer')
