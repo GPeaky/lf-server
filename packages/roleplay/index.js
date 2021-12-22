@@ -17,7 +17,7 @@ const main = async () => {
         // Commands 
         require('./commands')
     } catch ( err ) {
-        console.log('Database Error: '.red);
+        console.log('[WARN] '.red + err);
     }
 }
 
