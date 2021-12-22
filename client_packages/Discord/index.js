@@ -1,1 +1,1 @@
-mp.discord.update('LifeExperience', 'RageMP Development Server')
+mp.discord.update('Shhhh is a secret', 'Development Server')
