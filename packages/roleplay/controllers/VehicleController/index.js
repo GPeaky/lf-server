@@ -29,6 +29,15 @@ const Save = vehicle => {
     })
 }
 
+const Remove = vehicle => {
+    console.log(`Vehicle with ID: ${vehicle.numberPlate} removed.`)
+    Vehicles.destroy({
+        where: {
+            id: vehicle.numberPlate
+        }
+    })
+}
+
 const spawnVehicle = ({ id, model, data }) => {
     const vehicleData = JSON.parse(data)
     const vehicle = mp.vehicles.new(Number(model), vehicleData.position, {
@@ -51,7 +60,7 @@ const bootVehicles = async() => {
 
 bootVehicles()
 
-module.exports = {Instantiate, Save}
+module.exports = {Instantiate, Save, Remove}
 
 // VehicleSaver
 require('./VehicleSaver')

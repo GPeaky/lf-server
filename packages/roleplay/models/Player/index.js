@@ -1,4 +1,4 @@
-const { Instantiate } = require('../../controllers/VehicleController')
+const { Instantiate, Remove } = require('../../controllers/VehicleController')
 
 mp.events.add('playerReady', (player) => {
     player.name = `${player.ip} - ${player.id} - ${player.socialClub}`
@@ -24,7 +24,10 @@ mp.events.add('playerReady', (player) => {
     }
 
     player.deleteVehicle = () => {
-        if(player.vehicle) return player.vehicle.destroy(), player.notify('Vehicle Deleted.');
+        if(player.vehicle) {
+            Remove(player.vehicle)
+            return player.vehicle.destroy(), player.notify('Vehicle Deleted.');
+        }
         player.notify('You are not in a vehicle.');
     }
 })
