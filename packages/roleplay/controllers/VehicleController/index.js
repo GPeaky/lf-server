@@ -1,7 +1,7 @@
 const Vehicles = require('../../database/models/Vehicles');
 
 const Instantiate = vehicle => {
-    vehicleData = JSON.stringify({
+    const vehicleData = JSON.stringify({
         position: vehicle.position,  
         color: vehicle.getColorRGB(),
         dimension: vehicle.dimension,
@@ -16,7 +16,7 @@ const Instantiate = vehicle => {
 }
 
 const Save = vehicle => {
-    vehicleData = JSON.stringify({
+    const vehicleData = JSON.stringify({
         position: vehicle.position,  
         color: vehicle.getColorRGB(),
         dimension: vehicle.dimension,
@@ -31,7 +31,7 @@ const Save = vehicle => {
 
 const spawnVehicle = ({ id, model, data }) => {
     const vehicleData = JSON.parse(data)
-    const vehicle = mp.vehicles.new(mp.joaat(model), vehicleData.position, {
+    const vehicle = mp.vehicles.new(Number(model), vehicleData.position, {
         engine: false,
         heading: vehicleData.heading,
         dimension: vehicleData.dimension,
