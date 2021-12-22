@@ -1,4 +1,4 @@
-const browser = mp.browsers.new('package://Speedometer/index.html');
+const browser = mp.browsers.new('package://Speedometer/src/index.html');
 const player = mp.players.local;
 browser.active= false;
 
