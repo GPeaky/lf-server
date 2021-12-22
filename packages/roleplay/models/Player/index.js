@@ -1,3 +1,5 @@
+const { Instantiate } = require('../../controllers/VehicleController')
+
 mp.events.add('playerReady', (player) => {
     player.spawnVehicle = (vehicle, position, heading) => {
         if (vehicle) {
@@ -9,6 +11,7 @@ mp.events.add('playerReady', (player) => {
 
             veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
             player.putIntoVehicle(veh, 0);
+            Instantiate(veh)
         } else player.notify('Vehicle not found.');
     }
 
