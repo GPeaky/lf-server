@@ -14,7 +14,7 @@ const Vehicles = sequelize.define('vehicles', {
     },
 
     data: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(10000),
         allowNull: false
     }
 })
