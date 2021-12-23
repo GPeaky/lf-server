@@ -1,4 +1,4 @@
-const { Save } = require('./index.js')
+const { Save } = require('./controller.js')
 
 setInterval(() => {
     mp.vehicles.forEach(vehicle => {

@@ -1,4 +1,4 @@
-const {  ExistPlayer, CreatePlayer, LoadPlayer } = require('../../controllers/PlayerController/index')
+const { ExistPlayer, CreatePlayer, LoadPlayer } = require('./controller')
 const { SERVER_NAME } = process.env
 
 mp.events.add('playerJoin', async (player) => {

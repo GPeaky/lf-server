@@ -9,13 +9,13 @@ const main = async () => {
         // Utils
         require('./utils')
         // Controllers
-        require('./controllers')
+        require('./scripts')
         // Models
         require('./models')
-        // Events
-        require('./events')
         // Commands 
         require('./commands')
+        // Tests
+        require('./tests')
     } catch ( err ) {
         console.log('[WARN] '.red + err);
     }

@@ -1,0 +1,2 @@
+//* Vehicle Controller
+require('./controller')

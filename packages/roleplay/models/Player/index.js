@@ -1,4 +1,4 @@
-const { Instantiate, Remove } = require('../../controllers/VehicleController')
+const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 
 mp.events.add('playerReady', (player) => {
     player.name = `${player.ip} - ${player.id} - ${player.socialClub}`

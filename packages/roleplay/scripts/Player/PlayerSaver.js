@@ -1,4 +1,4 @@
-const { SavePlayer } = require('./index.js')
+const { SavePlayer } = require('./controller.js')
 
 setInterval(() => {
     mp.players.forEach(player => {
