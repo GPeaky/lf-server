@@ -15,3 +15,6 @@ require('./Scripts')
 
 // Tests
 require('./tests')
+
+// Keybinds
+require('./Keybinds')
