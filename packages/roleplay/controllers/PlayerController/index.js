@@ -56,8 +56,6 @@ const CreatePlayer = async (player) => {
         password: "player.password",
         data: playerData
     })
-
-
 }
 
 const SavePlayer = (player) => {
@@ -98,15 +96,12 @@ const ExistPlayer = async(player) => {
         }
     })
     
-    if(PlayerDB) {
-        return true
-    } else {
-        return false
-    }
+    if (PlayerDB) return true
+    return false
 }
 
 const LoadPlayer = async (player) => {
-    const {data} = await Player.findOne({
+    const { data } = await Player.findOne({
         where: {
             id: player.serial
         }
