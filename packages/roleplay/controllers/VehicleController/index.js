@@ -1,7 +1,10 @@
-const { parse } = require('dotenv');
 const Vehicles = require('../../database/models/Vehicles');
+const LastVehicleData = {}
+
+const UpdateCache = (vehicle, vehicleData) => LastVehicleData[vehicle.numberPlate] = {vehicleData, vehicle}
 
 const Instantiate = vehicle => {
+    if (vehicle.isPersistent) return
     const vehicleData = JSON.stringify({
         position: vehicle.position,  
         color: vehicle.getColorRGB(),
@@ -9,7 +12,8 @@ const Instantiate = vehicle => {
         heading: vehicle.heading,
         engineHealth: vehicle.engineHealth,
         bodyHealth: vehicle.bodyHealth,
-        locked: vehicle.locked
+        locked: vehicle.locked,
+        deformationMap: '{}',
     })
     Vehicles.create({
         id: vehicle.numberPlate,
@@ -17,24 +21,78 @@ const Instantiate = vehicle => {
         data: vehicleData,
     })
     vehicle.isPersistent = true
+    vehicle.userInSeat = false
+    vehicle.deformationMap = '{}'
+    UpdateCache(vehicle, JSON.parse(vehicleData))
 }
 
-const Save = vehicle => {
-    const vehicleData = JSON.stringify({
+const ClientSync = vehicle => {
+    const vehicleData = LastVehicleData[vehicle.numberPlate]?.vehicleData; if (!vehicleData) return;
+    mp.players.call('vehicleSync::Client', [vehicle.id, vehicleData])
+}
+
+const Save = async vehicle => {
+    const cachedVehicleData = LastVehicleData[vehicle.numberPlate]?.vehicleData
+
+    const vehicleData = {
         position: vehicle.position,  
         color: vehicle.getColorRGB(),
         dimension: vehicle.dimension,
         heading: vehicle.heading,
         engineHealth: vehicle.engineHealth,
         bodyHealth: vehicle.bodyHealth,
-        locked: vehicle.locked
-    })
-    Vehicles.update({ data: vehicleData }, {
+        locked: vehicle.locked,
+        deformationMap: vehicle.deformationMap || '{}'
+    };
+
+    if (!vehicle.userInSeat) {
+        vehicleData.engineHealth = cachedVehicleData.engineHealth
+        vehicleData.bodyHealth = cachedVehicleData.bodyHealth
+    }
+
+    console.log(vehicle.userInSeat)
+
+    if (cachedVehicleData) {
+        let changes = []
+        if (cachedVehicleData.position?.x != vehicleData.position?.x) changes.push(`${cachedVehicleData.position?.x} > ${vehicleData.position?.x} position x`)
+        if (cachedVehicleData.position?.y != vehicleData.position?.y) changes.push(`${cachedVehicleData.position?.y} > ${vehicleData.position?.y} position y`)
+        if (cachedVehicleData.position?.z != vehicleData.position?.z) changes.push(`${cachedVehicleData.position?.z} > ${vehicleData.position?.z} position z`)
+        if (cachedVehicleData.dimension != vehicleData.dimension) changes.push(`${cachedVehicleData.dimension} > ${vehicleData.dimension} dimension`)
+        if (cachedVehicleData.heading != vehicleData.heading) changes.push(`${cachedVehicleData.heading} > ${vehicleData.heading} heading`)
+        if (cachedVehicleData.engineHealth != vehicleData.engineHealth) changes.push(`${cachedVehicleData.engineHealth} > ${vehicleData.engineHealth} engineHealth`)
+        if (cachedVehicleData.bodyHealth != vehicleData.bodyHealth) changes.push(`${cachedVehicleData.bodyHealth} > ${vehicleData.bodyHealth} bodyHealth`)
+        if (cachedVehicleData.locked != vehicleData.locked) changes.push(`${cachedVehicleData.locked} > ${vehicleData.locked} locked`)
+        
+        if (changes.length <= 0) return
+        console.log(`Changed vehicle ${vehicle.numberPlate} changes: `, changes)
+    }
+    
+    Vehicles.update({ data: JSON.stringify(vehicleData) }, {
         where: {
             id: vehicle.numberPlate
         }
     })
+
+    UpdateCache(vehicle,vehicleData)
 }
+
+mp.events.add("setVehicleDeformationMap", (player, deformationMap) => {
+    const vehicle = player?.vehicle
+    vehicle.deformationMap = JSON.parse(deformationMap)
+})
+
+mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
+    if (seat != 0) return
+    console.log(`${player.id} entering ${vehicle.numberPlate} seat ${seat}`)
+    ClientSync(vehicle)
+    vehicle.userInSeat = true
+});
+
+mp.events.add("playerStartExitVehicle", async player => {
+    console.log(`${player.id} exiting ${player.vehicle.numberPlate}`)
+    player.vehicle.userInSeat = false
+});
+
 
 const Remove = vehicle => {
     console.log(`Vehicle with ID: ${vehicle.numberPlate} removed.`)
@@ -54,13 +112,11 @@ const spawnVehicle = ({ id, model, data }) => {
         numberPlate: id,
         locked: vehicleData.locked
     })
-    
-    vehicle.engineHealth = parseFloat(vehicleData.engineHealth)
-    vehicle.bodyHe = parseFloat(vehicleData.bodyHealth)
-    
-    vehicle.setColorRGB(vehicleData.color)
+
     vehicle.isPersistent = true
+    vehicle.deformationMap = vehicleData.deformationMap
     console.log(`Vehicle with ID: ${id} spawned.`)
+    UpdateCache(vehicle, vehicleData)
 }
 
 const bootVehicles = async() => {
