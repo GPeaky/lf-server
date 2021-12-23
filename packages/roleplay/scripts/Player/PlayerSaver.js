@@ -5,4 +5,4 @@ setInterval(() => {
         SavePlayer(player)
     })
     console.log(`Saved #${mp.players.length} Players`)
-}, 15000);
+}, 5000);
