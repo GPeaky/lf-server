@@ -1,16 +1,15 @@
 const {  ExistPlayer, CreatePlayer, LoadPlayer } = require('../../controllers/PlayerController/index')
 const { SERVER_NAME } = process.env
 
-mp.events.add('playerJoin', async (player) => {
-    console.log(`[${SERVER_NAME.yellow}] - ${player.name} joined to the server` );
+mp.events.add('playerJoin', player => console.log(`[${SERVER_NAME.yellow}] - ${player.name} joined to the server` ))
+mp.events.add('playerLeft', player => console.log(`[${SERVER_NAME.yellow}] - ${player.name} left the server` ))
+
+
+mp.events.add('playerSpawn', async (player) => {
     const exits = await ExistPlayer(player)
     if(!exits){
         CreatePlayer(player)
     }else{
         LoadPlayer(player)
     }
-})
-
-mp.events.add('playerLeft', player => {
-    console.log(`[${SERVER_NAME.yellow}] - ${player.name} left the server` );
 })
