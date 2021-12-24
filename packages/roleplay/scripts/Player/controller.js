@@ -10,6 +10,8 @@ const CreatePlayer = async (player) => {
     player.dimension = 0;
     player.health = 100;
 
+    // Set Default Data
+
     player.setClothes(0, 0, 0, 0);
     player.setClothes(1, 0, 0, 0);
     player.setClothes(2, 12, 0, 0);

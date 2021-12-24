@@ -1,3 +1,5 @@
+const player = mp.players.local;
+
 // Utils 
 require('./utils')
 
