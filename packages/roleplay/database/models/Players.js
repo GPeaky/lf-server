@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../../config/database')
 
 const Players = sequelize.define('player', {
-    id: {
+    username: {
         type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true

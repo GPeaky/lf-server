@@ -1,7 +1,6 @@
 // SuperUser Commands
 require('./SuperUser');
 
-mp.events.addCommand('login', player => {
-    console.log('EXECUTED')
-    player.call('viewLogin')
+mp.events.addCommand('logout', player => {
+    player.logout()
 })
