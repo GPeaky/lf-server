@@ -1,7 +1,5 @@
 mp.core = {}
 
-mp.core.wait = async(ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 mp.core.Label = class {
     constructor(text, position, options={}, keyOptions=null) {
         this.text = text;
