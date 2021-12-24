@@ -6,3 +6,6 @@ require('./Vehicle')
 
 // Player
 require('./Player')
+
+//Races
+require('./Races')
