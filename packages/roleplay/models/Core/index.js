@@ -41,7 +41,7 @@ mp.core.Label = class {
 
         console.log(`Creating event to Keydown: ${this.key.toString(16)}`);
 
-        mp.events.add(`Keyup::${this.key.toString(16)}`, (  ) => {
+        mp.events.add(`Keydown::${this.key.toString(16)}`, (  ) => {
             console.log(this.key.toString(16))
             console.log(this.inColshape)
             if(this.inColshape) {
