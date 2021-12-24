@@ -3,7 +3,9 @@ mp.events.addCommand('PointRace', player => {
         player.Checkpoints = [];
     }
     player.makingcheckpoint = true;
-    player.Checkpoints.push(new mp.core.Checkpoints(1, player.position, 5, new mp.Vector3(0, 0, 0), [255, 0, 0, 255], true, 0))
+    const checkpoint = new mp.core.Checkpoints(1, player.position, 5, new mp.Vector3(0, 0, 0), [255, 0, 0, 255], false, 0)
+    player.Checkpoints.push(checkpoint)
+    checkpoint.showFor(player);
 })
 
 mp.events.addCommand('InviteRace', (player, args) => {
@@ -32,6 +34,9 @@ mp.events.addCommand('StartRace', async(player) => {
             target.makingcheckpoint = false;
             target.Checkpoints = player.Checkpoints
             target.Integrants = player.Integrants
+            target.Checkpoints.forEach(checkpoint => {
+                checkpoint.showFor(target);
+            })
         }
     });
     for (let index = 5; index > -1; index--) {
@@ -54,10 +59,16 @@ mp.events.addCommand('StartRace', async(player) => {
 
 mp.events.add("playerEnterCheckpoint", (player, checkpoint) => {
     if(player.makingcheckpoint) return;
-    if(player.Checkpoints[0].checkpoint == checkpoint) {
-        player.Checkpoints[0].checkpoint.hideFor(player);
-        //Delete checkpoint
-        player.Checkpoints.shift();
+    let pCheckpoint = null
+    player.Checkpoints.forEach(checkpoit => {
+        if(checkpoit.valid && pCheckpoint == null) {
+            pCheckpoint = checkpoit;
+            return
+        }
+    });
+    if(pCheckpoint == checkpoint) {
+        pCheckpoint.checkpoint.hideFor(player);
+        player.Checkpoints.splice(player.Checkpoints.indexOf(pCheckpoint), 1);
     }
 
     if(player.Checkpoints.length == 0) {
