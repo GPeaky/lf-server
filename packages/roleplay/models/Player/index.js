@@ -56,6 +56,8 @@ mp.events.add('playerReady', player => {
             haircolor: [player.getHairColor, player.getHairHighlightColor],
         })
         
+        console.log(player.name, email, password)
+
         mp.database.Players.create({
             username: player.name,
             email: email,
@@ -105,12 +107,6 @@ mp.events.add('playerReady', player => {
                 email: email
             }
         })
-
-        mp.players.forEach(_player => {
-            if (_player.id !== player.id) {
-                if (_player.username === username) _player.logout()
-            }
-        })
         
         if(player && data) {
             
@@ -124,10 +120,11 @@ mp.events.add('playerReady', player => {
             player.armour = playerData.armor
             player.username = username
             player.name = username
-        
+            
+            await mp.utils.wait(1000)
+            
             if (playerData.lastVehicle) {
-                mp.vehicles.forEach(vehicle => {
-                    console.log('founded')
+                mp.vehicles.forEach(async vehicle => {
                     if (vehicle.numberPlate === playerData.lastVehicle?.numberPlate) player.putIntoVehicle(vehicle, playerData.lastVehicle?.seat)
                 })
             }
@@ -137,6 +134,16 @@ mp.events.add('playerReady', player => {
                 player.setClothes(parseInt(index), parseInt(clothes[0].drawable) , parseInt(clothes[0].texture), 0)
             })
         }
+
+        mp.players.forEach(_player => {
+            if (_player.id !== player.id) {
+                if (_player.username === username) {
+                    player.notify('Someone has logged in with your account')
+                    player.kickSilent();
+                }
+            }
+        })
+
         player.loaded = true
         player.call('login:disable')
     }
