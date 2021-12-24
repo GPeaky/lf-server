@@ -2,6 +2,7 @@ const database = require('../config/database');
 
 module.exports = async () => {
     try {
+        mp.database = {}
         // require All Database Models Here
         require('./models/Vehicles')
         require('./models/Players')

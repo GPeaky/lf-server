@@ -38,4 +38,6 @@ const Players = sequelize.define('player', {
     }*/
 })
 
+mp.database.Players = Players
+
 module.exports = Players
