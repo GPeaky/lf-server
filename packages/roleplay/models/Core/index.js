@@ -54,3 +54,24 @@ mp.core.Label = class {
         mp.labels.new(this.text, this.position, this.options);
     }
 }
+
+mp.core.Checkpoints = class {
+    constructor(type, position, radius, direction, color, visible, dimension) {
+        this.type = type;
+        this.position = position;
+        this.radius = radius;
+        this.direction = direction;
+        this.color = color;
+        this.visible = visible;
+        this.dimension = dimension;
+        this.checkpoint = mp.checkpoints.new(type, position, radius, direction, color, visible, dimension);
+    }
+
+    hidefor(player) {
+        this.checkpoint.hideFor(player);
+    }
+
+    showfor(player) {
+        this.checkpoint.showFor(player);
+    }
+}
