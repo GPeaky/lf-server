@@ -1,7 +1,3 @@
-const CreatePlayer = async (player) => {
-
-}
-
 const SavePlayer = (player) => {
     if (!player.loaded) return
 
@@ -63,6 +59,6 @@ const LoadPlayer = async (player) => {
     }
 }
 
-module.exports = { CreatePlayer, SavePlayer, LoadPlayer }
+module.exports = { SavePlayer, LoadPlayer }
 
 require('./PlayerSaver')
