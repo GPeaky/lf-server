@@ -4,8 +4,11 @@ mp.events.addCommand('PointRace', player => {
     }
     player.makingcheckpoint = true;
     const checkpoint = new mp.core.Checkpoints(1, player.position, 5, new mp.Vector3(0, 0, 0), [255, 0, 0, 255], false, 0)
-    player.Checkpoints.push(checkpoint)
+    mp.players.forEach(player => {
+        checkpoint.hideFor(player);
+    })
     checkpoint.showFor(player);
+    player.Checkpoints.checkpoint.push(checkpoint)
 })
 
 mp.events.addCommand('InviteRace', (player, args) => {

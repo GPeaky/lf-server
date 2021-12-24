@@ -67,11 +67,11 @@ mp.core.Checkpoints = class {
         this.checkpoint = mp.checkpoints.new(type, position, radius, direction, color, visible, dimension);
     }
 
-    hidefor(player) {
+    hideFor(player) {
         this.checkpoint.hideFor(player);
     }
 
-    showfor(player) {
+    showFor(player) {
         this.checkpoint.showFor(player);
     }
 }
