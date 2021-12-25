@@ -68,13 +68,9 @@ mp.events.add('playerReady', player => {
 
     player.save = async () => {
         if (!player.loaded) return
-        
-        const playerData = {
-            position: player.position,
-            dimension: player.dimension,
-            heading: player.heading,
-            health: player.health,
-            armor: player.armour,
+        const { position, dimension, heading, health, armor, allWeapons } = player
+        const playerData = { 
+            position, dimension, heading, health, armor, allWeapons,
             lastVehicle: player.vehicle ? {numberPlate: player.vehicle.numberPlate, seat: player.seat} : false,
             clothes: [
                 [   player.getClothes(0)   ],
@@ -109,26 +105,27 @@ mp.events.add('playerReady', player => {
         })
         
         if(player && data) {
-            
             const playerData = JSON.parse(data)
+            const { position, dimension, heading, health, armor, allWeapons} = playerData;
 
-            
-            player.position = playerData.position
-            player.dimension = playerData.dimension
-            player.heading = playerData.heading
-            player.health = playerData.health
-            player.armour = playerData.armor
+            player.position = position
+            player.dimension = dimension
+            player.heading = heading
+            player.health = health
+            player.armour = armor
             player.username = username
             player.name = username
+
+            for (const weapon in allWeapons) {
+                player.giveWeapon(Number(weapon), allWeapons[weapon]);
+            }
             
             await mp.utils.wait(1000)
-            
             if (playerData.lastVehicle) {
                 mp.vehicles.forEach(async vehicle => {
                     if (vehicle.numberPlate === playerData.lastVehicle?.numberPlate) player.putIntoVehicle(vehicle, playerData.lastVehicle?.seat)
                 })
             }
-            
             
             playerData.clothes.forEach((clothes, index) => {
                 player.setClothes(parseInt(index), parseInt(clothes[0].drawable) , parseInt(clothes[0].texture), 0)
@@ -155,7 +152,7 @@ mp.events.add('playerReady', player => {
         player.call('login:enable')
     }
 
-    player.exist = async (email, password) => {
+    player.exist = async (email) => {
         const PlayerDB = await mp.database.Players.findOne({
             where: {
                 email: email
