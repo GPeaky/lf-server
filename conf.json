@@ -3,6 +3,8 @@
 	"name" : "Development Server", 
 	"gamemode" : "dist", 
 	"stream-distance" : 500.0,
+	"voice-chat": true,
+	"voice-chat-sample-rate": 48000,
 	"announce" : false,
 	"csharp" : "disabled",
 	"port": 22005

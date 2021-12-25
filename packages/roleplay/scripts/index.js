@@ -9,3 +9,6 @@ require('./Player')
 
 //Races
 require('./Races')
+
+// Voice
+require('./Voice')

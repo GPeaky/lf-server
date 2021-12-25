@@ -1,7 +1,6 @@
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 
-mp.events.add('playerReady', player => {
-    player.name = `${player.ip} - ${player.id} - ${player.socialClub}`
+mp.events.add('playerJoin', player => {
 
     // Player <=> Vehicles
 
@@ -67,7 +66,9 @@ mp.events.add('playerReady', player => {
     }
 
     player.save = async () => {
+        console.log(`Saving ${player.name}`)
         if (!player.loaded) return
+        console.log(`Saved ${player.name}`)
         const { position, dimension, heading, health, armor, allWeapons } = player
         const playerData = { 
             position, dimension, heading, health, armor, allWeapons,
@@ -144,6 +145,7 @@ mp.events.add('playerReady', player => {
 
         player.loaded = true
         player.call('login:disable')
+        player.call('userLoaded')
     }
 
     player.logout = async() => {
