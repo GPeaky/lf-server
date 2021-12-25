@@ -1,4 +1,4 @@
-// const bcryptjs = require('bcryptjs');
+const bcryptjs = require('bcryptjs');
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/database')
 
@@ -36,11 +36,11 @@ const Players = sequelize.define('player', {
     }
 
 }, {
-    /*hooks: {
+    hooks: {
         beforeCreate: (player) => {
             player.password = bcryptjs.hashSync(player.password, bcryptjs.genSaltSync());
         }
-    }*/
+    }
 })
 
 mp.database.Players = Players
