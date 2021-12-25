@@ -1,4 +1,4 @@
-mp.events.addCommand('settime', (player, args) => {
+mp.events.addCommandGroup('settime', ['superUser'], (player, args) => {
     args = args.split(' ');
     const hour = args[0]
     const minute = args[1]
@@ -12,7 +12,7 @@ mp.events.addCommand('settime', (player, args) => {
     player = null
 });
 
-mp.events.addCommand('setweather', (player, type) => {
+mp.events.addCommandGroup('setweather', ['superUser'], (player, type) => {
     const Weathers = [
         'EXTRASUNNY',
         'CLEAR',
@@ -38,7 +38,7 @@ mp.events.addCommand('setweather', (player, type) => {
     }else player.notify('Please enter a weather type.');
 })
 
-mp.events.addCommand('startweather', (player, args) => {
+mp.events.addCommandGroup('startweather', ['superUser'], (player, args) => {
     args = args.split(' ');
     const type = args[0]
     const delay = args[1]

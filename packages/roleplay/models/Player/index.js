@@ -144,7 +144,6 @@ mp.events.add('playerReady', player => {
 
         player.loaded = true
         player.call('login:disable')
-        require('../../commands/superUser')(player)
     }
 
     player.logout = async() => {

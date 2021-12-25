@@ -1,16 +1,16 @@
-mp.events.addCommand('veh', (player, vehicle) => {
+mp.events.addCommandGroup('veh', ['superUser'], (player, vehicle) => {
     player.spawnVehicle(vehicle, player.position, player.heading)
 });
 
-mp.events.addCommand('fix', player => {
+mp.events.addCommandGroup('fix', ['superUser'], player => {
     player.repairVehicle()
 })
 
-mp.events.addCommand('dv', player => {
+mp.events.addCommandGroup('dv', ['superUser'], player => {
     player.deleteVehicle()
 });
 
-mp.events.addCommand('vehBring', (player, vehId) => {
+mp.events.addCommandGroup('vehBring', ['superUser'], (player, vehId) => {
     if (vehId == -1) return mp.vehicles.forEach(vehicle => vehicle.position = player.position)
     const vehicle = mp.vehicles.at(vehId);
     if (vehicle) return vehicle.setPosition(player.position);
