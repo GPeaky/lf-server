@@ -12,11 +12,7 @@ const Players = sequelize.define('player', {
     email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true/*,
-
-        validate: {
-            isEmail: true
-        }*/
+        unique: true
     },
 
     password: {
@@ -27,7 +23,16 @@ const Players = sequelize.define('player', {
     data:{
         type: Sequelize.STRING(10000),
         allowNull: false,
-        
+    },
+
+    role: {
+        type: Sequelize.STRING,
+        defaultValue: 'user',
+        allowNull: false,
+
+        validate: {
+            isIn: [['user', 'superUser']]
+        }
     }
 
 }, {

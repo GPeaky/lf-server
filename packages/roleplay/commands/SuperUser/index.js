@@ -1,20 +1,25 @@
-// Vehicles 
-require('./Vehicles')
+module.exports = player => {
+    console.log('RUNNED WITH' + player.name + player.role)
+    if (player.role === 'superUser'){
+        // Vehicles 
+        require('./Vehicles')
 
-// Weapons
-require('./Weapons')
+        // Weapons
+        require('./Weapons')
 
-// Teleport 
-require('./Teleport')
+        // Teleport 
+        require('./Teleport')
 
-// Health 
-require('./Health')
+        // Health 
+        require('./Health')
 
-// Coords 
-require('./Coords')
+        // Coords 
+        require('./Coords')
 
-// Weather 
-require('./Weather')
+        // Weather 
+        require('./Weather')
 
-// Kick 
-require('./Kick')
+        // Kick 
+        require('./Kick')
+    }
+}

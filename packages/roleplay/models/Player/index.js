@@ -98,7 +98,7 @@ mp.events.add('playerReady', player => {
     
     player.load = async (email) => {
         if (player.loaded) return
-        const { data, username } = await mp.database.Players.findOne({
+        const { data, username, role } = await mp.database.Players.findOne({
             where: {
                 email: email
             }
@@ -106,15 +106,16 @@ mp.events.add('playerReady', player => {
         
         if(player && data) {
             const playerData = JSON.parse(data)
-            const { position, dimension, heading, health, armor, allWeapons} = playerData;
+            const { position, dimension, heading, health, armor, allWeapons } = playerData;
 
+            player.role = role
+            player.armour = armor
+            player.name = username
+            player.health = health
+            player.heading = heading
+            player.username = username
             player.position = position
             player.dimension = dimension
-            player.heading = heading
-            player.health = health
-            player.armour = armor
-            player.username = username
-            player.name = username
 
             for (const weapon in allWeapons) {
                 player.giveWeapon(Number(weapon), allWeapons[weapon]);
@@ -143,6 +144,7 @@ mp.events.add('playerReady', player => {
 
         player.loaded = true
         player.call('login:disable')
+        require('../../commands/superUser')(player)
     }
 
     player.logout = async() => {
