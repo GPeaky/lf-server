@@ -1,4 +1,5 @@
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
+const { Create, Delete } = require('../../scripts/Vehicle_Keys/controller')
 
 mp.events.add('playerJoin', player => {
 
@@ -172,7 +173,9 @@ mp.events.add('playerJoin', player => {
             })
 
             veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
-            veh.owner = player.serial;
+            veh.owner = player.identifier;
+            console.log("Creating key", veh.numberPlate, veh.owner)
+            Create(veh.numberPlate, veh.owner);
             player.putIntoVehicle(veh, 0);
             Instantiate(veh)
         } else player.notify('Vehicle not found.');
@@ -187,6 +190,9 @@ mp.events.add('playerJoin', player => {
 
     player.deleteVehicle = () => {
         if(player.vehicle) {
+            const veh = player.vehicle
+            console.log("Deleting key", veh.numberPlate)
+            Delete(veh.numberPlate);
             Remove(player.vehicle)
             return player.vehicle.destroy(), player.notify('Vehicle Deleted.');
         }
