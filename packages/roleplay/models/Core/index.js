@@ -5,7 +5,7 @@ mp.core.Label = class {
         this.text = text;
         this.position = position;
         this.options = options;
-        this.inColshape = false;
+        this.playersInColshape = [];
         this.label = this.draw();
         if(keyOptions){
             const { key, coords, callback } = keyOptions;
@@ -20,32 +20,24 @@ mp.core.Label = class {
     initKey() {
         
         const playerEnterColshapeHandler = (player, shape) => {
-            console.log("Player enter colshape", shape, this.colshape, shape == this.colshape);
             if(shape == this.colshape) {
-                this.inColshape = true;
-                console.log("Closhape", this.colshape);
+                this.playersInColshape[player.id] = true
             }
         }
           
         mp.events.add("playerEnterColshape", playerEnterColshapeHandler);
 
         const playerExitColshapeHandler = (player, shape) => {
-            console.log("Player exit colshape", shape);
             if(shape == this.colshape) {
-                this.inColshape = false;
-                console.log("Closhape", this.colshape);
+                delete this.playersInColshape[player.id]
             }
         }
 
         mp.events.add("playerExitColshape", playerExitColshapeHandler);
 
-        console.log(`Creating event to Keydown: ${this.key.toString(16)}`);
-
-        mp.events.add(`Keydown::${this.key.toString(16)}`, (  ) => {
-            console.log(this.key.toString(16))
-            console.log(this.inColshape)
-            if(this.inColshape) {
-                this.callback()
+        mp.events.add(`Keydown::${this.key.toString(16)}`, (player) => {
+            if(this.playersInColshape[player.id]) {
+                this.callback(player)
             }
         });
     }

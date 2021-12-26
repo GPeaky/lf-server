@@ -4,6 +4,9 @@ require('./Death')
 // Vehicle
 require('./Vehicle')
 
+// Garages
+require('./Garages')
+
 // Player
 require('./Player')
 
