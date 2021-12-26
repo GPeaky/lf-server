@@ -1,4 +1,5 @@
 const Vehicles = require('../../database/models/Vehicles');
+const Keys = require('../../database/models/Vehicle_Keys')
 const LastVehicleData = {}
 
 const UpdateCache = (vehicle, vehicleData) => LastVehicleData[vehicle.numberPlate] = {vehicleData, vehicle}
@@ -83,16 +84,25 @@ mp.events.add("setVehicleDeformationMap", (player, deformationMap) => {
 })
 
 const IsPlayerOwner = (player, {owner}) => {
-    console.log(owner == player.serial)
-    console.log(owner)
-    console.log(player.serial)
-    if(owner != player.serial) player.removeFromVehicle()
+    if(owner != player.identifier) player.removeFromVehicle()
+}
+
+const PlayerHasKey = (player, {numberPlate}) => {
+    Keys.findOne({
+        where: {
+            plate: numberPlate,
+        }
+    }).then(key => {
+        key = key?.dataValues
+        if(key?.owner == player.identifier) return
+        player.removeFromVehicle()
+    })            
 }
 
 mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
     if (seat != 0) return
     console.log(`${player.id} entering ${vehicle.numberPlate} seat ${seat}`)
-    IsPlayerOwner(player, vehicle)
+    PlayerHasKey(player, vehicle)
     ClientSync(vehicle)
     vehicle.userInSeat = true
 });

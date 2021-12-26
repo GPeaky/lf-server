@@ -1,3 +1,17 @@
+const { Add, Remove } = require('../../../scripts/Vehicle_Keys/controller')
+
+mp.events.addCommandGroup('removeKey', ['superUser'], (player, userID) => {
+    if(player.vehicle && player.vehicle.owner == player.identifier) {
+        Remove(player.vehicle.plate, mp.players.at(userID).identifier)        
+    }else player.notify('~r~You need to be in a vehicle to remove a key.')
+})
+
+mp.events.addCommandGroup('addKey', ['superUser'], (player, userID) => {
+    if(player.vehicle && player.vehicle.owner == player.identifier) {
+        Add(player.vehicle.plate, mp.players.at(userID).identifier)        
+    }else player.notify('~r~You need to be in a vehicle to add a key.')
+})
+
 mp.events.addCommandGroup('veh', ['superUser'], (player, vehicle) => {
     player.spawnVehicle(vehicle, player.position, player.heading)
 });
