@@ -6,13 +6,13 @@ mp.core.Label = class {
         this.position = position;
         this.options = options;
         this.inColshape = false;
+        this.label = this.draw();
         if(keyOptions){
             const { key, coords, callback } = keyOptions;
             this.key = key;
             this.coords = coords;
             this.callback = callback;
             this.colshape = mp.colshapes.newRectangle(this.coords.x, this.coords.y, this.coords.width, this.coords.height, this.coords.dimension)
-            console.log(this.colshape)
             this.initKey();
         }
     }
@@ -51,7 +51,7 @@ mp.core.Label = class {
     }
 
     draw() {
-        mp.labels.new(this.text, this.position, this.options);
+        return mp.labels.new(this.text, this.position, this.options);
     }
 }
 
