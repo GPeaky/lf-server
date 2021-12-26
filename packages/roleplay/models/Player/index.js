@@ -55,10 +55,7 @@ mp.events.add('playerJoin', player => {
             haircolor: [player.getHairColor, player.getHairHighlightColor],
         })
         
-        console.log(player.name, email, password)
-
         mp.database.Players.create({
-            username: player.name,
             email: email,
             password: password,
             data: playerData
@@ -92,14 +89,14 @@ mp.events.add('playerJoin', player => {
         
         mp.database.Players.update({ data: JSON.stringify(playerData) }, {
             where: {
-                username: player.username
+                identifier: player.identifier
             }
         })
     }
     
     player.load = async (email) => {
         if (player.loaded) return
-        const { data, username, role } = await mp.database.Players.findOne({
+        const { data, identifier, role } = await mp.database.Players.findOne({
             where: {
                 email: email
             }
@@ -111,10 +108,10 @@ mp.events.add('playerJoin', player => {
 
             player.role = role
             player.armour = armor
-            player.name = username
+            player.name = identifier
+            player.identifier = identifier
             player.health = health
             player.heading = heading
-            player.username = username
             player.position = position
             player.dimension = dimension
 
@@ -136,7 +133,7 @@ mp.events.add('playerJoin', player => {
 
         mp.players.forEach(_player => {
             if (_player.id !== player.id) {
-                if (_player.username === username) {
+                if (_player.identifier === identifier) {
                     player.notify('Someone has logged in with your account')
                     player.kickSilent();
                 }

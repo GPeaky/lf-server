@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../../config/database')
 
 const Players = sequelize.define('player', {
-    id: {
+    identifier: {
         type: Sequelize.STRING(36),
         allowNull: false,
         primaryKey: true
@@ -39,7 +39,7 @@ const Players = sequelize.define('player', {
 }, {
     hooks: {
         beforeValidate: player => {
-            player.id = uuidv4();
+            player.identifier = uuidv4();
         }
     }
 })

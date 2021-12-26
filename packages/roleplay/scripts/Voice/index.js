@@ -1,4 +1,3 @@
-console.log('asdfasdfasdfasdfasdf')
 mp.events.add("add_voice_listener", (player, target) =>
 {
 	if(target)
