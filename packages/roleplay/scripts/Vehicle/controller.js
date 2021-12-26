@@ -83,30 +83,18 @@ mp.events.add("setVehicleDeformationMap", (player, deformationMap) => {
     vehicle.deformationMap = JSON.parse(deformationMap)
 })
 
-/*const IsPlayerOwner = (player, {owner}) => {
+const IsPlayerOwner = (player, {owner}) => {
     if(owner != player.identifier) player.removeFromVehicle()
-}*/
+}
 
-const PlayerHasKey = (player, veh) => {
+const PlayerHasKey = (player, {numberPlate}) => {
     Keys.findOne({
         where: {
-            plate: veh.numberPlate,
+            plate: numberPlate,
         }
     }).then(key => {
         key = key?.dataValues
-        if(key?.owners.contains(player.identifier)) {
-            return
-        } else {
-            const ocupants = veh.getOccupants()
-            if(ocupants.length > 0) {
-                for(let i = 0; i < ocupants.length; i++) {
-                    if(key?.owners.contains(ocupants[i].identifier)) {
-                        console.log(`Player ${player.name} has key for vehicle ${veh.numberPlate}`)
-                        return
-                    }
-                }
-            }
-        }
+        if(key?.owner == player.identifier) return
         player.removeFromVehicle()
     })            
 }
