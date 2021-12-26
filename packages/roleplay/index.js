@@ -4,6 +4,8 @@ const syncDatabase = require('./database')
 
 const main = async () => {
     try {
+        // Ipl
+        require('./ipl')
         // Utils
         require('./utils')
         // Database
