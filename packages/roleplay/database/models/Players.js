@@ -36,11 +36,11 @@ const Players = sequelize.define('player', {
     }
 
 }, {
-    hooks: {
-        beforeCreate: (player) => {
-            player.password = bcryptjs.hashSync(player.password, bcryptjs.genSaltSync());
-        }
-    }
+    // hooks: {
+    //     beforeCreate: (player) => {
+    //         player.password = player.password;
+    //     }
+    // }
 })
 
 mp.database.Players = Players
