@@ -93,17 +93,14 @@ const PlayerHasKey = (player, veh) => {
             plate: veh.numberPlate,
         }
     }).then(key => {
-        key = key?.dataValues
-        if(key?.owners.contains(player.identifier)) {
-            return
-        } else {
-            const ocupants = veh.getOccupants()
-            if(ocupants.length > 0) {
-                for(let i = 0; i < ocupants.length; i++) {
-                    if(key?.owners.contains(ocupants[i].identifier)) {
-                        console.log(`Player ${player.name} has key for vehicle ${veh.numberPlate}`)
-                        return
-                    }
+        key = JSON.parse(key?.dataValues.owners)
+        if(key?.indexOf(player.identifier) != -1) return
+        const ocupants = veh.getOccupants()
+        if(ocupants.length > 0) {
+            for(let i = 0; i < ocupants.length; i++) {
+                if(key?.indexOf(ocupants[i].identifier) != -1) {
+                    console.log(`Player ${player.name} has key for vehicle ${veh.numberPlate}`)
+                    return
                 }
             }
         }

@@ -4,11 +4,11 @@ let Cache = {}
 
 const Add = (plate, owner) => {
     Cache[plate].push(owner)
-    Keys.findOneAndUpdate({
-        plate: plate
+    Keys.update({
+        owners: JSON.stringify(Cache[plate])
     }, {
-        $set: {
-            owners: JSON.stringify(Cache[plate])
+        where: {
+            plate: plate
         }
     })
 }
@@ -16,11 +16,11 @@ const Add = (plate, owner) => {
 const Remove = (plate, owner) => {
     Cache[plate].splice(Cache[plate].indexOf(owner), 1)
     if (Cache[plate].length != 0) {
-        Keys.findOneAndUpdate({
-            plate: plate
+        Keys.update({
+            owners: JSON.stringify(Cache[plate])
         }, {
-            $set: {
-                owners: JSON.stringify(Cache[plate])
+            where: {
+                plate: plate
             }
         })
     }else{
@@ -38,8 +38,10 @@ const Create = (plate, owner) => {
 }
 
 const Delete = (plate) => {
-    Keys.findOneAndDelete({
-        plate: plate
+    Keys.destroy({
+        where: {
+            plate: plate
+        }
     })
     Cache[plate] = undefined
 }
