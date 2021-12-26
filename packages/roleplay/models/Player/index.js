@@ -175,6 +175,7 @@ mp.events.add('playerJoin', player => {
             })
 
             veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
+            veh.owner = player.serial;
             player.putIntoVehicle(veh, 0);
             Instantiate(veh)
         } else player.notify('Vehicle not found.');

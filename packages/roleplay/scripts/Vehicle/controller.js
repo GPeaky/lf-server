@@ -17,6 +17,7 @@ const Instantiate = vehicle => {
     })
     Vehicles.create({
         id: vehicle.numberPlate,
+        owner: vehicle.owner,
         model: vehicle.model,
         data: vehicleData,
     })
@@ -81,9 +82,17 @@ mp.events.add("setVehicleDeformationMap", (player, deformationMap) => {
     vehicle.deformationMap = JSON.parse(deformationMap)
 })
 
+const IsPlayerOwner = (player, {owner}) => {
+    console.log(owner == player.serial)
+    console.log(owner)
+    console.log(player.serial)
+    if(owner != player.serial) player.removeFromVehicle()
+}
+
 mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
     if (seat != 0) return
     console.log(`${player.id} entering ${vehicle.numberPlate} seat ${seat}`)
+    IsPlayerOwner(player, vehicle)
     ClientSync(vehicle)
     vehicle.userInSeat = true
 });
@@ -103,7 +112,7 @@ const Remove = vehicle => {
     })
 }
 
-const spawnVehicle = ({ id, model, data }) => {
+const spawnVehicle = ({ id, owner, model, data }) => {
     const vehicleData = JSON.parse(data)
     const vehicle = mp.vehicles.new(Number(model), vehicleData.position, {
         engine: false,
@@ -114,6 +123,7 @@ const spawnVehicle = ({ id, model, data }) => {
     })
 
     vehicle.isPersistent = true
+    vehicle.owner = owner
     vehicle.deformationMap = vehicleData.deformationMap
     console.log(`Vehicle with ID: ${id} spawned.`)
     UpdateCache(vehicle, vehicleData)
