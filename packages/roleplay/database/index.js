@@ -4,7 +4,6 @@ module.exports = async () => {
     try {
         mp.database = {}
         // require All Database Models Here
-        require('./models/Vehicle_Keys')
         require('./models/Vehicles')
         require('./models/Players')
 
