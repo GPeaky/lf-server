@@ -1,10 +1,11 @@
+const { v4: uuidv4 } = require('uuid');
 const bcryptjs = require('bcryptjs');
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/database')
 
 const Players = sequelize.define('player', {
-    username: {
-        type: Sequelize.STRING,
+    id: {
+        type: Sequelize.STRING(36),
         allowNull: false,
         primaryKey: true
     },
@@ -36,11 +37,11 @@ const Players = sequelize.define('player', {
     }
 
 }, {
-    // hooks: {
-    //     beforeCreate: (player) => {
-    //         player.password = player.password;
-    //     }
-    // }
+    hooks: {
+        beforeValidate: player => {
+            player.id = uuidv4();
+        }
+    }
 })
 
 mp.database.Players = Players
