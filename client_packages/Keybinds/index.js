@@ -193,9 +193,9 @@ const keys = [
 keys.forEach(key => {
     //Set key to hex
     mp.keys.bind(key, true, () => {
-        mp.events.callRemote(`Keydown::${key.toString(16)}`)
+        mp.events.callRemote(`Keydown::${key.toString(16)}`, player)
     });
     mp.keys.bind(key, false, () => {
-        mp.events.callRemote(`Keyup::${key.toString(16)}`)
+        mp.events.callRemote(`Keyup::${key.toString(16)}`, player)
     });
 });
