@@ -1,4 +1,5 @@
 const short = require('short-uuid')
+const Status = require('../../scripts/Status')
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 
 mp.events.add('playerJoin', player => {
@@ -13,8 +14,10 @@ mp.events.add('playerJoin', player => {
         
         player.health = 100;
         player.dimension = 0;
+        player.isDead = false;
         player.heading = 248.88;
         player.vehicleKeys = {};
+        player.status = { hunger: 100, thirst: 100 }
         
         // Set Default Data
         player.setClothes(0, 0, 0, 0);
@@ -36,10 +39,11 @@ mp.events.add('playerJoin', player => {
             armor: 0,
             health: 100,
             heading: player.heading,
+            status: player.status,
+            isDead: player.isDead,
             position: player.position,
             dimension: player.dimension,
             vehicleKeys: player.vehicleKeys,
-
             clothes: [
                 [   player.getClothes(0)   ],
                 [   player.getClothes(1)   ],
@@ -56,7 +60,8 @@ mp.events.add('playerJoin', player => {
             ],
             haircolor: [player.getHairColor, player.getHairHighlightColor],
         })
-        
+
+        Status(player)
         mp.database.Players.create({
             email: email,
             password: password,
@@ -67,9 +72,9 @@ mp.events.add('playerJoin', player => {
     player.save = async () => {
         if (!player.loaded) return
         console.log(`Saved ${player.name}`)
-        const { position, dimension, heading, health, armor, allWeapons, vehicleKeys } = player
+        const { position, dimension, heading, health, armor, allWeapons, vehicleKeys, status, isDead } = player
         const playerData = { 
-            position, dimension, heading, health, armor, allWeapons, vehicleKeys,
+            position, dimension, heading, health, armor, allWeapons, vehicleKeys, status, isDead,
             lastVehicle: player.vehicle ? {numberPlate: player.vehicle.numberPlate, seat: player.seat} : false,
             clothes: [
                 [   player.getClothes(0)   ],
@@ -105,12 +110,14 @@ mp.events.add('playerJoin', player => {
         
         if(player && data) {
             const playerData = JSON.parse(data)
-            const { position, dimension, heading, health, armor, allWeapons, vehicleKeys } = playerData;
+            const { position, dimension, heading, health, armor, allWeapons, vehicleKeys, status, isDead } = playerData;
 
             player.role = role
             player.armour = armor
             player.health = health
             player.name = identifier
+            player.status = status
+            player.isDead = isDead
             player.heading = heading
             player.position = position
             player.dimension = dimension
@@ -128,6 +135,7 @@ mp.events.add('playerJoin', player => {
                 })
             }
             
+            Status(player)
             playerData.clothes.forEach((clothes, index) => {
                 player.setClothes(parseInt(index), parseInt(clothes[0].drawable) , parseInt(clothes[0].texture), 0)
             })

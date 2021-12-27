@@ -16,7 +16,7 @@ const offSetMapper = [
 
     // Morro delantero
     { x: 0.0, y: 1.0, z: 0.0 },
-]
+]   
 
 let vehicleActive = false
 
@@ -27,7 +27,7 @@ setInterval(() => {
     for (let i = 0; i < offSetMapper.length; i++) {
         const coords = offSetMapper[i];
         const vehicleDeformation = vehicle.getDeformationAtPos(coords.x, coords.y, coords.z)
-        mp.gui.chat.push(`${JSON.stringify(vehicleDeformation)} ${(vehicleDeformation.x + vehicleDeformation.y + vehicleDeformation.z) * -10000} - ${i}`)
+        // mp.gui.chat.push(`${JSON.stringify(vehicleDeformation)} ${(vehicleDeformation.x + vehicleDeformation.y + vehicleDeformation.z) * -10000} - ${i}`)
         finalDeformationMap[i] = {
             index: i,
             mapX: coords.x + vehicleDeformation.x,
@@ -42,7 +42,7 @@ setInterval(() => {
 mp.events.add('vehicleSync::Client', async (vehicleId, vehicleData) => {
     const vehicle = await getLocalVehicle(vehicleId)
     if (vehicle) {
-        mp.gui.chat.push(`${Object.keys(vehicleData.deformationMap).length} ${JSON.stringify(vehicleData.deformationMap)}`)
+        // mp.gui.chat.push(`${Object.keys(vehicleData.deformationMap).length} ${JSON.stringify(vehicleData.deformationMap)}`)
         if (Object.keys(vehicleData.deformationMap).length < offSetMapper.length) return vehicleActive = true
         vehicle.setBodyHealth(vehicleData.bodyHealth)
         vehicle.setEngineHealth(vehicleData.engineHealth)
