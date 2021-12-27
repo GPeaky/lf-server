@@ -4,12 +4,12 @@ const syncDatabase = require('./database')
 
 const main = async () => {
     try {
+        // Database
+        await syncDatabase();
         // Ipl
         require('./ipl')
         // Utils
         require('./utils')
-        // Database
-        await syncDatabase();
         // Models
         require('./models')
         // Controllers

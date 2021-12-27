@@ -14,10 +14,9 @@ mp.events.add('playerJoin', player => {
         player.health = 100;
         player.dimension = 0;
         player.heading = 248.88;
-        player.vehicleKeys = {};
+        player.vehicleKeys = [];
         
         // Set Default Data
-        
         player.setClothes(0, 0, 0, 0);
         player.setClothes(1, 0, 0, 0);
         player.setClothes(2, 12, 0, 0);
@@ -175,9 +174,13 @@ mp.events.add('playerJoin', player => {
                 dimension: player.dimension
             })
 
-            veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
-            veh.vehicleKey = short.generate();
             player.putIntoVehicle(veh, 0);
+            veh.vehicleKey = short.generate();
+            veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
+            player.vehicleKeys.push({
+                vehicleKey: veh.vehicleKey,
+                vehicleNumberPlate: veh.numberPlate
+            });
             Instantiate(veh)
         } else player.notify('Vehicle not found.');
     }

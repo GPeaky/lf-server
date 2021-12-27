@@ -91,6 +91,17 @@ mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
     console.log(`${player.id} entering ${vehicle.numberPlate} seat ${seat}`)
 });
 
+mp.events.add('playerStartEnterVehicle', (player, vehicle) => {
+    for( const Key of player.vehicleKeys ){
+        if( Key.vehicleKey === vehicle.vehicleKey ){
+            return true
+        }
+    }
+
+    player.notify(`You don't have access to this vehicle.`)
+    player.removeFromVehicle()
+});
+
 mp.events.add("playerStartExitVehicle", async player => {
     player.vehicle.userInSeat = false
     console.log(`${player.id} exiting ${player.vehicle.numberPlate}`)
@@ -115,6 +126,7 @@ const spawnVehicle = ({ id, model, data }) => {
         dimension: vehicleData.dimension,
     })
     
+    vehicle.vehicleKey = vehicleData.vehicleKey
     vehicle.isPersistent = true
     vehicle.deformationMap = vehicleData.deformationMap
     console.log(`Vehicle with ID: ${id} spawned.`)
