@@ -134,8 +134,8 @@ mp.events.add('playerJoin', player => {
         mp.players.forEach(_player => {
             if (_player.id !== player.id) {
                 if (_player.identifier === identifier) {
-                    player.notify('Someone has logged in with your account')
-                    player.kickSilent();
+                    _player.notify('Someone has logged in with your account')
+                    _player.kickSilent();
                 }
             }
         })

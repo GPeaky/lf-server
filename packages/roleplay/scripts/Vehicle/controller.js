@@ -1,5 +1,4 @@
 const Vehicles = require('../../database/models/Vehicles');
-const Keys = require('../../database/models/Vehicle_Keys')
 const LastVehicleData = {}
 
 const UpdateCache = (vehicle, vehicleData) => LastVehicleData[vehicle.numberPlate] = {vehicleData, vehicle}
@@ -111,7 +110,7 @@ const PlayerHasKey = (player, veh) => {
 mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
     if (seat != 0) return
     console.log(`${player.id} entering ${vehicle.numberPlate} seat ${seat}`)
-    PlayerHasKey(player, vehicle)
+    // PlayerHasKey(player, vehicle)
     ClientSync(vehicle)
     vehicle.userInSeat = true
 });
