@@ -1,9 +1,0 @@
-{
-    "short_name": "Login",
-    "name": "Sever Login",
-    "start_url": "../../../client_packages/Login",
-    "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
-  }
-  

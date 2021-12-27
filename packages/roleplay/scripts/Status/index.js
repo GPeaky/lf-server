@@ -2,11 +2,17 @@ const Status = player => {
     setInterval(() => {
         if( !player.isDead && player.loaded ){
             if( player.status.hunger > 0 && player.status.thirst > 0 ){
-                player.status.hunger -= 1;
-                player.status.thirst -= 1;
+                player.status.hunger -= .04;
+                player.status.thirst -= .04;
+
+                player.setVariables({
+                    hunger: player.status.hunger,
+                    thirst: player.status.thirst,
+                })
+            
             }
         } 
-    }, 60000);
+    }, 2000);
 
     setInterval(() => {
         if( !player.isDead && player.loaded ){

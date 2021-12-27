@@ -6,3 +6,6 @@ require('./Browser/login')
 
 // Speedometer 
 require('./Browser/speedometer')
+
+// Hud 
+require('./Browser/hud')
