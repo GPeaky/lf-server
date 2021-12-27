@@ -1,6 +1,5 @@
 setInterval(() => {
     if(mp.players.length > 0) {
-        console.log('autosave')
         mp.players.forEach(player => {
             player.save()
         })

@@ -5,6 +5,5 @@ mp.events.addCommandGroup('goto', ['superUser'], (player, id) => {
 })
 
 mp.events.addCommandGroup('tp', ['superUser'], (player, fullText, x, y, z) => {
-    console.log(x, y, z)
     player.position = new mp.Vector3(Number(x), Number(y), Number(z))
 })

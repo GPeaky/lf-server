@@ -14,7 +14,7 @@ mp.events.add('playerJoin', player => {
         player.health = 100;
         player.dimension = 0;
         player.heading = 248.88;
-        player.vehicleKeys = [];
+        player.vehicleKeys = {};
         
         // Set Default Data
         player.setClothes(0, 0, 0, 0);
@@ -65,7 +65,6 @@ mp.events.add('playerJoin', player => {
     }
 
     player.save = async () => {
-        console.log(`Saving ${player.name}`)
         if (!player.loaded) return
         console.log(`Saved ${player.name}`)
         const { position, dimension, heading, health, armor, allWeapons, vehicleKeys } = player
@@ -178,11 +177,11 @@ mp.events.add('playerJoin', player => {
             veh.vehicleKey = short.generate();
             veh.vehicleCreator = player.identifier;
             veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
-            player.vehicleKeys.push({
+            player.vehicleKeys[veh.vehicleKey] = {
                 vehicleKey: veh.vehicleKey,
                 vehicleCreator: player.identifier,
                 vehicleNumberPlate: veh.numberPlate
-            });
+            };
             Instantiate(veh)
         } else player.notify('Vehicle not found.');
     }

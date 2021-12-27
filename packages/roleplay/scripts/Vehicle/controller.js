@@ -36,7 +36,6 @@ const ClientSync = vehicle => {
 
 const Save = async vehicle => {
     const cachedVehicleData = LastVehicleData[vehicle.numberPlate]?.vehicleData
-    console.log(`Saving vehicle with Key: ${vehicle.vehicleKey}`)
 
     const vehicleData = {
         heading: vehicle.heading,
@@ -55,8 +54,6 @@ const Save = async vehicle => {
         vehicleData.bodyHealth = cachedVehicleData.bodyHealth
     }
 
-    console.log(vehicle.userInSeat)
-
     if (cachedVehicleData) {
         const changes = []
         if (cachedVehicleData.position?.x != vehicleData.position?.x) changes.push(`${cachedVehicleData.position?.x} > ${vehicleData.position?.x} position x`)
@@ -69,7 +66,6 @@ const Save = async vehicle => {
         if (cachedVehicleData.locked != vehicleData.locked) changes.push(`${cachedVehicleData.locked} > ${vehicleData.locked} locked`)
         
         if (changes.length <= 0) return
-        console.log(`Changed vehicle ${vehicle.numberPlate} changes: `, changes)
     }
     
     Vehicles.update({ data: JSON.stringify(vehicleData) }, {
@@ -90,15 +86,10 @@ mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
     if (seat != 0) return
     ClientSync(vehicle)
     vehicle.userInSeat = true
-    console.log(`${player.id} entering ${vehicle.numberPlate} seat ${seat}`)
 });
 
 mp.events.add('playerStartEnterVehicle', (player, vehicle) => {
-    for( const Key of player.vehicleKeys ){
-        if( Key.vehicleKey === vehicle.vehicleKey ){
-            return true
-        }
-    }
+    if (player.vehicleKeys[vehicle.vehicleKey]) return true
 
     player.notify(`You don't have access to this vehicle.`)
     player.removeFromVehicle()
@@ -106,15 +97,15 @@ mp.events.add('playerStartEnterVehicle', (player, vehicle) => {
 
 mp.events.addCommand('giveKeys', (player, _playerId) => {
     const _player = mp.players.at(_playerId)
-
     if ( player.vehicle ) {
         if ( _player ) {
             if ( player.vehicle.vehicleCreator == player.identifier ) {
-                _player.vehicleKeys.push({
+                if (_player.vehicleKeys[player.vehicle.vehicleKey]) return player.notify('This user already has the keys')
+                _player.vehicleKeys[player.vehicle.vehicleKey] = {
                     vehicleKey: player.vehicle.vehicleKey,
                     vehicleNumberPlate: player.vehicle.numberPlate,
                     vehicleCreator: player.vehicle.vehicleCreator,
-                })
+                }
             } else
                 player.notify(`You are not the owner of this vehicle `)
         } else 
@@ -125,7 +116,6 @@ mp.events.addCommand('giveKeys', (player, _playerId) => {
 
 mp.events.add("playerStartExitVehicle", async player => {
     player.vehicle.userInSeat = false
-    console.log(`${player.id} exiting ${player.vehicle.numberPlate}`)
 });
 
 const Remove = vehicle => {

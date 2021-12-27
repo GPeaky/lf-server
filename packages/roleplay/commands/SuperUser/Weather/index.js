@@ -2,7 +2,6 @@ mp.events.addCommandGroup('settime', ['superUser'], (player, args) => {
     args = args.split(' ');
     const hour = args[0]
     const minute = args[1]
-    console.log(args)
     console.log(`${hour}:${minute}`);
     if(hour && minute) {
         mp.world.time.set(parseInt(hour), parseInt(minute), 0);
