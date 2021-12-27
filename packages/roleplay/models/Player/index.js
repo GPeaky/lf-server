@@ -1,3 +1,4 @@
+const short = require('short-uuid')
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 
 mp.events.add('playerJoin', player => {
@@ -10,9 +11,10 @@ mp.events.add('playerJoin', player => {
         
         player.position = new mp.Vector3(-61.71 , -1218.14 , 28.7);
         
-        player.heading = 248.88;
-        player.dimension = 0;
         player.health = 100;
+        player.dimension = 0;
+        player.heading = 248.88;
+        player.vehicleKeys = {};
         
         // Set Default Data
         
@@ -32,11 +34,12 @@ mp.events.add('playerJoin', player => {
         await mp.utils.wait(150)
         
         const playerData = JSON.stringify({
+            armor: 0,
+            health: 100,
+            heading: player.heading,
             position: player.position,
             dimension: player.dimension,
-            heading: player.heading,
-            health: 100,
-            armor: 0,
+            vehicleKeys: player.vehicleKeys,
 
             clothes: [
                 [   player.getClothes(0)   ],
@@ -66,9 +69,9 @@ mp.events.add('playerJoin', player => {
         console.log(`Saving ${player.name}`)
         if (!player.loaded) return
         console.log(`Saved ${player.name}`)
-        const { position, dimension, heading, health, armor, allWeapons } = player
+        const { position, dimension, heading, health, armor, allWeapons, vehicleKeys } = player
         const playerData = { 
-            position, dimension, heading, health, armor, allWeapons,
+            position, dimension, heading, health, armor, allWeapons, vehicleKeys,
             lastVehicle: player.vehicle ? {numberPlate: player.vehicle.numberPlate, seat: player.seat} : false,
             clothes: [
                 [   player.getClothes(0)   ],
@@ -104,16 +107,17 @@ mp.events.add('playerJoin', player => {
         
         if(player && data) {
             const playerData = JSON.parse(data)
-            const { position, dimension, heading, health, armor, allWeapons } = playerData;
+            const { position, dimension, heading, health, armor, allWeapons, vehicleKeys } = playerData;
 
             player.role = role
             player.armour = armor
-            player.name = identifier
-            player.identifier = identifier
             player.health = health
+            player.name = identifier
             player.heading = heading
             player.position = position
             player.dimension = dimension
+            player.identifier = identifier
+            player.vehicleKeys = vehicleKeys
 
             for (const weapon in allWeapons) {
                 player.giveWeapon(Number(weapon), allWeapons[weapon]);
@@ -172,7 +176,7 @@ mp.events.add('playerJoin', player => {
             })
 
             veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
-            veh.owner = player.serial;
+            veh.vehicleKey = short.generate();
             player.putIntoVehicle(veh, 0);
             Instantiate(veh)
         } else player.notify('Vehicle not found.');

@@ -6,23 +6,24 @@ const UpdateCache = (vehicle, vehicleData) => LastVehicleData[vehicle.numberPlat
 const Instantiate = vehicle => {
     if (vehicle.isPersistent) return
     const vehicleData = JSON.stringify({
+        deformationMap: '{}',
+        heading: vehicle.heading,
         position: vehicle.position,  
         color: vehicle.getColorRGB(),
         dimension: vehicle.dimension,
-        heading: vehicle.heading,
-        engineHealth: vehicle.engineHealth,
         bodyHealth: vehicle.bodyHealth,
-        locked: vehicle.locked,
-        deformationMap: '{}',
+        vehicleKey: vehicle.vehicleKey,
+        engineHealth: vehicle.engineHealth,
     })
+    
     Vehicles.create({
-        id: vehicle.numberPlate,
+        data: vehicleData,
         owner: vehicle.owner,
         model: vehicle.model,
-        data: vehicleData,
+        id: vehicle.numberPlate,
     })
-    vehicle.isPersistent = true
     vehicle.userInSeat = false
+    vehicle.isPersistent = true
     vehicle.deformationMap = '{}'
     UpdateCache(vehicle, JSON.parse(vehicleData))
 }
@@ -34,16 +35,17 @@ const ClientSync = vehicle => {
 
 const Save = async vehicle => {
     const cachedVehicleData = LastVehicleData[vehicle.numberPlate]?.vehicleData
+    console.log(`Saving vehicle with Key: ${vehicle.vehicleKey}`)
 
     const vehicleData = {
+        heading: vehicle.heading,
         position: vehicle.position,  
         color: vehicle.getColorRGB(),
         dimension: vehicle.dimension,
-        heading: vehicle.heading,
-        engineHealth: vehicle.engineHealth,
+        vehicleKey: vehicle.vehicleKey,
         bodyHealth: vehicle.bodyHealth,
-        locked: vehicle.locked,
-        deformationMap: vehicle.deformationMap || '{}'
+        engineHealth: vehicle.engineHealth,
+        deformationMap: vehicle.deformationMap || '{}',
     };
 
     if (!vehicle.userInSeat) {
@@ -74,7 +76,7 @@ const Save = async vehicle => {
         }
     })
 
-    UpdateCache(vehicle,vehicleData)
+    UpdateCache(vehicle, vehicleData)
 }
 
 mp.events.add("setVehicleDeformationMap", (player, deformationMap) => {
@@ -82,44 +84,17 @@ mp.events.add("setVehicleDeformationMap", (player, deformationMap) => {
     vehicle.deformationMap = JSON.parse(deformationMap)
 })
 
-/*const IsPlayerOwner = (player, {owner}) => {
-    if(owner != player.identifier) player.removeFromVehicle()
-}*/
-
-const PlayerHasKey = (player, veh) => {
-    Keys.findOne({
-        where: {
-            plate: veh.numberPlate,
-        }
-    }).then(key => {
-        key = JSON.parse(key?.dataValues.owners)
-        if(key?.indexOf(player.identifier) != -1) return
-        const ocupants = veh.getOccupants()
-        if(ocupants.length > 0) {
-            for(let i = 0; i < ocupants.length; i++) {
-                if(key?.indexOf(ocupants[i].identifier) != -1) {
-                    console.log(`Player ${player.name} has key for vehicle ${veh.numberPlate}`)
-                    return
-                }
-            }
-        }
-        player.removeFromVehicle()
-    })            
-}
-
 mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
     if (seat != 0) return
-    console.log(`${player.id} entering ${vehicle.numberPlate} seat ${seat}`)
-    // PlayerHasKey(player, vehicle)
     ClientSync(vehicle)
     vehicle.userInSeat = true
+    console.log(`${player.id} entering ${vehicle.numberPlate} seat ${seat}`)
 });
 
 mp.events.add("playerStartExitVehicle", async player => {
-    console.log(`${player.id} exiting ${player.vehicle.numberPlate}`)
     player.vehicle.userInSeat = false
+    console.log(`${player.id} exiting ${player.vehicle.numberPlate}`)
 });
-
 
 const Remove = vehicle => {
     console.log(`Vehicle with ID: ${vehicle.numberPlate} removed.`)
@@ -130,33 +105,31 @@ const Remove = vehicle => {
     })
 }
 
-const spawnVehicle = ({ id, owner, model, data }) => {
+const spawnVehicle = ({ id, model, data }) => {
     const vehicleData = JSON.parse(data)
     const vehicle = mp.vehicles.new(Number(model), vehicleData.position, {
         engine: false,
+        numberPlate: id,
+        locked: vehicleData.locked,
         heading: vehicleData.heading,
         dimension: vehicleData.dimension,
-        numberPlate: id,
-        locked: vehicleData.locked
     })
-
+    
     vehicle.isPersistent = true
-    vehicle.owner = owner
     vehicle.deformationMap = vehicleData.deformationMap
     console.log(`Vehicle with ID: ${id} spawned.`)
+
     UpdateCache(vehicle, vehicleData)
 }
 
-const bootVehicles = async() => {
+(async() => {
     const result = await Vehicles.findAll({})
     for await (const vehicle of result) {
         spawnVehicle(vehicle)
     }  
-}
+})()
 
-bootVehicles()
-
-module.exports = {Instantiate, Save, Remove}
+module.exports = { Instantiate, Save, Remove }
 
 // VehicleSaver
 require('./VehicleSaver')

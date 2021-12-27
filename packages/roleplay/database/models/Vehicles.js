@@ -8,11 +8,6 @@ const Vehicles = sequelize.define('vehicles', {
         primaryKey: true
     },
 
-    owner: {
-        type: Sequelize.STRING(250),
-        allowNull: true
-    },
-
     model: {
         type: Sequelize.STRING,
         allowNull: false
