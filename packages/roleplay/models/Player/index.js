@@ -176,9 +176,11 @@ mp.events.add('playerJoin', player => {
 
             player.putIntoVehicle(veh, 0);
             veh.vehicleKey = short.generate();
+            veh.vehicleCreator = player.identifier;
             veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
             player.vehicleKeys.push({
                 vehicleKey: veh.vehicleKey,
+                vehicleCreator: player.identifier,
                 vehicleNumberPlate: veh.numberPlate
             });
             Instantiate(veh)

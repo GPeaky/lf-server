@@ -14,6 +14,7 @@ const Instantiate = vehicle => {
         bodyHealth: vehicle.bodyHealth,
         vehicleKey: vehicle.vehicleKey,
         engineHealth: vehicle.engineHealth,
+        vehicleCreator: vehicle.vehicleCreator
     })
     
     Vehicles.create({
@@ -45,6 +46,7 @@ const Save = async vehicle => {
         vehicleKey: vehicle.vehicleKey,
         bodyHealth: vehicle.bodyHealth,
         engineHealth: vehicle.engineHealth,
+        vehicleCreator: vehicle.vehicleCreator,
         deformationMap: vehicle.deformationMap || '{}',
     };
 
@@ -102,6 +104,25 @@ mp.events.add('playerStartEnterVehicle', (player, vehicle) => {
     player.removeFromVehicle()
 });
 
+mp.events.addCommand('giveKeys', (player, _playerId) => {
+    const _player = mp.players.at(_playerId)
+
+    if ( player.vehicle ) {
+        if ( _player ) {
+            if ( player.vehicle.vehicleCreator == player.identifier ) {
+                _player.vehicleKeys.push({
+                    vehicleKey: player.vehicle.vehicleKey,
+                    vehicleNumberPlate: player.vehicle.numberPlate,
+                    vehicleCreator: player.vehicle.vehicleCreator,
+                })
+            } else
+                player.notify(`You are not the owner of this vehicle `)
+        } else 
+            player.notify(`Player with ID: ${_playerId} not found.`)
+    } else
+        player.notify('You are not in a vehicle.')
+})
+
 mp.events.add("playerStartExitVehicle", async player => {
     player.vehicle.userInSeat = false
     console.log(`${player.id} exiting ${player.vehicle.numberPlate}`)
@@ -126,8 +147,9 @@ const spawnVehicle = ({ id, model, data }) => {
         dimension: vehicleData.dimension,
     })
     
-    vehicle.vehicleKey = vehicleData.vehicleKey
     vehicle.isPersistent = true
+    vehicle.vehicleKey = vehicleData.vehicleKey
+    vehicle.vehicleCreator = vehicleData.vehicleCreator
     vehicle.deformationMap = vehicleData.deformationMap
     console.log(`Vehicle with ID: ${id} spawned.`)
 
