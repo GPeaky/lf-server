@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-// const bcryptjs = require('bcryptjs');
+const bcryptjs = require('bcryptjs');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/database')
 
@@ -21,9 +21,9 @@ const Players = sequelize.define('player', {
     password: {
         type: DataTypes.STRING,
         
-        // set(val) {
-        //     this.setDataValue('password', bcryptjs.hashSync(val, 10));
-        // }
+        set(val) {
+            this.setDataValue('password', bcryptjs.hashSync(val, 10));
+        }
     },
 
     data:{

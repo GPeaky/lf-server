@@ -6,7 +6,7 @@ mp.events.add('playerReady', async player => player.logout())
 const handleLogin = async (player, email, password)  => {
     const PlayerDB = await player.exist(email, password)
     if (!PlayerDB) return player.create(email, password)
-    if (PlayerDB.password === password) {
+    if (bycryptjs.compare(password, PlayerDB.password)) {
         player.load(email)
     }
 }
