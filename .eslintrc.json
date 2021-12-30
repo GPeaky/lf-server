@@ -20,9 +20,13 @@
                 "allowArrowFunctions": true
             }
         ],
-        "no-var": "error", // Disable var because it's not supported in es2021
-        "prefer-const": "error", // Suggest user to use const when is possible
-        "prefer-template": "error", // Force user to use template string instead of concatenation
-        "no-undef": "error" // Disable undefined variable
+        "prefer-const": "error",
+        "prefer-template": "error",
+        "prefer-arrow-callback": "error",
+        "prefer-destructuring": "error",
+        "prefer-numeric-literals": "error",
+        "prefer-rest-params": "error",
+        "prefer-spread": "error",
+        "no-undef": "error"
     }
 }
