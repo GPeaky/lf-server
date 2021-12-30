@@ -1,33 +1,38 @@
 const { v4: uuidv4 } = require('uuid');
-const bcryptjs = require('bcryptjs');
-const Sequelize = require('sequelize');
+// const bcryptjs = require('bcryptjs');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/database')
 
 const Players = sequelize.define('player', {
     identifier: {
-        type: Sequelize.STRING(36),
-        allowNull: false,
-        primaryKey: true
+        type: DataTypes.STRING(36),
+
+        set() {
+            this.setDataValue('identifier', uuidv4());
+        }
     },
     
     email: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },
 
     password: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: DataTypes.STRING,
+        
+        // set(val) {
+        //     this.setDataValue('password', bcryptjs.hashSync(val, 10));
+        // }
     },
 
     data:{
-        type: Sequelize.STRING(10000),
+        type: DataTypes.STRING(10000),
         allowNull: false,
     },
 
     role: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         defaultValue: 'user',
         allowNull: false,
 
@@ -36,14 +41,7 @@ const Players = sequelize.define('player', {
         }
     }
 
-}, {
-    hooks: {
-        beforeValidate: player => {
-            player.identifier = uuidv4();
-        }
-    }
 })
 
 mp.database.Players = Players
-
 module.exports = Players

@@ -1,20 +1,20 @@
-const Sequelize = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/database');
 
 const Vehicles = sequelize.define('vehicles', {
     id: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true
     },
 
     model: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
 
     data: {
-        type: Sequelize.STRING(10000),
+        type: DataTypes.STRING(10000),
         allowNull: false
     }
 })
