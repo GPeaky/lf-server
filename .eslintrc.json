@@ -20,6 +20,7 @@
                 "allowArrowFunctions": true
             }
         ],
+        
         "prefer-const": "error",
         "prefer-template": "error",
         "prefer-arrow-callback": "error",
