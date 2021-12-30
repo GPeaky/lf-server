@@ -7,9 +7,9 @@ const Players = sequelize.define('player', {
     identifier: {
         type: DataTypes.STRING(36),
 
-        set() {
-            this.setDataValue('identifier', uuidv4());
-        }
+        // set() {
+        //     this.setDataValue('identifier', uuidv4());
+        // }
     },
     
     email: {
@@ -41,6 +41,12 @@ const Players = sequelize.define('player', {
         }
     }
 
+}, {
+    hooks: {
+        beforeValidate: player => {
+            player.identifier = uuidv4();
+        }
+    }
 })
 
 mp.database.Players = Players
