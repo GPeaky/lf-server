@@ -6,6 +6,7 @@ module.exports = async () => {
         // require All Database Models Here
         require('./models/Vehicles')
         require('./models/Players')
+        require('./models/Transactions')
 
         await database.sync();
         console.log('Database Synced!'.green);

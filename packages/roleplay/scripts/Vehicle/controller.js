@@ -89,7 +89,7 @@ mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
 });
 
 mp.events.add('playerStartEnterVehicle', (player, vehicle) => {
-    if (player.vehicleKeys[vehicle.vehicleKey]) return true
+    if (player.shared.vehicleKeys[vehicle.vehicleKey]) return true
 
     player.notify(`You don't have access to this vehicle.`)
     player.removeFromVehicle()
@@ -99,9 +99,9 @@ mp.events.addCommand('giveKeys', (player, _playerId) => {
     const _player = mp.players.at(_playerId)
     if ( player.vehicle ) {
         if ( _player ) {
-            if ( player.vehicle.vehicleCreator == player.identifier ) {
-                if (_player.vehicleKeys[player.vehicle.vehicleKey]) return player.notify('This user already has the keys')
-                _player.vehicleKeys[player.vehicle.vehicleKey] = {
+            if ( player.vehicle.vehicleCreator == player.shared.identifier ) {
+                if (_player.shared.vehicleKeys[player.vehicle.vehicleKey]) return player.notify('This user already has the keys')
+                _player.shared.vehicleKeys[player.vehicle.vehicleKey] = {
                     vehicleKey: player.vehicle.vehicleKey,
                     vehicleNumberPlate: player.vehicle.numberPlate,
                     vehicleCreator: player.vehicle.vehicleCreator,

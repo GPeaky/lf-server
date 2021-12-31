@@ -1,5 +1,5 @@
 mp.events.addCommandGroup('coords', ['superUser'], player => {
-    if (!player.role === 'superUser') return;
+    if (!player.internal.role === 'superUser') return;
     player.call('viewCoords');
 });
 

@@ -1,6 +1,6 @@
 mp.events.addCommandGroup = (commandName, groups, callback) => {
     mp.events.addCommand(commandName, (player, ...args) => {
-        if (!groups.includes(player.role)) return;
+        if (!groups.includes(player.internal.role)) return;
         callback(player, ...args);
     })
 }

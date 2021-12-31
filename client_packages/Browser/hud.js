@@ -12,8 +12,8 @@ setInterval(() => {
             ${player.id}, 
             ${player.getHealth()}, 
             ${player.getArmour()}, 
-            ${(player.getVariable('hunger')) ? player.getVariable('hunger') : '100'}, 
-            ${(player.getVariable('thirst')) ? player.getVariable('thirst') : '100'})
+            ${(player.getVariable('shared')?.status.hunger) ? player.getVariable('shared')?.status.hunger : '100'}, 
+            ${(player.getVariable('shared')?.status.thirst) ? player.getVariable('shared')?.status.thirst : '100'})
         `);
     }
 }, 500);
