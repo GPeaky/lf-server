@@ -13,7 +13,7 @@ mp.crypto.accountSecret = 'e1d97451b0d89d38d3c1f324e880b97b03fc2779c6a5805175f88
 const Transfer = async (to, amount, playerId) => {
     return new Promise(async resolve => {
         mp.crypto.nonce++; let cachedNonce = mp.crypto.nonce;
-        const User = await mp.database.Transactions.create({
+        const Transaction = await mp.database.Transactions.create({
             id: `${cachedNonce}-${playerId}`,
             wallet: to,
             amountWei: amount,
@@ -24,29 +24,29 @@ const Transfer = async (to, amount, playerId) => {
         mp.crypto.contract.methods.sendRewardsToPlayer(to, amount).send({from : mp.crypto.account.address, gas: 300000, nonce: cachedNonce})
             .on("transactionHash", (hash) => {
                 console.log(`Transaction Hash generated: ${hash} for ID: ${playerId}-${cachedNonce}`)
-                User.id = hash
-                User.status = 'pending'
-                User.save()
+                Transaction.id = hash
+                Transaction.status = 'pending'
+                Transaction.save()
             })
             .on("receipt", (receipt) => {
                 console.log(`Receipt: ${playerId}-${cachedNonce} - ${receipt.transactionHash}`)
-                User.id = receipt.transactionHash
-                User.status = 'success'
+                Transaction.id = receipt.transactionHash
+                Transaction.status = 'success'
             })
             .on("confirmation", (confirmation) => {
                 console.log(`Confirmation #${confirmation} for ID: ${playerId}-${cachedNonce}`);
-                User.confirmations = confirmation
+                Transaction.confirmations = confirmation
                 if (confirmation >= 3) {
-                    User.status = 'confirmed'
-                    User.save()
+                    Transaction.status = 'confirmed'
+                    Transaction.save()
                     return resolve(true)
                 }
-                User.save()
+                Transaction.save()
             })
             .on("error", async (error) => {
                 console.log(`Error for ID: ${playerId}-${cachedNonce}`);
-                User.status = 'failed'
-                User.save()
+                Transaction.status = 'failed'
+                Transaction.save()
                 return resolve(false)
             });
     })
@@ -54,25 +54,34 @@ const Transfer = async (to, amount, playerId) => {
 
 const Init = async () => {
     mp.crypto.contract = await new mp.crypto.web3.eth.Contract(mp.crypto.contractABI, mp.crypto.contractAddress)
-    
+
     mp.crypto.account = await mp.crypto.web3.eth.accounts.privateKeyToAccount(mp.crypto.accountSecret);
     mp.crypto.web3.eth.accounts.wallet.add(mp.crypto.account.privateKey)
     mp.crypto.nonce = await mp.crypto.web3.eth.getTransactionCount(mp.crypto.account.address, 'pending') - 1
 
     mp.crypto.contract.events.Transfer({ filter: {value: []},  fromBlock: 'latest',})
         .on('data', async (event) => {
-            // console.log(`Event: ${event.returnValues.from} - ${event.returnValues.to} - ${event.returnValues.value}`)
+            if (event.returnValues.to !== mp.crypto.contractAddress) return
+            const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
+            if (!playerDB?.wallet) return
+            const Transaction = await mp.database.Transactions.create({id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending',}) 
             let awaitConfirmationInterval = setInterval(async () => {
                 const tx = await mp.crypto.web3.eth.getTransaction(event.transactionHash)
                 const currentBlock = await mp.crypto.web3.eth.getBlockNumber(); const currentConfirmations = currentBlock - tx.blockNumber
                 if (currentConfirmations > 8) {
                     clearInterval(awaitConfirmationInterval)
-                    console.log(`Event: ${event.returnValues.from} - ${event.returnValues.to} - ${event.returnValues.value} CONFIRMED With ${currentConfirmations} blocks`)
+                    Transaction.confirmations = currentConfirmations,
+                    Transaction.status = 'confirmed'
+                    Transaction.save()
+                    const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
+                    console.log(`tX Approved, Player: ${playerDB.email} deposited ${mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether')}ELP CONFIRMED With ${currentConfirmations} blocks`)
                     return
                 } else {
-                    console.log(`Awaiting for confirmation for ID: ${event.transactionHash} Current confirmations: ${currentConfirmations}`)
+                    Transaction.confirmations = currentConfirmations,
+                    Transaction.save()
+                    console.log(`Awaiting for confirmation for Player: ${playerDB.email}, tX: ${event.transactionHash} Current confirmations: ${currentConfirmations}`)
                 }
-            }, 1000)
+            }, 5000)
         })
         .on('error', async (error) => {
             console.log(`Error: ${error}`)

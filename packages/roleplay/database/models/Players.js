@@ -41,7 +41,7 @@ const Players = sequelize.define('player', {
         }
     },
 
-    wallets: {
+    wallet: {
         type: DataTypes.STRING(64),
         allowNull: false,
         defaultValue: 'unkown',
@@ -56,4 +56,12 @@ const Players = sequelize.define('player', {
 })
 
 mp.database.Players = Players
+mp.database.Players.getPlayerByWallet = async wallet => {
+    return await Players.findOne({
+        where: {
+            wallet: wallet
+        }
+    })
+}
+
 module.exports = Players

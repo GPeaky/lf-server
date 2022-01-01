@@ -16,6 +16,7 @@ mp.events.add('playerJoin', player => {
         player.dimension = 0;
         player.heading = 248.88;
         player.internal.isDead = false;
+        player.internal.balance = 
         player.shared.vehicleKeys = {};
         player.shared.status = { hunger: 100, thirst: 100 }
         

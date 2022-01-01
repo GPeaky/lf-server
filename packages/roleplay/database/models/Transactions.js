@@ -24,7 +24,7 @@ const Transactions = sequelize.define('transactions', {
     },
 
     nonce:{
-        type: DataTypes.INTEGER(60),
+        type: DataTypes.STRING(64),
         allowNull: false,
     },
 
