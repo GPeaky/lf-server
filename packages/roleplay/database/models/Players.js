@@ -39,6 +39,12 @@ const Players = sequelize.define('player', {
         validate: {
             isIn: [['user', 'superUser']]
         }
+    },
+
+    wallets: {
+        type: DataTypes.STRING(64),
+        allowNull: false,
+        defaultValue: 'unkown',
     }
 
 }, {
