@@ -11,10 +11,6 @@ mp.utils.Queue = class {
         this.__queue = [];
     }
 
-    /** @param { () => Promise<T> } func 
-     * @template T
-     * @returns {Promise<T>}
-    */
     async enqueue(func) {
         if(++this.__active > this.maxSimultaneously) {
             await new Promise(resolve => this.__queue.push(resolve));
@@ -22,8 +18,6 @@ mp.utils.Queue = class {
 
         try {
             return await func();
-        } catch(err) {
-            throw err;
         } finally {
             this.__active--;
             if(this.__queue.length) {

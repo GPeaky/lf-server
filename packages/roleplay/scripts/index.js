@@ -18,3 +18,5 @@ require('./Races')
 
 // Voice
 // require('./Voice')
+
+require('./Garbagejob')
