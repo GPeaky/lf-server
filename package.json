@@ -21,7 +21,7 @@
     "web3": "^1.6.1"
   },
   "devDependencies": {
-    "esbuild": "^0.14.8",
-    "eslint": "^8.5.0"
+    "esbuild": "^0.14.10",
+    "eslint": "^8.6.0"
   }
 }
