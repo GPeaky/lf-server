@@ -89,7 +89,7 @@ mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
 });
 
 mp.events.add('playerStartEnterVehicle', (player, vehicle) => {
-    if (player.shared.vehicleKeys[vehicle.vehicleKey]) return true
+    if (vehicle.job || player.shared.vehicleKeys[vehicle.vehicleKey]) return true
 
     player.notify(`You don't have access to this vehicle.`)
     player.removeFromVehicle()

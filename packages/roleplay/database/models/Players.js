@@ -27,7 +27,7 @@ const Players = sequelize.define('player', {
     },
 
     data:{
-        type: DataTypes.STRING(10000),
+        type: DataTypes.TEXT('long'),
         allowNull: false,
     },
 

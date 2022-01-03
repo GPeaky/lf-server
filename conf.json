@@ -3,6 +3,7 @@
 	"name" : "Development Server", 
 	"gamemode" : "dist", 
 	"stream-distance" : 500.0,
+	"sync-rate": 15,
 	"voice-chat": true,
 	"voice-chat-sample-rate": 48000,
 	"announce" : false,
