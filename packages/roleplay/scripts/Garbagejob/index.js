@@ -206,7 +206,7 @@ mp.events.addProc('job:garbage:isInStop', async player => {
     if (working[player.shared.identifier]) {
         const playerStop = stops[working[player.shared.identifier].currentStop]
         const jobVehicle = mp.vehicles.at(working[player.shared.identifier].jobVehID)
-        if (jobVehicle?.dist(playerStop.coords) <= 15) return true
+        if (jobVehicle?.dist(playerStop.coords) <= 25) return true
         return false
     } else return null
 })
