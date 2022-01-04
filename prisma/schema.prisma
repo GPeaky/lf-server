@@ -14,6 +14,8 @@ model players {
     data            String              @db.LongText()
     role            players_role        @default(user)
     wallet          String              @default("unknown")
+    createdAt       DateTime            @default(now())
+    updatedAt       DateTime            @default(now())
 }
 
 model transactions {
@@ -25,12 +27,16 @@ model transactions {
     type            String              @default("unknown")
     status          String              @default("unknown")
     confirmations   Int
+    createdAt       DateTime            @default(now())
+    updatedAt       DateTime            @default(now())
 }
 
 model vehicles {
     id              String              @id
     model           String
     data            String              @db.LongText()
+    createdAt       DateTime            @default(now())
+    updatedAt       DateTime            @default(now())
 }
 
 enum players_role {
