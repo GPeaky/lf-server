@@ -1,0 +1,39 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model players {
+    identifier      String              @unique(map: "Players_identifier_key")
+    email           String              @unique(map: "Players_email_key")
+    password        String
+    data            String              @db.LongText()
+    role            players_role        @default(user)
+    wallet          String              @default("unknown")
+}
+
+model transactions {
+    id              Int                 @id
+    wallet          String
+    amountWei       String
+    amountParsed    String
+    nonce           String
+    type            String              @default("unknown")
+    status          String              @default("unknown")
+    confirmations   Int
+}
+
+model vehicles {
+    id              String              @id
+    model           String
+    data            String              @db.LongText()
+}
+
+enum players_role {
+    user
+    superUser
+}

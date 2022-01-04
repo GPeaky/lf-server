@@ -1,9 +1,8 @@
-const Vehicles = require('../../database/models/Vehicles');
 const LastVehicleData = {}
 
 const UpdateCache = (vehicle, vehicleData) => LastVehicleData[vehicle.numberPlate] = {vehicleData, vehicle}
 
-const Instantiate = vehicle => {
+const Instantiate = async vehicle => {
     if (vehicle.isPersistent) return
     const vehicleData = JSON.stringify({
         deformationMap: '{}',
@@ -16,12 +15,14 @@ const Instantiate = vehicle => {
         engineHealth: vehicle.engineHealth,
         vehicleCreator: vehicle.vehicleCreator
     })
-    
-    Vehicles.create({
-        data: vehicleData,
-        owner: vehicle.owner,
-        model: vehicle.model,
-        id: vehicle.numberPlate,
+
+    await mp.database.Vehicles.create({
+        data: {
+            data: vehicleData,
+            owner: vehicle.owner,
+            model: vehicle.model.toString(),
+            id: vehicle.numberPlate,
+        }
     })
     vehicle.userInSeat = false
     vehicle.isPersistent = true
@@ -67,10 +68,13 @@ const Save = async vehicle => {
         
         if (changes.length <= 0) return
     }
-    
-    Vehicles.update({ data: JSON.stringify(vehicleData) }, {
+
+    await mp.database.Vehicles.update({
         where: {
             id: vehicle.numberPlate
+        },
+        data: {
+            data: JSON.stringify(vehicleData)
         }
     })
 
@@ -118,9 +122,10 @@ mp.events.add("playerStartExitVehicle", async player => {
     player.vehicle.userInSeat = false
 });
 
-const Remove = vehicle => {
+const Remove = async vehicle => {
     console.log(`Vehicle with ID: ${vehicle.numberPlate} removed.`)
-    Vehicles.destroy({
+
+    await mp.database.Vehicles.delete({
         where: {
             id: vehicle.numberPlate
         }
@@ -147,7 +152,7 @@ const spawnVehicle = ({ id, model, data }) => {
 }
 
 (async() => {
-    const result = await Vehicles.findAll({})
+    const result = await mp.database.Vehicles.findMany()
     for await (const vehicle of result) {
         spawnVehicle(vehicle)
     }  
