@@ -1,5 +1,3 @@
-const { v4: uuid } = require('uuid')
-const bcrypt = require('bcryptjs')
 const short = require('short-uuid')
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 
@@ -70,13 +68,10 @@ mp.events.add('playerJoin', player => {
             },
         })
           
-        await mp.database.Players.create({
-            data: {
-                identifier: uuid(),
-                email: email,
-                password: await bcrypt.hash(password, 10),
-                data: playerData
-            }
+        mp.database.Players.create({
+            email: email,
+            password: password,
+            data: playerData
         })
     }
 
@@ -138,23 +133,19 @@ mp.events.add('playerJoin', player => {
         //     ],
         //     haircolor: [player.hairColor, player.hairHighlightColor],
         // }
-
-        await mp.database.Players.update({
+        
+        mp.database.Players.update({ data: JSON.stringify(playerData) }, {
             where: {
                 identifier: player.shared.identifier
-            },
-            data: {
-                data: JSON.stringify(playerData)
             }
         })
     }
     
     player.load = async (email) => {
         if (player.shared.loaded) return
-
-        const { data, identifier, role } = await mp.database.Players.findUnique({
+        const { data, identifier, role } = await mp.database.Players.findOne({
             where: {
-                email
+                email: email
             }
         })
         
@@ -221,7 +212,7 @@ mp.events.add('playerJoin', player => {
     }
 
     player.exist = async (email) => {
-        const PlayerDB = await mp.database.Players.findUnique({
+        const PlayerDB = await mp.database.Players.findOne({
             where: {
                 email: email
             }
