@@ -20,14 +20,14 @@ model players {
 }
 
 model transactions {
-    id              Int                 @id
+    id              String              @id
     wallet          String
     amountWei       String
     amountParsed    String
     nonce           String
     type            String              @default("unknown")
     status          String              @default("unknown")
-    confirmations   Int
+    confirmations   Int                 @default(0)
     createdAt       DateTime            @default(now())
     updatedAt       DateTime            @default(now())
 }
