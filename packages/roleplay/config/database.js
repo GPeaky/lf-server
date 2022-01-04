@@ -8,10 +8,10 @@ module.exports = async() => {
             ...prisma.players,
 
             getPlayerByWallet: async wallet => {
-                return await prisma.players.findUnique({
-                    data: {
+                return await prisma.players.findFirst({
+                    where: {
                         wallet
-                    }
+                    },
                 })
             }
         },
