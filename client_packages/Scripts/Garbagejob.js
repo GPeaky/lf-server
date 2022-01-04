@@ -3,6 +3,7 @@ let marker = null
 let busy = false
 let currentStop = null
 let isInStop = false
+let blip = null
 
 const Main = async () => {
     while (true) {
@@ -17,7 +18,17 @@ const Main = async () => {
                     })
                 }
             } else {
-                mp.game.ui.setNewWaypoint(currentStop.coords.x, currentStop.coords.y)
+                if(blip) blip.destroy()
+                blip = await mp.blips.new(1, new mp.Vector3(currentStop.coords.x, currentStop.coords.y, currentStop.coords.z), {
+                    name: 'Point',
+                    scale: 0.45,
+                    color: 12,
+                    alpha: 255,
+                    dimension: 0
+                })
+                blip.setRoute(true)
+                blip.setRouteColour(12)
+                // mp.game.ui.setNewWaypoint(currentStop.coords.x, currentStop.coords.y)
                 console.log('Go to the next point')
             }
         }
@@ -50,10 +61,12 @@ mp.keys.bind(0x45, true, async() => {
 
 mp.events.add('job:garbage:stopped', async () => {
     if (marker) marker.destroy()
+    if (blip) blip.destroy()
     inJob = false
     marker = null
     currentStop = null
     isInStop = false
+    blip = null
 })
 
 Main()
