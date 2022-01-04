@@ -109,9 +109,9 @@ const stops = [
 
 const working = {}
 
-setInterval(() => {
-    console.log(working)
-}, 1000);
+// setInterval(() => {
+//     console.log(working)
+// }, 1000);
 
 const createVehicle = async player => {
     const veh = await mp.vehicles.new(mp.joaat('biff'), new mp.Vector3(vehicleSettings.x, vehicleSettings.y, vehicleSettings.z),
@@ -191,12 +191,12 @@ mp.events.addProc('job:garbage:getNextStop', async player => {
         if (working[player.shared.identifier].stopCount == 0) {
             working[player.shared.identifier].stopCount++
             return stops[0]
-        }// All the players will go to the first stop firtst
+        }// All the players will go to the first stop first
         const currentPlayerStop = working[player.shared.identifier].currentStop
         while (currentPlayerStop == working[player.shared.identifier].currentStop) {
             working[player.shared.identifier].currentStop = Math.floor(Math.random() * stops.length)
         }
-        console.log(`Next stop for ${player.name} is ${stops[working[player.shared.identifier].currentStop].name}`)
+        // console.log(`Next stop for ${player.name} is ${stops[working[player.shared.identifier].currentStop].name}`)
         working[player.shared.identifier].stopCount++
         return stops[working[player.shared.identifier].currentStop]
     } else return null
