@@ -14,12 +14,14 @@ const Transfer = async (to, amount, playerId) => {
     return new Promise(async resolve => {
         mp.crypto.nonce++; let cachedNonce = mp.crypto.nonce;
         const Transaction = await mp.database.Transactions.create({
-            id: `${cachedNonce}-${playerId}`,
-            wallet: to,
-            amountWei: amount,
-            amountParsed: mp.crypto.web3.utils.fromWei(amount, 'ether'),
-            nonce: cachedNonce,
-            type: 'reward',
+            data: {
+                id: `${cachedNonce}-${playerId}`,
+                wallet: to,
+                amountWei: amount,
+                amountParsed: mp.crypto.web3.utils.fromWei(amount, 'ether'),
+                nonce: cachedNonce,
+                type: 'reward',
+            }
         }) 
         mp.crypto.contract.methods.sendRewardsToPlayer(to, amount).send({from : mp.crypto.account.address, gas: 300000, nonce: cachedNonce})
             .on("transactionHash", (hash) => {
@@ -64,8 +66,12 @@ const Init = async () => {
             if (event.returnValues.to !== mp.crypto.contractAddress) return
             const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
             if (!playerDB?.wallet) return
+<<<<<<< HEAD
             const Transaction = await mp.database.Transactions.create({id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending',}) 
             const playerConnected = await  mp.players.getByIdentifier(playerDB.identifier);
+=======
+            const Transaction = await mp.database.Transactions.create({data: {id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending',}}) 
+>>>>>>> parent of 2c8ad25 (Revert "feat(Sequelize): Removed Sequelize, and added Prisma")
             let awaitConfirmationInterval = setInterval(async () => {
                 const tx = await mp.crypto.web3.eth.getTransaction(event.transactionHash)
                 const currentBlock = await mp.crypto.web3.eth.getBlockNumber(); const currentConfirmations = currentBlock - tx.blockNumber

@@ -1,11 +1,11 @@
 require('colors');
 require('dotenv').config();
-const syncDatabase = require('./database')
+const db = require('./config/database')
 
 const main = async () => {
     try {
         // Database
-        await syncDatabase();
+        await db();
         // Ipl
         require('./ipl')
         // Utils
