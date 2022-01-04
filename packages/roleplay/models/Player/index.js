@@ -1,6 +1,15 @@
 const short = require('short-uuid')
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 
+mp.players.getByIdentifier = async(identifier) => {
+    return new Promise(async resolve => {
+        await mp.players.forEach(player => {
+            if (player?.shared?.identifier === identifier) return resolve(player)
+        })
+        return resolve(false)
+    })
+}
+
 mp.events.add('playerJoin', player => {
     player.shared = {loaded: false}
     player.internal = {}

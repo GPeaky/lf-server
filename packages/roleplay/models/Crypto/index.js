@@ -65,6 +65,7 @@ const Init = async () => {
             const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
             if (!playerDB?.wallet) return
             const Transaction = await mp.database.Transactions.create({id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending',}) 
+            const playerConnected = await  mp.players.getByIdentifier(playerDB.identifier);
             let awaitConfirmationInterval = setInterval(async () => {
                 const tx = await mp.crypto.web3.eth.getTransaction(event.transactionHash)
                 const currentBlock = await mp.crypto.web3.eth.getBlockNumber(); const currentConfirmations = currentBlock - tx.blockNumber
@@ -75,11 +76,15 @@ const Init = async () => {
                     Transaction.save()
                     const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
                     console.log(`tX Approved, Player: ${playerDB.email} deposited ${mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether')}ELP CONFIRMED With ${currentConfirmations} blocks`)
-                    return
+                    if (!playerConnected) return
+                    playerConnected.notify(`You have successfully deposited ${mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether')}ELP into your account.`)
                 } else {
                     Transaction.confirmations = currentConfirmations,
                     Transaction.save()
                     console.log(`Awaiting for confirmation for Player: ${playerDB.email}, tX: ${event.transactionHash} Current confirmations: ${currentConfirmations}`)
+                    if (playerConnected) {
+                        playerConnected.notify(`Your transaction with value ${mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether')} is validating, confirmations: ${currentConfirmations}.`)
+                    }
                 }
             }, 5000)
         })
