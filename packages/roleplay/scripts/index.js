@@ -19,4 +19,4 @@ require('./Races')
 // Voice
 // require('./Voice')
 
-require('./Garbagejob')
+require('./Garbagejob')require('./Garbagejob')

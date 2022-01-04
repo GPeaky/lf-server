@@ -17,6 +17,7 @@ require('./SuperUser')
 // Scripts
 require('./Scripts')
 require('./Scripts/Garbagejob.js')
+require('./Scripts/Busjob.js')
 
 // Tests
 require('./tests')
