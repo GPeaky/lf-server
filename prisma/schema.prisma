@@ -9,11 +9,11 @@ datasource db {
 
 model players {
     id              Int                 @id @default(autoincrement())	
-    identifier      String              @unique(map: "Players_identifier_key")
-    email           String              @unique(map: "Players_email_key")
+    identifier      String              @unique()
+    email           String              @unique()
     password        String
     data            String              @db.LongText()
-    role            players_role        @default(user)
+    role            Role        @default(user)
     wallet          String              @default("unknown")
     createdAt       DateTime            @default(now())
     updatedAt       DateTime            @default(now())
@@ -40,7 +40,7 @@ model vehicles {
     updatedAt       DateTime            @default(now())
 }
 
-enum players_role {
+enum Role {
     user
     superUser
 }
