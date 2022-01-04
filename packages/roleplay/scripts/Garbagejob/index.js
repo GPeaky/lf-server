@@ -7,6 +7,15 @@ const startSettings = {
     dimension: 0,
 }
 
+//-427.11 , -1717.8 , 19.27 , 282.67
+const vehicleSettings = {
+    x: -427.11 ,
+    y: -1717.8,
+    z: 19.27,
+    h: 282.67,
+    dimension: 0,
+}
+
 const stops = [
     {
         name: "Forum",
@@ -105,9 +114,9 @@ setInterval(() => {
 }, 1000);
 
 const createVehicle = async player => {
-    const veh = await mp.vehicles.new(mp.joaat('biff'), new mp.Vector3(startSettings.x, startSettings.y, startSettings.z),
+    const veh = await mp.vehicles.new(mp.joaat('biff'), new mp.Vector3(vehicleSettings.x, vehicleSettings.y, vehicleSettings.z),
     {
-        heading: 357.31,
+        heading: vehicleSettings.h,
         numberPlate: "GBJB",
         alpha: 255,
         color: [[0, 0, 0], [0, 0, 0]],
@@ -183,7 +192,7 @@ mp.events.addProc('job:garbage:getNextStop', async player => {
             working[player.shared.identifier].stopCount++
             return stops[0]
         }// All the players will go to the first stop firtst
-        let currentPlayerStop = working[player.shared.identifier].currentStop
+        const currentPlayerStop = working[player.shared.identifier].currentStop
         while (currentPlayerStop == working[player.shared.identifier].currentStop) {
             working[player.shared.identifier].currentStop = Math.floor(Math.random() * stops.length)
         }
