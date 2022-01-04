@@ -6,3 +6,7 @@ mp.events.addCommandGroup('coords', ['superUser'], player => {
 mp.events.addCommandGroup('copyC', ['superUser'], player => {
     player.call('copyCoords');
 });
+
+mp.events.addCommandGroup('copyV', ['superUser'], player => {
+    player.call('copyCoordsV');
+});
