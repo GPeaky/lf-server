@@ -92,6 +92,10 @@ const stops = [
         name: "South Arenal Street",
         coords: {x: -587.74, y: -1739.13, z: 22.47, h: 339.5},
     },
+    {
+        name: "Textile City",
+        coords: {x: 448.57, y: -574.37, z: 28.5, h: 298.5},
+    }
 ]
 
 const working = {}
