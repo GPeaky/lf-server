@@ -2,6 +2,7 @@ const FuelPoints = [
     {
         name: "Chamberlain Hill",
         blip: {
+            name: "Chamberlain Hill Gas Station",
             coords:{ x: -319.61,y: -1471.46,z: 30.12 },
             sprite: 361,
             color: 29            
@@ -32,19 +33,16 @@ const FuelPoints = [
             //-308.5 , -1470.01 , 30.12 , 209.47
             {x: -308.5,y: -1470.01,z: 30.12},
             //-309.72 , -1460.71 , 30.12 , 208.55
-        ],
-        colshapes: []
+        ]
     },
 ]
 
 const pricePerLiter = 1.5
 
 const Init = () => {
-    //TODO: Send blip to the blip system
-
-    //TODO: Make colshape and keys
-    FuelPoints.forEach(pointer => {
-        pointer.points.forEach(point => {
+    FuelPoints.forEach(( { points, blip } ) => {
+        new mp.core.Blips(blip)
+        points.forEach(point => {
             const colshape = mp.colshapes.newRectangle(point.x, point.y, 3, 3, 0)
         
             function playerEnterColshapeHandler(player, shape) {
