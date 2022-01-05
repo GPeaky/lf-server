@@ -67,3 +67,18 @@ mp.core.Checkpoints = class {
         this.checkpoint.showFor(player);
     }
 }
+
+mp.core.Blips = class {
+    constructor({name, coords, sprite, color, scale=0.8}) {
+        this.name = name;
+        this.coords = new mp.Vector3(coords.x, coords.y, 0);
+        this.sprite = sprite;
+        this.color = color;
+        this.scale = scale;
+        this.blip = mp.blips.new(sprite, coords, {
+            name,
+            color,
+            scale
+        });
+    }
+}
