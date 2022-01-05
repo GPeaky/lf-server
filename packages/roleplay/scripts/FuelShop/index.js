@@ -45,11 +45,11 @@ const Init = () => {
     //TODO: Make colshape and keys
     FuelPoints.forEach(pointer => {
         pointer.points.forEach(point => {
-            const colshape = mp.colshapes.newRectangle(point.x, point.y, 2.5, 2.5, 0)
+            const colshape = mp.colshapes.newRectangle(point.x, point.y, 3, 3, 0)
         
             function playerEnterColshapeHandler(player, shape) {
                 if(shape == colshape) {
-                    player.call("shop:fuel:enter", point)
+                    player.call("shop:fuel:enter", [point])
                 }
             }
             
@@ -58,7 +58,7 @@ const Init = () => {
             
             function playerExitColshapeHandler(player, shape) {
                 if(shape == colshape) {
-                    player.call("shop:fuel:exit", point)
+                    player.call("shop:fuel:exit", [point])
                 }
             }
             
@@ -67,14 +67,20 @@ const Init = () => {
     })
 }
 
-mp.events.add("shop:fuel:refuel", (vehicle, fuel) => {
+mp.events.addProc("shop:fuel:refuel", (player, fuel) => {
+    console.log(player.vehicle.fuel)
+    const {vehicle} = player
+    if(vehicle == null) return {err: 'not_in_vehicle'}
+
     //TODO: Check if player has enough money
-    if (vehicle.fuel + fuel <= 100) {
-        vehicle.fuel += fuel
-        return true
-    }else{
-        return false
-    }
+    const toPay = fuel * pricePerLiter
+    const playerMoney = 99999
+    if(toPay > playerMoney) return {err: 'not_enough_money'}
+
+    if (vehicle.fuel + fuel > 100) return {err: 'full_fuel'}
+
+    vehicle.fuel += fuel
+    return {pay: toPay}
 });
 
 Init()
