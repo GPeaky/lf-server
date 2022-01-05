@@ -16,9 +16,9 @@ require('./Garages')
 //Races
 require('./Races')
 
-// Voice
-// require('./Voice')
+//Fuel
+require('./FuelShop')
 
+//JOBS
 require('./Garbagejob')
-
 require('./Busjob')

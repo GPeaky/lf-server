@@ -14,6 +14,7 @@ const Instantiate = vehicle => {
         bodyHealth: vehicle.bodyHealth,
         vehicleKey: vehicle.vehicleKey,
         engineHealth: vehicle.engineHealth,
+        fuel: vehicle.fuel || 100,
         vehicleCreator: vehicle.vehicleCreator
     })
     
@@ -46,6 +47,7 @@ const Save = async vehicle => {
         bodyHealth: vehicle.bodyHealth,
         engineHealth: vehicle.engineHealth,
         vehicleCreator: vehicle.vehicleCreator,
+        fuel: vehicle.fuel || 100,
         deformationMap: vehicle.deformationMap || '{}',
     };
 
@@ -64,6 +66,7 @@ const Save = async vehicle => {
         if (cachedVehicleData.engineHealth != vehicleData.engineHealth) changes.push(`${cachedVehicleData.engineHealth} > ${vehicleData.engineHealth} engineHealth`)
         if (cachedVehicleData.bodyHealth != vehicleData.bodyHealth) changes.push(`${cachedVehicleData.bodyHealth} > ${vehicleData.bodyHealth} bodyHealth`)
         if (cachedVehicleData.locked != vehicleData.locked) changes.push(`${cachedVehicleData.locked} > ${vehicleData.locked} locked`)
+        if (cachedVehicleData.fuel != vehicleData.fuel) changes.push(`${cachedVehicleData.fuel} > ${vehicleData.fuel} fuel`)
         
         if (changes.length <= 0) return
     }
@@ -137,6 +140,7 @@ const spawnVehicle = ({ id, model, data }) => {
         dimension: vehicleData.dimension,
     })
     
+    vehicle.fuel = vehicleData.fuel || 100
     vehicle.isPersistent = true
     vehicle.vehicleKey = vehicleData.vehicleKey
     vehicle.vehicleCreator = vehicleData.vehicleCreator
