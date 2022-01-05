@@ -17,6 +17,13 @@ const vehicleSettings = {
     dimension: 0,
 }
 
+const blip = {
+    name: "Bus Center",
+    coords:{ x: 451.11 , y: -629.23, z: 28.54 },
+    sprite: 513,
+    color: 12            
+}
+
 const stops = [
     //307.08 , -763.35 , 29.2 , 161.02
     {
@@ -113,6 +120,8 @@ const stopBusJob = async (player) => {
 }
 
 const Init = async ()  => {
+    new mp.core.Blips(blip)
+    
     const startPointLabel = new mp.core.Label("[Bus Job] Press ~y~E~s~ Start / Stop", new mp.Vector3(startSettings.x , startSettings.y , startSettings.z+1),
     {
         los: false,

@@ -16,6 +16,13 @@ const vehicleSettings = {
     dimension: 0,
 }
 
+const blip = {
+    name: "Garbage Center",
+    coords:{ x: -418.74 , y: -1708.96, z: 19.4 },
+    sprite: 318,
+    color: 12            
+}
+
 const stops = [
     {
         name: "Forum",
@@ -150,6 +157,8 @@ stopGarbageJob = async (player) => {
 }
 
 const Init = async ()  => {
+    new mp.core.Blips(blip)
+
     const startPointLabel = new mp.core.Label("[Garbage Job] Press ~y~E~s~ Start / Stop", new mp.Vector3(-418.74 , -1708.96 , 19.4),
     {
         los: false,
