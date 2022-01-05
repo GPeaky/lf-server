@@ -7,13 +7,16 @@ mp.events.add('viewHud', () => {
 })
 
 setInterval(() => {
+    const shared = player.getVariable('shared');
+    console.log(shared);
     if( hudBrowser.active ) {
+
         hudBrowser.execute(`setHud(
             ${player.id}, 
             ${player.getHealth()}, 
             ${player.getArmour()}, 
-            ${(player.getVariable('shared')?.status.hunger) ? player.getVariable('shared')?.status.hunger : '100'}, 
-            ${(player.getVariable('shared')?.status.thirst) ? player.getVariable('shared')?.status.thirst : '100'})
+            ${(shared.status.hunger) ? shared.status.hunger : '100'}, 
+            ${(shared.status.thirst) ? shared.status.thirst : '100'})
         `);
     }
 }, 500);
