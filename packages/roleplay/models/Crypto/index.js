@@ -64,19 +64,6 @@ const Init = async () => {
             if (event.returnValues.to !== mp.crypto.contractAddress) return
             const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
             if (!playerDB?.wallet) return
-<<<<<<< HEAD
-<<<<<<< HEAD
-            const Transaction = await mp.database.Transactions.create({data: {id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending'}}) 
-=======
-            const Transaction = await mp.database.Transactions.create({id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending',}) 
->>>>>>> parent of 2c57541 (feat(database): added prisma again)
-=======
-            const Transaction = await mp.database.Transactions.create({id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending',}) 
->>>>>>> parent of c22ef8e (Merge branch 'main' of https://github.com/LifeExpenrience/server-files)
-            const playerConnected = await  mp.players.getByIdentifier(playerDB.identifier);
-=======
-            const Transaction = await mp.database.Transactions.create({data: {id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending',}}) 
->>>>>>> parent of 2c8ad25 (Revert "feat(Sequelize): Removed Sequelize, and added Prisma")
             let awaitConfirmationInterval = setInterval(async () => {
                 const tx = await mp.crypto.web3.eth.getTransaction(event.transactionHash)
                 const currentBlock = await mp.crypto.web3.eth.getBlockNumber(); const currentConfirmations = currentBlock - tx.blockNumber
