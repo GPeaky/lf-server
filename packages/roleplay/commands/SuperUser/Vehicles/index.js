@@ -7,6 +7,7 @@ mp.events.addCommandGroup('fix', ['superUser'], player => {
 })
 
 mp.events.addCommandGroup('dv', ['superUser'], player => {
+    delete player.shared.vehicleKeys[player.vehicle.vehicleKey];
     player.deleteVehicle()
 });
 
