@@ -4,7 +4,7 @@ setInterval(() => {
             // console.log(player.action)
             if( player.shared.status.hunger > 0 && player.shared.status.thirst > 0 ){
                 console.log(`Player ${player.id} alive, substract .04 `)
-                // player.shared.status.hunger -= .04;
+                player.shared.status.hunger -= .04;
                 player.shared.status.thirst -= .04;
             } else {
                 // console.log(`Player ${player.id} without status, substract 2 from life `)
