@@ -22,48 +22,31 @@ const Transfer = async (to, amount, playerId) => {
             type: 'reward',
         }) 
         mp.crypto.contract.methods.sendRewardsToPlayer(to, amount).send({from : mp.crypto.account.address, gas: 300000, nonce: cachedNonce})
-            .on("transactionHash", async (hash) => {
+            .on("transactionHash", (hash) => {
                 console.log(`Transaction Hash generated: ${hash} for ID: ${playerId}-${cachedNonce}`)
-                await mp.database.Transactions.update({
-                    where: {
-                        id: Transaction.id
-                    },
-                    data: {
-                        id: Transaction.id,
-                        status: 'pending',
-                    }
-                })
+                Transaction.id = hash
+                Transaction.status = 'pending'
+                Transaction.save()
             })
             .on("receipt", (receipt) => {
                 console.log(`Receipt: ${playerId}-${cachedNonce} - ${receipt.transactionHash}`)
                 Transaction.id = receipt.transactionHash
                 Transaction.status = 'success'
             })
-            .on("confirmation", async (confirmation) => {
+            .on("confirmation", (confirmation) => {
                 console.log(`Confirmation #${confirmation} for ID: ${playerId}-${cachedNonce}`);
                 Transaction.confirmations = confirmation
-                if (confirmation >= 10) {
-                    await mp.database.Transactions.update({
-                        where: {
-                            id: Transaction.id
-                        },
-                        data: {
-                            status: 'confirmed'
-                        }
-                    })
+                if (confirmation >= 3) {
+                    Transaction.status = 'confirmed'
+                    Transaction.save()
                     return resolve(true)
                 }
+                Transaction.save()
             })
             .on("error", async (error) => {
                 console.log(`Error for ID: ${playerId}-${cachedNonce}`);
-                await mp.database.Transactions.update({
-                    where: {
-                        id: Transaction.id
-                    },
-                    data: {
-                        status: 'failed'
-                    }
-                })
+                Transaction.status = 'failed'
+                Transaction.save()
                 return resolve(false)
             });
     })
@@ -82,39 +65,33 @@ const Init = async () => {
             const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
             if (!playerDB?.wallet) return
 <<<<<<< HEAD
+<<<<<<< HEAD
             const Transaction = await mp.database.Transactions.create({data: {id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending'}}) 
 =======
             const Transaction = await mp.database.Transactions.create({id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending',}) 
 >>>>>>> parent of 2c57541 (feat(database): added prisma again)
+=======
+            const Transaction = await mp.database.Transactions.create({id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending',}) 
+>>>>>>> parent of c22ef8e (Merge branch 'main' of https://github.com/LifeExpenrience/server-files)
             const playerConnected = await  mp.players.getByIdentifier(playerDB.identifier);
+=======
+            const Transaction = await mp.database.Transactions.create({data: {id: event.transactionHash, wallet: playerDB.wallet, amountWei: event.returnValues.value, amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'), nonce: playerDB.email, type: 'deposit', status: 'pending',}}) 
+>>>>>>> parent of 2c8ad25 (Revert "feat(Sequelize): Removed Sequelize, and added Prisma")
             let awaitConfirmationInterval = setInterval(async () => {
                 const tx = await mp.crypto.web3.eth.getTransaction(event.transactionHash)
                 const currentBlock = await mp.crypto.web3.eth.getBlockNumber(); const currentConfirmations = currentBlock - tx.blockNumber
                 if (currentConfirmations > 8) {
                     clearInterval(awaitConfirmationInterval)
-                    await mp.database.Transactions.update({
-                        where: {
-                            id: Transaction.id
-                        },
-
-                        data: {
-                            confirmations: currentConfirmations,
-                            status: 'confirmed'
-                        }
-                    })
+                    Transaction.confirmations = currentConfirmations,
+                    Transaction.status = 'confirmed'
+                    Transaction.save()
                     const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
                     console.log(`tX Approved, Player: ${playerDB.email} deposited ${mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether')}ELP CONFIRMED With ${currentConfirmations} blocks`)
                     if (!playerConnected) return
                     playerConnected.notify(`You have successfully deposited ${mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether')}ELP into your account.`)
                 } else {
-                    await mp.database.Transactions.update({
-                        where: {
-                            id: Transaction.id
-                        },
-                        data: {
-                            confirmations: currentConfirmations
-                        }
-                    })
+                    Transaction.confirmations = currentConfirmations,
+                    Transaction.save()
                     console.log(`Awaiting for confirmation for Player: ${playerDB.email}, tX: ${event.transactionHash} Current confirmations: ${currentConfirmations}`)
                     if (playerConnected) {
                         playerConnected.notify(`Your transaction with value ${mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether')} is validating, confirmations: ${currentConfirmations}.`)

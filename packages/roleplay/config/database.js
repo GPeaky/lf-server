@@ -5,10 +5,10 @@ const { SQ_NAME, SQ_USER, SQ_PASS } = process.env;
 
 <<<<<<< HEAD
             getPlayerByWallet: async wallet => {
-                return await prisma.players.findFirst({
-                    where: {
+                return await prisma.players.findUnique({
+                    data: {
                         wallet
-                    },
+                    }
                 })
             }
         },
