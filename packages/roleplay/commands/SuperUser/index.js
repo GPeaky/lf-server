@@ -5,6 +5,9 @@ mp.events.addCommandGroup = (commandName, groups, callback) => {
     })
 }
 
+// Player
+require('./Player')
+
 // Vehicles 
 require('./Vehicles')
 
