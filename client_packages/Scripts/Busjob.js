@@ -28,7 +28,6 @@ const Main = async () => {
                 })
                 blip.setRoute(true)
                 blip.setRouteColour(12)
-                // mp.game.ui.setNewWaypoint(currentStop.coords.x, currentStop.coords.y)
                 console.log('Go to the next point')
             }
         }
