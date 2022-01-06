@@ -67,7 +67,7 @@ const Save = async vehicle => {
         if (cachedVehicleData.bodyHealth != vehicleData.bodyHealth) changes.push(`${cachedVehicleData.bodyHealth} > ${vehicleData.bodyHealth} bodyHealth`)
         if (cachedVehicleData.locked != vehicleData.locked) changes.push(`${cachedVehicleData.locked} > ${vehicleData.locked} locked`)
         if (cachedVehicleData.fuel != vehicleData.fuel) {
-            vehicle.setVariable('fuel', vehicleData.fuel)
+            vehicle.data.fuel = vehicleData.fuel
             changes.push(`${cachedVehicleData.fuel} > ${vehicleData.fuel} fuel`)
         }
         
