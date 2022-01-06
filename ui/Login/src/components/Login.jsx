@@ -43,7 +43,7 @@ const Login = () => {
   return (
     <LoginStyled>
       <div className="divImage">
-        <img src={bottomLogin} alt='Bottom of login' />
+        {/* <img src={bottomLogin} alt='Bottom of login' /> */}
       </div>
       <div className="contentLogin">
         <AdvertsLogin />
