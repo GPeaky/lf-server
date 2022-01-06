@@ -1,13 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Login from './components/Login'
-// import '../styles/index.css'
-import './styles/index.css'
-
+import './index.css'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Login />
-  </React.StrictMode>,
+  <Login />,
   document.getElementById('root')
 )
