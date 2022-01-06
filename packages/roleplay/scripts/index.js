@@ -22,3 +22,4 @@ require('./FuelShop')
 //JOBS
 require('./Garbagejob')
 require('./Busjob')
+require('./TruckerJob')

@@ -139,7 +139,7 @@ const createVehicle = async player => {
     player.call('job:garbage:started', [veh.id])
 }
 
-stopGarbageJob = async (player) => {
+const stopGarbageJob = async (player) => {
     if (player.vehicle && player.vehicle.job?.jobName == 'garbage' && player.vehicle.job?.playerIdentifier == player.shared.identifier) {
         player.vehicle.job = null
         player.vehicle.destroy()

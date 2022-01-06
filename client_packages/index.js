@@ -19,6 +19,7 @@ require('./Scripts')
 require('./Scripts/FuelShop.js')
 require('./Scripts/Garbagejob.js')
 require('./Scripts/Busjob.js')
+require('./Scripts/TruckerJob.js')
 
 // Tests
 require('./tests')
