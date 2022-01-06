@@ -1,13 +1,20 @@
 {
   "files": {
-    "main.css": "./static/css/main.d48663cf.css",
-    "main.js": "./static/js/main.db12e86e.js",
+    "main.css": "./static/css/main.744ce5d4.css",
+    "main.js": "./static/js/main.56cf9656.js",
+    "static/media/bottomLogin.jpg": "./static/media/bottomLogin.1fcb2d40172246d05b83.jpg",
+    "static/media/Inter-Regular.ttf": "./static/media/Inter-Regular.2391725004ae05a27e8e.ttf",
+    "static/media/UbuntuMono-Regular.ttf": "./static/media/UbuntuMono-Regular.f17c05937940e39c45d1.ttf",
+    "static/media/arroba.png": "./static/media/arroba.64ca4e10915964a0f839.png",
+    "static/media/candado.png": "./static/media/candado.a725d71aa6304ad8c961.png",
+    "static/media/gtaChrismas.jpeg": "./static/media/gtaChrismas.22b828b4a6121d64a3c1.jpeg",
+    "static/media/logo.svg": "./static/media/logo.a664ae5e6c639903c2a0b2950fa94d05.svg",
     "index.html": "./index.html",
-    "main.d48663cf.css.map": "./static/css/main.d48663cf.css.map",
-    "main.db12e86e.js.map": "./static/js/main.db12e86e.js.map"
+    "main.744ce5d4.css.map": "./static/css/main.744ce5d4.css.map",
+    "main.56cf9656.js.map": "./static/js/main.56cf9656.js.map"
   },
   "entrypoints": [
-    "static/css/main.d48663cf.css",
-    "static/js/main.db12e86e.js"
+    "static/css/main.744ce5d4.css",
+    "static/js/main.56cf9656.js"
   ]
 }

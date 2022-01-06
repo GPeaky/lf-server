@@ -1,11 +1,13 @@
 const speedometerBrowser = mp.browsers.new('package://Cef/Speedometer/index.html')
+let speedInterval = null
+let rpmInterval = null
 speedometerBrowser.active= false
 
 function playerEnterVehicleHandler(vehicle, seat) {
     const player = mp.players.local
     if (seat == -1) {
         speedometerBrowser.active = true
-        setInterval(() => {
+        speedInterval = setInterval(() => {
             if (!player.vehicle) return
             const velocity = player.vehicle.getSpeed() * 3.6
             const gas = player.vehicle.getPetrolTankHealth()
@@ -16,6 +18,8 @@ function playerEnterVehicleHandler(vehicle, seat) {
 }
 
 function playerLeavedVehicleHandler(vehicle, seat){
+    if (speedInterval) clearInterval(speedInterval)
+    if (rpmInterval) clearInterval(rpmInterval)
     speedometerBrowser.active= false
 }
 
