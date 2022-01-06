@@ -1,4 +1,4 @@
-mp.events.addCommandGroup('giveWep', ['superUser'], (player, args, weapon, ammo) => {
+mp.events.addCommandGroup('giveWep', ['superUser'], (player, _args, weapon, ammo) => {
     if ( weapon ){
         player.giveWeapon(mp.joaat(`weapon_${weapon}`), parseInt(ammo) || 250);
         player.notify(`You have been given ${weapon}`);
