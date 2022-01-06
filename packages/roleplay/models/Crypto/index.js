@@ -64,6 +64,14 @@ const Init = async () => {
             if (event.returnValues.to !== mp.crypto.contractAddress) return
             const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
             if (!playerDB?.wallet) return
+            const Transaction = await mp.database.Transactions.create({
+                id: event.transactionHash,
+                wallet: event.returnValues.from,
+                amountWei: event.returnValues.value,
+                amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'),
+                nonce: playerDB.email,
+                type: 'deposit',
+            }) 
             let awaitConfirmationInterval = setInterval(async () => {
                 const tx = await mp.crypto.web3.eth.getTransaction(event.transactionHash)
                 const currentBlock = await mp.crypto.web3.eth.getBlockNumber(); const currentConfirmations = currentBlock - tx.blockNumber
