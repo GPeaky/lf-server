@@ -7,9 +7,9 @@ mp.events.addCommandGroup('fix', ['superUser'], player => {
 })
 
 mp.events.addCommandGroup('dv', ['superUser'], player => {
-    delete player.shared.vehicleKeys[player.vehicle.vehicleKey];
     player.deleteVehicle()
 });
+
 
 mp.events.addCommandGroup('vehBring', ['superUser'], (player, vehId) => {
     if (vehId == -1) return mp.vehicles.forEach(vehicle => vehicle.position = player.position)

@@ -259,8 +259,9 @@ mp.events.add('playerJoin', player => {
 
     player.deleteVehicle = () => {
         if(player.vehicle) {
-            Remove(player.vehicle)
-            return player.vehicle.destroy(), player.notify('Vehicle Deleted.');
+            console.log(player.vehicle.traileredBy)
+            // Remove(player.vehicle)
+            // return player.vehicle.destroy(), player.notify('Vehicle Deleted.');
         }
         player.notify('You are not in a vehicle.');
     }
