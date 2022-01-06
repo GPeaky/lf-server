@@ -14,19 +14,22 @@ const drawPoint = async (point) => {
 
 
 mp.events.add("shop:fuel:enter", ( point ) => {
-    near = true
+    near++
     currentPoint = point
     drawPoint(point)
 });
 
 mp.events.add("shop:fuel:exit", ( ) => {
-    near = false
-    if (marker) marker.destroy()
+    near--
+    if (marker) {
+        marker.destroy()
+        marker = null
+    }
     currentPoint = null
 });
 
 mp.keys.bind(0x45, true, async() => {
-    if (!near) return
+    if (near <=0) return
     if (currentPoint == null) return
     if (mp.players.local.position.subtract(new mp.Vector3(currentPoint.x, currentPoint.y, currentPoint.z)).length() >= 2.5) return
     //Open a ui to choose the fuel
