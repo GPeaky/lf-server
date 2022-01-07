@@ -7,6 +7,8 @@ mp.events.addCommandGroup('fix', ['superUser'], player => {
 })
 
 mp.events.addCommandGroup('dv', ['superUser'], (player, range) => {
+    if( player.vehicle && !range ) return player.deleteVehicle();
+    
     if( !range ) range = 10;
     mp.vehicles.forEachInRange(player.position, range, vehicle => {
         vehicle.destroy();
