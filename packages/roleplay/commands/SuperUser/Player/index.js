@@ -27,10 +27,10 @@ mp.events.addCommandGroup('setRole', ['superUser'], async (player, _args, id, ro
     try {
         mp.database.Players.update({ role }, {
             where: {
-                identifier: player.shared.identifier
+                identifier: playerById.shared.identifier
             }
         })
-    
+        
         playerById.internal.role = role
         playerById.notify(`You have been set to ~r~${role}`)
     } catch ( err ) {
