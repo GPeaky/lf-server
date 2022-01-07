@@ -6,11 +6,14 @@ mp.events.addCommandGroup('fix', ['superUser'], player => {
     player.repairVehicle()
 })
 
-mp.events.addCommandGroup('dv', ['superUser'], (player, range) => {
-    if( player.vehicle && !range ) return player.deleteVehicle();
-    
-    if( !range ) range = 10;
-    mp.vehicles.forEachInRange(player.position, vehicle => {
+mp.events.addCommandGroup('dv', ['superUser'], async (player, range) => {   
+    if (player.vehicle) return player.deleteVehicle()
+
+    if( !range ) range = 1.5;
+    mp.vehicles.forEachInRange(player.position, range, async vehicle => {
+        if (vehicle.dimension != player.dimension) return
+
+        await mp.utils.wait(1)
         vehicle.destroy();
     })
 });
