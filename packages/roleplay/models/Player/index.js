@@ -119,27 +119,6 @@ mp.events.add('playerJoin', player => {
             }
         }
         player.data.shared = {...playerData.shared}
-        // console.log(JSON.stringify(player.data.shared))
-        
-        // const playerData = { 
-        //     position, dimension, heading, health, armor, allWeapons, vehicleKeys, status, isDead,
-        //     lastVehicle: player.vehicle ? {numberPlate: player.vehicle.numberPlate, seat: player.seat} : false,
-        //     clothes: [
-        //         [   player.getClothes(0)   ],
-        //         [   player.getClothes(1)   ],
-        //         [   player.getClothes(2)   ],
-        //         [   player.getClothes(3)   ],
-        //         [   player.getClothes(4)   ],
-        //         [   player.getClothes(5)   ],
-        //         [   player.getClothes(6)   ],
-        //         [   player.getClothes(7)   ],
-        //         [   player.getClothes(8)   ],
-        //         [   player.getClothes(9)   ],
-        //         [   player.getClothes(10)  ],
-        //         [   player.getClothes(11)  ]
-        //     ],
-        //     haircolor: [player.hairColor, player.hairHighlightColor],
-        // }
         
         mp.database.Players.update({ data: JSON.stringify(playerData) }, {
             where: {
@@ -259,9 +238,9 @@ mp.events.add('playerJoin', player => {
 
     player.deleteVehicle = () => {
         if(player.vehicle) {
-            console.log(player.vehicle.traileredBy)
-            // Remove(player.vehicle)
-            // return player.vehicle.destroy(), player.notify('Vehicle Deleted.');
+            const vehicle = player.vehicle;
+            Remove(vehicle)
+            vehicle.destroy(), player.notify('Vehicle Deleted.');
         }
         player.notify('You are not in a vehicle.');
     }

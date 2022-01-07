@@ -8,5 +8,6 @@ setInterval(() => {
 }, 2 * 60 * 1000);
 
 mp.events.add("trailerAttached", (vehicle, trailer) => {
-    console.log(vehicle.numberPlate, trailer.numberPlate)
+    console.log(vehicle)
+    console.log(trailer)
 });

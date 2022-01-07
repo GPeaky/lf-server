@@ -32,22 +32,32 @@ const blip = {
     color: 12            
 }
 
-const centralStop = {
-    name: "Central Stop",
-    coords: { x: 861.69, y: -1166.93, z: 25.27 },
-}
-
 const stops = [
     {
-        name: "Textile City",
-        coords: {x: 448.57, y: -574.37, z: 28.5, h: 298.5},
+        name: "central",
+        coords: { x: 861.69, y: -1166.93, z: 25.27 },
+    },
+    {
+        name: "Burrieta Heights",
+        coords: {x: 1088.27, y: -1974.03, z: 31.24, h: 234.23},
+    },
+    {
+        name: "Burrieta Heights 2",
+        coords: {x: 1017.4, y: -1796.76, z: 34.65, h: 355.89},
+    },
+    {
+        name: "Cypress Flats",
+        coords: {x: 1037.49, y: -2502.77, z: 28.64, h: 267.46},
+    },
+    {
+        name: "Docker Terminal",
+        coords: {x: 1191.83, y: -3195.85, z: 6.26, h: 270.45},
     }
 ]
 
 const working = {}
 
 const createTrailer = async (player, vehid) => {
-    let sended = false
     const trailer = await mp.vehicles.new(mp.joaat('trailers2'), new mp.Vector3(trailerSettings.x, trailerSettings.y, trailerSettings.z),
     {
         heading: trailerSettings.h,
@@ -64,28 +74,13 @@ const createTrailer = async (player, vehid) => {
     }
     working[player.shared.identifier].jobTrailerID = trailer.id
     player.call('job:trucker:started', [vehid, trailer.id])
-
-    mp.events.add('trailerAttached', (vehicle, trailer) => {
-        console.log('trailerAttached')
-        if(vehicle == vehid && trailer == trailer.id && !sended) {
-            sended = true
-            player.call('job:trucker:start', [vehicle.id, trailer.id])
-        }
-    });
-
-    mp.events.add('VehicleTrailerChange', (vehicle, trailer) => {
-        console.log("VehicleTrailerChange")
-        if(vehicle == vehid && trailer == trailer.id && sended) {
-            player.call('job:trucker:cancel', [vehicle.id, trailer.id])
-        }
-    })
 }
 
 const createVehicle = async player => {
     const veh = await mp.vehicles.new(mp.joaat('hauler'), new mp.Vector3(vehicleSettings.x, vehicleSettings.y, vehicleSettings.z),
     {
         heading: vehicleSettings.h,
-        numberPlate: "GBJB",
+        numberPlate: "TKJB",
         alpha: 255,
         color: [[0, 0, 0], [0, 0, 0]],
         locked: false,
@@ -157,17 +152,22 @@ const Init = async ()  => {
 
 mp.events.add('job:trucker:stop', stopTruckerJob)
 
+setInterval(() => {
+    console.log(working)
+}, 500);
+
 mp.events.addProc('job:trucker:getNextStop', async player => {
     if (working[player.shared.identifier]) {
         
         const currentPlayerStop = working[player.shared.identifier].currentStop
-        while (currentPlayerStop == working[player.shared.identifier].currentStop) {
+        while (currentPlayerStop == working[player.shared.identifier].currentStop || working[player.shared.identifier].currentStop == 0) {
             working[player.shared.identifier].currentStop = Math.floor(Math.random() * stops.length)
         }
 
         if(working[player.shared.identifier].needsToReturn) {
             working[player.shared.identifier].needsToReturn = false
-            return centralStop
+            working[player.shared.identifier].currentStop = 0
+            return stops[0]
         }
 
         working[player.shared.identifier].needsToReturn = true

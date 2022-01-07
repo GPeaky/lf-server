@@ -8,13 +8,14 @@ let blip = null
 let trailer
 let vehicle
 
+const checkBlipAndDestroy = async() => {
+    if (blip) {await blip.destroy()}
+    blip = null;
+}
+
 const Main = async (vehRID, trailerID) => {
     while (true) {
         if (inJob) {
-            if(!vehicle.isAttached(trailer)) {
-                cancel(vehRID, trailerID)
-                break
-            }
             isInStop = await mp.events.callRemoteProc('job:trucker:isInStop')
             if (isInStop) {
                 if (!marker) {
@@ -25,7 +26,7 @@ const Main = async (vehRID, trailerID) => {
                     })
                 }
             } else {
-                if(blip) blip.destroy()
+                checkBlipAndDestroy()
                 blip = await mp.blips.new(1, new mp.Vector3(currentStop.coords.x, currentStop.coords.y, currentStop.coords.z), {
                     name: 'Point',
                     scale: 0.45,
@@ -50,7 +51,7 @@ mp.events.add('job:trucker:started', async (vehRID, trailerID) => {
     if (!trailer) return mp.events.callRemote('job:trucker:stop')
     mp.game.graphics.notify('Get into the Truck and attach the trailer')
 
-    if(blip) blip.destroy()
+    checkBlipAndDestroy()
     blip = await mp.blips.new(479, new mp.Vector3(trailer.position.x, trailer.position.y, trailer.position.z), {
         name: 'Trailer',
         scale: 0.45,
@@ -61,7 +62,7 @@ mp.events.add('job:trucker:started', async (vehRID, trailerID) => {
     blip.setRoute(true)
     blip.setRouteColour(12)
     while(true) {
-        if(vehicle.isAttached(trailer)) {
+        if(vehicle.isAttachedToTrailer()) {
             start()
             break
         }
@@ -70,9 +71,9 @@ mp.events.add('job:trucker:started', async (vehRID, trailerID) => {
 })
 
 const start = async () => {
-    if (!vehicle) return mp.events.callRemote('job:trucker:stop')
-    if (!trailer) return mp.events.callRemote('job:trucker:stop')
+    if (!vehicle || !trailer) return mp.events.callRemote('job:trucker:stop')
 
+    checkBlipAndDestroy()
     mp.game.graphics.notify('Go to the point')
 
     inJob = true
@@ -88,7 +89,7 @@ const cancel = () => {
     currentStop = null
     if (marker) marker.destroy()
     marker = null
-    if (blip) blip.destroy()
+    checkBlipAndDestroy()
     blip = null
 }
 
@@ -109,7 +110,7 @@ mp.keys.bind(0x45, true, async() => {
 
 mp.events.add('job:trucker:stopped', async () => {
     if (marker) marker.destroy()
-    if (blip) blip.destroy()
+    checkBlipAndDestroy()
     inJob = false
     marker = null
     currentStop = null
