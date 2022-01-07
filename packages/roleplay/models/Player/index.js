@@ -238,7 +238,7 @@ mp.events.add('playerJoin', player => {
 
     player.deleteVehicle = () => {
         if(player.vehicle) {
-            const vehicle = player.vehicle;
+            const {vehicle} = player
             Remove(vehicle)
             vehicle.destroy(), player.notify('Vehicle Deleted.');
         }
