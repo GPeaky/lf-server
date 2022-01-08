@@ -1,5 +1,5 @@
+const argon2 = require('argon2');
 const { nanoid } = require('nanoid');
-const bcryptjs = require('bcryptjs');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/database')
 
@@ -22,8 +22,10 @@ const Players = sequelize.define('player', {
 
     password: {
         type: DataTypes.STRING,
-        set(val) {
-            this.setDataValue('password', bcryptjs.hashSync(val, 10));
+        allowNull: false,
+
+        validate: {
+            notEmpty: true
         }
     },
 
@@ -48,6 +50,12 @@ const Players = sequelize.define('player', {
         defaultValue: 'unkown',
     }
 
+}, {
+    hooks: {
+        beforeValidate: async player => {
+            player.password = await argon2.hash(player.password);
+        }
+    }
 })
 
 module.exports = Players
