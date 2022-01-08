@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
+const short = require('short-uuid');
 const bcryptjs = require('bcryptjs');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/database')
@@ -50,7 +50,7 @@ const Players = sequelize.define('player', {
 }, {
     hooks: {
         beforeValidate: player => {
-            player.identifier = uuidv4();
+            player.identifier = short.generate();
         }
     }
 })
