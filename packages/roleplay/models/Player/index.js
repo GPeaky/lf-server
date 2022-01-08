@@ -1,5 +1,6 @@
-const { nanoid } = require('nanoid');
+const { customAlphabet } = require('nanoid');
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
+const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 9);
 
 mp.players.getByIdentifier = async(identifier) => {
     try {
@@ -219,7 +220,7 @@ mp.events.add('playerJoin', player => {
         if (vehicle) {
             const veh = mp.vehicles.new(mp.joaat(vehicle), new mp.Vector3(position), {
                 heading,
-                numberPlate: nanoid(9),
+                numberPlate: nanoid(),
                 dimension: player.dimension
             })
 

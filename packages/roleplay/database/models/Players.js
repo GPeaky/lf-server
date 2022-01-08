@@ -22,11 +22,7 @@ const Players = sequelize.define('player', {
 
     password: {
         type: DataTypes.STRING,
-        allowNull: false,
-
-        validate: {
-            notEmpty: true
-        }
+        allowNull: false
     },
 
     data:{
@@ -52,7 +48,7 @@ const Players = sequelize.define('player', {
 
 }, {
     hooks: {
-        beforeValidate: async player => {
+        beforeCreate: async (player) => {
             player.password = await argon2.hash(player.password);
         }
     }
