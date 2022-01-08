@@ -1,4 +1,5 @@
 mp.events.addCommand('logout', player => {
+    console.log('player attempted logout')
     player.logout()
 })
 

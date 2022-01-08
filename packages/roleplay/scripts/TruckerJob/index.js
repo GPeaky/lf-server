@@ -152,10 +152,6 @@ const Init = async ()  => {
 
 mp.events.add('job:trucker:stop', stopTruckerJob)
 
-setInterval(() => {
-    console.log(working)
-}, 500);
-
 mp.events.addProc('job:trucker:getNextStop', async player => {
     if (working[player.shared.identifier]) {
         

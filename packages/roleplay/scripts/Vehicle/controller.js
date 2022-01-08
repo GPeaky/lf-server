@@ -148,7 +148,7 @@ const spawnVehicle = ({ id, model, data }) => {
     vehicle.vehicleKey = vehicleData.vehicleKey
     vehicle.vehicleCreator = vehicleData.vehicleCreator
     vehicle.deformationMap = vehicleData.deformationMap
-    console.log(`Vehicle with ID: ${id} spawned.`)
+    // console.log(`Vehicle with ID: ${id} spawned.`)
 
     UpdateCache(vehicle, vehicleData)
 }

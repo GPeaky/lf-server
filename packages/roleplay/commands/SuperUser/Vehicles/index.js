@@ -1,5 +1,12 @@
 mp.events.addCommandGroup('veh', ['superUser'], (player, vehicle) => {
-    player.spawnVehicle(vehicle, player.position, player.heading)
+    player.spawnVehicle(vehicle, new mp.Vector3(player.position.x, player.position.y + 3.0, player.position.z), player.heading)
+});
+
+mp.events.addCommandGroup('setdim', ['superUser'], (player, _fullText, target, dimNumber) => {
+    if (target == 'me') return player.dimension = Number(dimNumber);
+    if (!target || !dimNumber) return player.outputChatBox('Usage: /setdim [playerId | me], [dimension]');
+    if (!mp.players.at(Number(target))) return player.outputChatBox('Player not found with ID ${target}');
+    mp.players.at(Number(target)).dimension = Number(dimNumber);
 });
 
 mp.events.addCommandGroup('fix', ['superUser'], player => {

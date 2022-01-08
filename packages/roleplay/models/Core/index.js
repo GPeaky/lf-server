@@ -69,16 +69,18 @@ mp.core.Checkpoints = class {
 }
 
 mp.core.Blips = class {
-    constructor({name, coords, sprite, color, scale=0.8, short=true}) {
+    constructor({name, coords, sprite, color, scale=0.8, short=true, dimension=0}) {
         this.name = name;
         this.coords = new mp.Vector3(coords.x, coords.y, 0);
         this.sprite = sprite;
         this.color = color;
         this.scale = scale;
+        this.dimension = dimension;
         this.blip = mp.blips.new(sprite, coords, {
             name,
             color,
-            shortRange:short
+            dimension,
+            shortRange:short,
         });
     }
 }
