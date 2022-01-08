@@ -32,13 +32,9 @@ const Players = sequelize.define('player', {
     },
 
     role: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('user', 'superUser'),
         defaultValue: 'user',
         allowNull: false,
-
-        validate: {
-            isIn: [['user', 'superUser']]
-        }
     },
 
     wallet: {
