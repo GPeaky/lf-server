@@ -1,4 +1,4 @@
-const short = require('short-uuid')
+const shortId = require('shortid')
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 
 mp.players.getByIdentifier = async(identifier) => {
@@ -217,7 +217,7 @@ mp.events.add('playerJoin', player => {
             })
 
             player.putIntoVehicle(veh, 0);
-            veh.vehicleKey = short.generate();
+            veh.vehicleKey = shortId.generate();
             veh.vehicleCreator = player.shared.identifier;
             veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
             player.shared.vehicleKeys[veh.vehicleKey] = {

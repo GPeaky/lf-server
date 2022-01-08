@@ -1,26 +1,27 @@
-const short = require('short-uuid');
+const shortId = require('shortid');
 const bcryptjs = require('bcryptjs');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/database')
 
 const Players = sequelize.define('player', {
     identifier: {
-        type: DataTypes.STRING(36),
-
-        // set() {
-        //     this.setDataValue('identifier', uuidv4());
-        // }
+        type: DataTypes.STRING(9),
+        defaultValue: () => shortId.generate()
     },
     
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+
+        validate: {
+            isEmail: true,
+            notEmpty: true
+        }
     },
 
     password: {
         type: DataTypes.STRING,
-        
         set(val) {
             this.setDataValue('password', bcryptjs.hashSync(val, 10));
         }
@@ -29,6 +30,10 @@ const Players = sequelize.define('player', {
     data:{
         type: DataTypes.TEXT('long'),
         allowNull: false,
+
+        validate: {
+            isJSON: true,
+        }
     },
 
     role: {
@@ -43,12 +48,6 @@ const Players = sequelize.define('player', {
         defaultValue: 'unkown',
     }
 
-}, {
-    hooks: {
-        beforeValidate: player => {
-            player.identifier = short.generate();
-        }
-    }
 })
 
 module.exports = Players

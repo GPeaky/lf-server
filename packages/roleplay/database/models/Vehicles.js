@@ -3,7 +3,7 @@ const sequelize = require('../../config/database');
 
 const Vehicles = sequelize.define('vehicles', {
     id: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(9),
         allowNull: false,
         primaryKey: true
     },
@@ -13,10 +13,14 @@ const Vehicles = sequelize.define('vehicles', {
         allowNull: false
     },
 
-    data: {
-        type: DataTypes.STRING(10000),
-        allowNull: false
-    }
+    data:{
+        type: DataTypes.TEXT('long'),
+        allowNull: false,
+
+        validate: {
+            isJSON: true,
+        }
+    },
 })
 
 module.exports = Vehicles;
