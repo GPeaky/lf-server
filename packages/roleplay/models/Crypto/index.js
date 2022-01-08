@@ -71,7 +71,11 @@ const Init = async () => {
                 amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'),
                 nonce: playerDB.email,
                 type: 'deposit',
-            }) 
+            })
+            console.log(playerDB.identifier)
+            const playerConnected = await mp.players.getByIdentifier(playerDB.identifier);
+            console.log(playerConnected)
+            console.log(playerConnected.id)
             let awaitConfirmationInterval = setInterval(async () => {
                 const tx = await mp.crypto.web3.eth.getTransaction(event.transactionHash)
                 const currentBlock = await mp.crypto.web3.eth.getBlockNumber(); const currentConfirmations = currentBlock - tx.blockNumber

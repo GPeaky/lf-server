@@ -2,10 +2,17 @@ const shortId = require('shortid')
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 
 mp.players.getByIdentifier = async(identifier) => {
-    await mp.players.forEach(player => {
-        if (player?.shared?.identifier === identifier) return(player)
-    })
-    return false
+    try {
+        await mp.players.forEach(player => {
+            console.log(`AAA ${player.shared?.identifier} | ${identifier}`)
+            if (player.shared?.identifier == identifier) return player
+        })
+
+        return false;
+    } catch (err) {
+        console.error(`Unexpected error occurred while getting player by identifier: ${err}`)
+        return false
+    }
 }
 
 mp.events.add('playerJoin', player => {
