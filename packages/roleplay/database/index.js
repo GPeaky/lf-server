@@ -1,12 +1,21 @@
 const database = require('../config/database');
+const Players = require('./models/Players');
 
 module.exports = async () => {
     try {
-        mp.database = {}
-        // require All Database Models Here
-        require('./models/Vehicles')
-        require('./models/Players')
-        require('./models/Transactions')
+        mp.database = {
+            Players:Players,
+            Vehicles: require('./models/Vehicles'),
+            Transactions: require('./models/Transactions')
+        }
+        
+        mp.database.Players.getPlayerByWallet = async wallet => {
+            return await Players.findOne({
+                where: {
+                    wallet: wallet
+                }
+            })
+        }
 
         await database.sync();
         console.log('Database Synced!'.green);

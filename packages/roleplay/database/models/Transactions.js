@@ -47,4 +47,4 @@ const Transactions = sequelize.define('transactions', {
     },
 })
 
-mp.database.Transactions = Transactions
+module.exports = Transactions
