@@ -101,16 +101,16 @@ mp.events.add('playerStartEnterVehicle', (player, vehicle) => {
 
 mp.events.addCommand('giveKeys', (player, _playerId) => {
     const _player = mp.players.at(_playerId)
+    if (!player.vehicle) return player.notify(`You don't have a vehicle.`)
     if (!_player) return player.notify(`Player with ID: ${_playerId} not found.`)
-    if (!player.vehicle ) return player.notify(`You don't have a vehicle.`)
-    if (!player.shared.vehicleKeys[player.vehicle.numberPlate].owner) return `You are not the owner of this vehicle `
+    if (!player.shared.vehicleKeys[player.vehicle.numberPlate].owner) return player.notify(`You are not the owner of this vehicle`)
     if (_player.shared.vehicleKeys[player.vehicle.numberPlate]) return player.notify('This user already has the keys')
 
     _player.shared.vehicleKeys[player.vehicle.numberPlate] = {
         vehicleCreator: _player.shared.identifier,
         isOwner: false
     }
-    
+
     player.notify(`You gave ${_player.name} the keys of your vehicle.`)
     _player.notify(`${player.name} gave you the keys of your vehicle.`)
 })
