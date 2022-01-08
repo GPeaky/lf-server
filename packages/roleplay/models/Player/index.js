@@ -148,7 +148,7 @@ mp.events.add('playerJoin', player => {
             const { internal, shared } = playerData;
 
             // Essentials vars
-            player.name = identifier
+            player.name = `Unknown #${identifier}`
             player.health = internal.health
             player.armour = internal.armor
             player.heading = internal.heading
