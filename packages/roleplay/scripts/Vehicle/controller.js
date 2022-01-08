@@ -12,7 +12,6 @@ const Instantiate = vehicle => {
         color: vehicle.getColorRGB(),
         dimension: vehicle.dimension,
         bodyHealth: vehicle.bodyHealth,
-        vehicleKey: vehicle.vehicleKey,
         engineHealth: vehicle.engineHealth,
         fuel: vehicle.fuel || 100,
         vehicleCreator: vehicle.vehicleCreator
@@ -43,7 +42,6 @@ const Save = async vehicle => {
         position: vehicle.position,  
         color: vehicle.getColorRGB(),
         dimension: vehicle.dimension,
-        vehicleKey: vehicle.vehicleKey,
         bodyHealth: vehicle.bodyHealth,
         engineHealth: vehicle.engineHealth,
         vehicleCreator: vehicle.vehicleCreator,
@@ -95,7 +93,7 @@ mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
 });
 
 mp.events.add('playerStartEnterVehicle', (player, vehicle) => {
-    if (vehicle.job || player.shared.vehicleKeys[vehicle.vehicleKey]) return true
+    if (vehicle.job || player.shared.vehicleKeys[vehicle.numberPlate]) return true
 
     player.notify(`You don't have access to this vehicle.`)
     player.removeFromVehicle()
@@ -106,9 +104,9 @@ mp.events.addCommand('giveKeys', (player, _playerId) => {
     if ( player.vehicle ) {
         if ( _player ) {
             if ( player.vehicle.vehicleCreator == player.shared.identifier ) {
-                if (_player.shared.vehicleKeys[player.vehicle.vehicleKey]) return player.notify('This user already has the keys')
-                _player.shared.vehicleKeys[player.vehicle.vehicleKey] = {
-                    vehicleKey: player.vehicle.vehicleKey,
+                if (_player.shared.vehicleKeys[player.vehicle.numberPlate]) return player.notify('This user already has the keys')
+                _player.shared.vehicleKeys[player.vehicle.numberPlate] = {
+                    vehicleKey: player.vehicle.numberPlate,
                     vehicleNumberPlate: player.vehicle.numberPlate,
                     vehicleCreator: player.vehicle.vehicleCreator,
                 }
@@ -145,7 +143,6 @@ const spawnVehicle = ({ id, model, data }) => {
     
     vehicle.fuel = vehicleData.fuel || 100
     vehicle.isPersistent = true
-    vehicle.vehicleKey = vehicleData.vehicleKey
     vehicle.vehicleCreator = vehicleData.vehicleCreator
     vehicle.deformationMap = vehicleData.deformationMap
     // console.log(`Vehicle with ID: ${id} spawned.`)

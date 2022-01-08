@@ -1,4 +1,4 @@
-const shortId = require('shortid')
+const { nanoid } = require('nanoid');
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 
 mp.players.getByIdentifier = async(identifier) => {
@@ -219,18 +219,16 @@ mp.events.add('playerJoin', player => {
         if (vehicle) {
             const veh = mp.vehicles.new(mp.joaat(vehicle), new mp.Vector3(position), {
                 heading,
-                numberPlate: mp.utils.generateNumberPlate(),
+                numberPlate: nanoid(9),
                 dimension: player.dimension
             })
 
             player.putIntoVehicle(veh, 0);
-            veh.vehicleKey = shortId.generate();
             veh.vehicleCreator = player.shared.identifier;
             veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
-            player.shared.vehicleKeys[veh.vehicleKey] = {
-                vehicleKey: veh.vehicleKey,
+            player.shared.vehicleKeys[veh.numberPlate] = {
                 vehicleCreator: player.shared.identifier,
-                vehicleNumberPlate: veh.numberPlate
+                isOwner: true
             };
             Instantiate(veh)
         } else player.notify('Vehicle not found.');

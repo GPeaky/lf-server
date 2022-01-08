@@ -14,10 +14,9 @@
     "dotenv": "^10.0.0",
     "logger": "^0.0.1",
     "mariadb": "^2.5.5",
+    "nanoid": "^3.1.30",
     "pm2": "^5.1.2",
     "sequelize": "^7.0.0-alpha.4",
-    "shortid": "^2.2.16",
-    "uuid": "^8.3.2",
     "web3": "^1.6.1"
   },
   "devDependencies": {

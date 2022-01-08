@@ -1,4 +1,4 @@
-const shortId = require('shortid');
+const { nanoid } = require('nanoid');
 const bcryptjs = require('bcryptjs');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/database')
@@ -6,7 +6,7 @@ const sequelize = require('../../config/database')
 const Players = sequelize.define('player', {
     identifier: {
         type: DataTypes.STRING(9),
-        defaultValue: () => shortId.generate()
+        defaultValue: () => nanoid(9)
     },
     
     email: {
@@ -39,7 +39,7 @@ const Players = sequelize.define('player', {
     role: {
         type: DataTypes.ENUM('user', 'superUser'),
         defaultValue: 'user',
-        allowNull: false,
+        allowNull: false
     },
 
     wallet: {

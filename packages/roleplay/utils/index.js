@@ -26,6 +26,3 @@ mp.utils.Queue = class {
         }
     }
 }
-
-// NumberPlate 
-require('./NumberPlate');

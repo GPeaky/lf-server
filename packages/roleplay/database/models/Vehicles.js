@@ -5,7 +5,7 @@ const Vehicles = sequelize.define('vehicles', {
     id: {
         type: DataTypes.STRING(9),
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
     },
 
     model: {
