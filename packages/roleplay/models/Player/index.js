@@ -3,17 +3,11 @@ const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 9);
 
 mp.players.getByIdentifier = async(identifier) => {
-    try {
+    return new Promise(resolve => {
         await mp.players.forEach(player => {
-            console.log(`AAA ${player.shared?.identifier} | ${identifier}`)
-            if (player.shared?.identifier == identifier) return player
-        })
-
-        return false;
-    } catch (err) {
-        console.error(`Unexpected error occurred while getting player by identifier: ${err}`)
-        return false
-    }
+            if (player.shared?.identifier == identifier) resolve(player);
+        }); resolve(false)
+    })
 }
 
 mp.events.add('playerJoin', player => {
