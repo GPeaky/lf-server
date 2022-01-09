@@ -3,7 +3,7 @@ const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 9);
 
 mp.players.getByIdentifier = async(identifier) => {
-    return new Promise(resolve => {
+    return new Promise(async resolve => {
         await mp.players.forEach(player => {
             if (player.shared?.identifier == identifier) resolve(player);
         }); resolve(false)
