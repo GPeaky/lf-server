@@ -20,3 +20,7 @@ mp.events.addCommandGroup('tp', ['superUser'], (player, fullText, x, y, z) => {
     if (!x || !y || !z) return player.outputChatBox("Syntax: /tp x y z")
     player.position = new mp.Vector3(Number(fullText))
 })
+
+mp.events.addCommandGroup('test', ['superUser', async player => {
+    player.broadcast(`Your id is ${player.id}`)
+}])
