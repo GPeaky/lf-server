@@ -55,6 +55,8 @@ const stops = [
     }
 ]
 
+const experiencePerStop = 1
+
 const working = {}
 
 const createTrailer = async (player, vehid) => {
@@ -96,6 +98,14 @@ const createVehicle = async player => {
 }
 
 const stopTruckerJob = async (player) => {
+    if(player.shared.experience == undefined){
+        player.shared.experience = {}
+    }
+    if(player.shared.experience['trucker'] != undefined){
+        player.shared.experience['trucker'] = player.shared.experience['trucker'] + ( working[player.shared.identifier].stopCount * experiencePerStop )
+    }else{
+        player.shared.experience['trucker'] = working[player.shared.identifier].stopCount * experiencePerStop
+    }
     if (player.vehicle && player.vehicle.job?.jobName == 'trucker' && player.vehicle.job?.playerIdentifier == player.shared.identifier) {
         player.vehicle.job = null
         player.vehicle.destroy()

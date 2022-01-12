@@ -41,7 +41,7 @@ const Main = async (vehRID, trailerID) => {
             }
         }
         await mp.utils.wait(5000)
-    } 
+    }
 }
 
 mp.events.add('job:trucker:started', async (vehRID, trailerID) => {

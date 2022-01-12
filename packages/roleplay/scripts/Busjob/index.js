@@ -77,6 +77,8 @@ const stops = [
     },
 ]
 
+const experiencePerStop = 1
+
 const working = {}
 
 // setInterval(() => {
@@ -103,6 +105,14 @@ const createVehicle = async player => {
 }
 
 const stopBusJob = async (player) => {
+    if(player.shared.experience == undefined){
+        player.shared.experience = {}
+    }
+    if(player.shared.experience['bus'] != undefined){
+        player.shared.experience['bus'] = player.shared.experience['bus'] + ( working[player.shared.identifier].stopCount * experiencePerStop )
+    }else{
+        player.shared.experience['bus'] = working[player.shared.identifier].stopCount * experiencePerStop
+    }
     if (player.vehicle && player.vehicle.job?.jobName == 'bus' && player.vehicle.job?.playerIdentifier == player.shared.identifier) {
         player.vehicle.job = null
         player.vehicle.destroy()
