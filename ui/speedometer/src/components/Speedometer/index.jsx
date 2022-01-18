@@ -17,7 +17,7 @@ export default function Speedometer() {
             <div id="fondoTacometro">
                 <div id="tachometer">
                     <div className="progress-bar">
-                        <span style={{ width: `${ speed / 2.5 }%` }}>
+                        <span style={{ width: `${ speed / 2.0 }%` }}>
                             <div className="bg-span"></div>
                         </span>
                     </div>
