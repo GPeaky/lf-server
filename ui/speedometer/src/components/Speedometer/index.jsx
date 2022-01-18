@@ -6,7 +6,7 @@ export default function Speedometer() {
     const [ gear, setGear ] = useState(0)
     const [ speed, setSpeed ] = useState(0)
 
-    window.mp?.events.add('speedometer::update', ({rpm, speed, gear}) => {
+    window.mp?.events.add('speedometer::update', (rpm, speed, gear) => {
         setRpm(rpm)
         setSpeed(speed)
         setGear(gear)
@@ -29,7 +29,7 @@ export default function Speedometer() {
                 </div>
                 <div id="rpm">
                     <div className="progress-bar-rpm">
-                        <span style={{ width: `${ rpm / 70 }%` }}>
+                        <span style={{ width: `${ rpm / 100 }%` }}>
                             <div className="bg-span-rpm"></div>
                         </span>
                     </div>

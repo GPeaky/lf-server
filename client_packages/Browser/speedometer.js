@@ -11,14 +11,9 @@ mp.events.add({
                 if (!player.vehicle) return
                 const { rpm, gear } = player.vehicle
                 const speed = player.vehicle.getSpeed() * 3.6
-
-                console.log(rpm, gear, speed)
     
-                browser.callProc('speedometer:update', {
-                    rpm, gear,
-                    speed: speed.toFixed(0), 
-                })
-            }, 200) 
+                browser.call('speedometer::update', (rpm * 10000).toFixed(0), speed.toFixed(0), gear)
+            }, 1) 
         }
     },
 
