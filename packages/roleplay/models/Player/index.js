@@ -28,6 +28,7 @@ mp.events.add('playerJoin', player => {
         player.internal.balance = 
         player.shared.vehicleKeys = {};
         player.shared.status = { hunger: 100, thirst: 100 }
+        player.shared.wallet = 'unkown'
         
         // Set Default Data
         player.setClothes(0, 0, 0, 0);
@@ -128,10 +129,10 @@ mp.events.add('playerJoin', player => {
             }
         })
     }
-    
+
     player.load = async (email) => {
         if (player.shared.loaded) return
-        const { data, identifier, role } = await mp.database.Players.findOne({
+        const { data, identifier, role, wallet } = await mp.database.Players.findOne({
             where: {
                 email: email
             }
@@ -158,6 +159,7 @@ mp.events.add('playerJoin', player => {
             // Append Shared & Internal
             player.internal.role = role
             player.shared.identifier = identifier
+            player.shared.wallet = wallet
 
 
             for (const weapon in internal.allWeapons) {

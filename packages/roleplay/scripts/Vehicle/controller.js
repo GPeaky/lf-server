@@ -54,6 +54,8 @@ const Save = async vehicle => {
         vehicleData.bodyHealth = cachedVehicleData.bodyHealth
     }
 
+    // I willl made a change so the server will automaticly restart CTRL + s
+
     if (cachedVehicleData) {
         const changes = []
         if (cachedVehicleData.position?.x != vehicleData.position?.x) changes.push(`${cachedVehicleData.position?.x} > ${vehicleData.position?.x} position x`)
@@ -80,6 +82,8 @@ const Save = async vehicle => {
 
     UpdateCache(vehicle, vehicleData)
 }
+
+
 
 mp.events.add("setVehicleDeformationMap", (player, deformationMap) => {
     const vehicle = player?.vehicle
