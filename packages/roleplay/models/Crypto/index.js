@@ -105,21 +105,10 @@ const Init = async () => {
             console.log(`Connected to: ${event}`)
         })
 
-
-    // let status = await Transfer('0x9D64847BFBEAA3F59b798Ef0927045a611cfC3a1', mp.crypto.web3.utils.toWei('1', 'ether'), 'NACHO')
-    // console.log(status)
-    // status = await Transfer('0x9D64847BFBEAA3F59b798Ef0927045a611cfC3a1', mp.crypto.web3.utils.toWei('1', 'ether'), 'NACHO')
-    // console.log(status)
-    // status = await Transfer('0x9D64847BFBEAA3F59b798Ef0927045a611cfC3a1', mp.crypto.web3.utils.toWei('1', 'ether'), 'NACHO')
-    // console.log(status)
-    // status = await Transfer('0xeFB0eB0911726cd6ed3B4b3e3d35793d4fC518fE', mp.crypto.web3.utils.toWei('1', 'ether'), 'PEAKY')
-    // console.log(status)
-    // status = await Transfer('0xeFB0eB0911726cd6ed3B4b3e3d35793d4fC518fE', mp.crypto.web3.utils.toWei('1', 'ether'), 'PEAKY')
-    // console.log(status)
-    // status = await Transfer('0xeFB0eB0911726cd6ed3B4b3e3d35793d4fC518fE', mp.crypto.web3.utils.toWei('1', 'ether'), 'PEAKY')
-    // console.log(status)
-    // status = await Transfer('0xeFB0eB0911726cd6ed3B4b3e3d35793d4fC518fE', mp.crypto.web3.utils.toWei('1', 'ether'), 'PEAKY')
-    // console.log(status)
+        mp.events.addCommand('withdraw', async(player, quantity) => {
+            if (player.shared.wallet.length < 10) return;
+            await Transfer(player.shared.wallet, mp.crypto.web3.utils.toWei(String(quantity), 'ether'), player.shared.email)
+        })
 }
 
 Init()
