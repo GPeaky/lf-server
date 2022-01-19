@@ -1,0 +1,153 @@
+#fondoTacometro{
+  display: flex;
+  background-image: url(../../../public/img/fondoTacometro.png);
+  width: 419px;
+  height: 102px;
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index:1000
+}
+  
+  
+  
+#tachometer{
+  display: flex;
+  background-image: url(../../../public/img/velocimetro.png);
+  width: 342px;
+  height: 45px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  position: absolute;
+  bottom: 10%;
+  left: 43%;
+  transform: translateX(-50%);
+  z-index:2000
+
+}
+
+.progress-bar {
+  height: 22px;
+  width: 220px;
+  margin-left:12px;
+  border-radius:3px;
+  float: left;
+  bottom: 20px;
+  
+}
+
+.progress-bar span {
+  display: block;
+  float: left;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  margin:0;
+  padding:0;
+  border-radius:2px;
+}
+  
+.bg-span{
+  background: linear-gradient(90deg, #FFE259 , #FFA751  ); 
+  height: 22px;
+  width: 220px;
+  box-shadow: inset 0 0 3px #000000ab;  
+}
+  
+.km p{
+  width: 100px;
+  text-align: center;
+  color:rgb(2, 64, 122) ;
+  font-style: italic;
+}
+
+.km span{
+  width: 100px;
+  text-align: center;
+  color:rgb(2, 64, 122) ;
+  font-style: normal;
+  font-weight: bold;
+}
+
+#rpm{
+  display: flex;
+  background-image: url(../../../public/img/rpm.png);
+  width: 286px;
+  height: 45px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  position: absolute;
+  bottom: 47%;
+  left: calc(43% + 28px);
+  transform: translateX(-50%);
+  z-index:2000
+}
+  
+.progress-bar-rpm {
+  height: 22px;
+  width: 165px;
+  margin-left:12px;
+  border-radius:3px;
+  float: left;
+  bottom: 20px;
+  
+}
+.progress-bar-rpm span {
+  display: block;
+  float: left;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  margin:0;
+  padding:0;
+  border-radius:2px;
+}
+
+.bg-span-rpm{
+  background: linear-gradient(90deg, #FFE259 , #f70b0b  ); 
+  height: 22px;
+  width: 164px;
+  box-shadow: inset 0 0 3px #000000ab;  
+  
+}
+
+.rpm p{
+  width: 100px;
+  text-align: center;
+  color:#FFE259 ;
+  font-style: italic;
+  font-weight: 100;
+}
+.rpm span{
+  text-align: center;
+  color:#FFE259 ;
+  font-style: normal;
+  font-weight: 100;
+}
+
+#cambio{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 80px;
+  z-index: 2000;
+  right: 15px;
+  bottom: 12px;
+}
+
+#h3_cambio{
+  font-size: 4em;
+  font-family: sans-serif;
+  font-style: italic;
+  color: #FFAE52;
+  text-shadow: 1px  0px 0px #025A91,
+               0px  1px 0px #025A91,
+              -1px  0px 0px #025A91,
+               0px -1px 0px #025A91;
+  transition: 0.3s;
+}
