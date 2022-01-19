@@ -7,5 +7,8 @@ require('./Browser/login')
 // Speedometer 
 require('./Browser/speedometer')
 
-// Hud 
-require('./Browser/hud')
+// Notification System 
+require('./Browser/notificationSystem')
+
+// // Hud 
+// require('./Browser/hud')

@@ -246,4 +246,8 @@ mp.events.add('playerJoin', player => {
         }
         player.notify('You are not in a vehicle.');
     }
+
+    player.notify = (title, text) => {
+        player.call('core:notify', title, text)
+    }
 })

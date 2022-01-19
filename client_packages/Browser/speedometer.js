@@ -1,7 +1,7 @@
 let speedInterval = null
 const player = mp.players.local
 const browser = mp.browsers.new('package://Cef/Speedometer/index.html')
-browser.active= false
+browser.active = false
 
 mp.events.add({
     'playerEnterVehicle': (_vehicle, seat) => {
@@ -13,7 +13,7 @@ mp.events.add({
                 const speed = player.vehicle.getSpeed() * 3.6
     
                 browser.call('speedometer::update', (rpm * 10000).toFixed(0), speed.toFixed(0), gear)
-            }, 1) 
+            }, 3) 
         }
     },
 
