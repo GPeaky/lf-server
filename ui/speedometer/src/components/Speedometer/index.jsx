@@ -2,14 +2,20 @@ import './index.css'
 import { useState } from 'react'
 
 export default function Speedometer() {
-    const [ rpm, setRpm ] = useState(0)
-    const [ gear, setGear ] = useState(0)
-    const [ speed, setSpeed ] = useState(0)
+    const [{ speed, rpm, gear, fuel}, setData] = useState({
+        speed: 0,
+        gear: 'N',
+        fuel: 0,
+        rpm: 0,
+    })
 
-    window.mp?.events.add('speedometer::update', (rpm, speed, gear) => {
-        setRpm(rpm)
-        setSpeed(speed)
-        setGear(gear)
+    window.mp?.events.add('speedometer::update', (rpm, speed, gear, fuel) => {
+        if (gear === 0) gear = 'N' 
+        if (gear === 'N' && speed > 0) gear = 'R'
+
+        setData({
+            speed, rpm, gear, fuel
+        })
     })
 
     return (
