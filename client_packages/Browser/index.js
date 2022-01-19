@@ -10,5 +10,8 @@ require('./Browser/speedometer')
 // Notification System 
 require('./Browser/notificationSystem')
 
-// // Hud 
-// require('./Browser/hud')
+// Hud 
+require('./Browser/hud')
+
+// Logo 
+require('./Browser/logo')

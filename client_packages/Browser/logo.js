@@ -1,0 +1,1 @@
+mp.browsers.new('package://Cef/Logo/index.html');
