@@ -19,8 +19,8 @@ mp.events.addCommand('InviteRace', (player, args) => {
                 player.Integrants = [player];
             }
             player.Integrants.push(target);
-            target.notify("~g~You are joined to a race.");
-            player.notify(`~g~Sucesfully added to ${target.name}`);
+            target.notify("You are joined to a race.");
+            player.notify(`Sucesfully added to ${target.name}`);
         }
     }else player.notify("You need to specify a player.")
 })

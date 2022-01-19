@@ -33,7 +33,7 @@ mp.events.addCommandGroup('setRole', ['superUser'], async (player, _args, id, ro
         })
         
         playerById.internal.role = role
-        playerById.notify(`You have been set to ~r~${role}`)
+        playerById.notify(`You have been set to ${role}`)
     } catch ( err ) {
         player.notify('An error occurred while setting the role')
     }

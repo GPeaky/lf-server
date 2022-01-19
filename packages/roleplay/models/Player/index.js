@@ -248,6 +248,6 @@ mp.events.add('playerJoin', player => {
     }
 
     player.notify = (title, text) => {
-        player.call('core:notify', title, text)
+        player.call('core:notify', [title, text])
     }
 })
