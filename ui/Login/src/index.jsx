@@ -1,0 +1,8 @@
+import './index.css'
+import { render } from 'react-dom'
+import Login from './components/Login'
+
+render(
+  <Login />,
+  document.getElementById('root')
+)
