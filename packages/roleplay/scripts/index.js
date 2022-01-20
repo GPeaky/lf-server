@@ -19,6 +19,9 @@ require('./Races')
 //Fuel
 require('./FuelShop')
 
+// Voice
+require('./Voice')
+
 //JOBS
 require('./Garbagejob')
 require('./Busjob')

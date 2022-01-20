@@ -1,4 +1,4 @@
-const respawnTime = 30000;
+const respawnTime = 1000;
 const obligatoryRespawnTime = 60000;
 const respawnPosition = new mp.Vector3(0, 0, 0); //Set the respawn position
 
