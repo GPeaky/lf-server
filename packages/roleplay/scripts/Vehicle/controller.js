@@ -97,7 +97,12 @@ mp.events.add("playerStartEnterVehicle", async (player, vehicle, seat) => {
 });
 
 mp.events.add('playerStartEnterVehicle', (player, vehicle) => {
-    if (vehicle.job || player.shared.vehicleKeys[vehicle.numberPlate]) return true
+    if( vehicle.exposition ) {
+        console.log("AAA")
+        player.call('controller:vehicle:exposition', [vehicle])
+        return
+    }
+    if (vehicle.job || vehicle.rented || player.shared.vehicleKeys[vehicle.numberPlate]) return true
 
     player.notify(`You don't have access to this vehicle.`)
     player.removeFromVehicle()
