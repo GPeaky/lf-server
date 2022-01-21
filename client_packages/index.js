@@ -21,7 +21,9 @@ require('./Scripts/Garbagejob.js')
 require('./Scripts/Busjob.js')
 require('./Scripts/TruckerJob.js')
 require('./Scripts/Core.js')
-require('./Scripts/voice')
+require('./Scripts/voice.js')
+require('./Scripts/Renting.js')
+require('./Scripts/vehicle.js')
 
 // Tests
 require('./tests')

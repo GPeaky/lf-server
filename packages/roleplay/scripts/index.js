@@ -29,3 +29,6 @@ require('./Voice')
 require('./Garbagejob')
 require('./Busjob')
 require('./TruckerJob')
+
+//Renting
+require('./Renting')
