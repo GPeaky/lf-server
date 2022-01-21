@@ -5,6 +5,9 @@ mp.utils.wait = async(ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // Utils 
 require('./utils')
 
+// Core 
+require('./core')
+
 // Browser 
 require('Browser')
 

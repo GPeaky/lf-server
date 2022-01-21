@@ -1,5 +1,10 @@
 // Copied from the forum, is a bullshit
 mp.events.add('playerCommand', command => {
+    if( command === 'cls'){
+        mp.console.clear()
+        mp.console.logInfo('Console cleared', true, true)
+    }
+
     if(command === 'tpm') {
         if (mp.game.invoke('0x1DD1F58F493F1DA5')) {
             const blipIterator = mp.game.invoke('0x186E5D252FA50E7D');
@@ -33,5 +38,66 @@ mp.events.add('playerCommand', command => {
                 }
             }
         }
+    }
+
+    if ( command === 'openMenu' ) {
+        console.log('openMenu')
+        var menu = new mp.core.Menu( '<i class="fab fa-github"></i> Consencionario', [
+            {
+                value:'<i class="fab fa-github"></i>',
+                label:'<i class="fab fa-github"></i>',
+                description:'<i class="fab fa-github"></i> 1200',
+                dataOption:{
+                    enrollment: '<i class="fab fa-github"></i>',
+                    '<i class="fab fa-github"></i>': 89,
+                    price: 20.150
+                }
+            },
+            {
+                value:'ferrari',
+                label:'Ferrari',
+                description:1200000 ,
+                dataOption:{
+                    enrollment: '488 WNW',
+                    state: 89,
+                    price: 20.150
+                }
+            },
+            {
+                value:'p1',
+                label:'Mclaren p1',
+                description:1850000 ,
+                dataOption:{
+                    enrollment: '488 WNW',
+                    state: 89,
+                    price: 20.150
+                }
+            },
+            {
+                value:'senna',
+                label:'Mclaren Senna',
+                description:10500 ,
+                dataOption:{
+                    enrollment: '488 WNW',
+                    state: 89,
+                    price: 20.150
+                }
+            }
+        ])
+    } else if ( command === 'closeMenu') {
+        console.log('closeMenu')
+        menu.hide()
+    } else if ( command === 'updateMenu') {
+        console.log('updateMenu')
+        menu.update([{
+            value:'ferrari',
+            label:'Ferrari',
+            description:1200000 ,
+            dataOption:{
+                enrollment: '488 WNW',
+                state: 89,
+                price: 20.150
+            }
+        }])
     }
 })
