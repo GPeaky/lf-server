@@ -40,6 +40,12 @@ const Players = sequelize.define('player', {
         allowNull: false
     },
 
+    balance: {
+        type: DataTypes.STRING(256),
+        allowNull: false,
+        defaultValue: '0'
+    },
+
     wallet: {
         type: DataTypes.STRING(64),
         allowNull: false,

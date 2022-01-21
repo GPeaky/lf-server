@@ -25,7 +25,6 @@ mp.events.add('playerJoin', player => {
         player.dimension = 0;
         player.heading = 248.88;
         player.internal.isDead = false;
-        player.internal.balance = 
         player.shared.vehicleKeys = {};
         player.shared.status = { hunger: 100, thirst: 100 }
         player.shared.wallet = 'unkown'
@@ -123,7 +122,7 @@ mp.events.add('playerJoin', player => {
         }
         player.data.shared = {...playerData.shared}
         
-        mp.database.Players.update({ data: JSON.stringify(playerData) }, {
+        mp.database.Players.update({ data: JSON.stringify(playerData), balance: player.shared.balance }, {
             where: {
                 identifier: player.shared.identifier
             }
@@ -132,7 +131,7 @@ mp.events.add('playerJoin', player => {
 
     player.load = async (email) => {
         if (player.shared.loaded) return
-        const { data, identifier, role, wallet } = await mp.database.Players.findOne({
+        const { data, identifier, role, wallet, balance } = await mp.database.Players.findOne({
             where: {
                 email: email
             }
@@ -159,6 +158,7 @@ mp.events.add('playerJoin', player => {
             // Append Shared & Internal
             player.internal.role = role
             player.shared.identifier = identifier
+            player.shared.balance = balance
             player.shared.wallet = wallet
 
 

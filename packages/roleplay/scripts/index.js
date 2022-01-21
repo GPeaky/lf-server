@@ -7,6 +7,9 @@ require('./Death')
 // Status 
 require('./Status')
 
+// Status 
+require('./Bank')
+
 // Vehicle
 require('./Vehicle')
 
