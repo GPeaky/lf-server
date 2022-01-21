@@ -1,4 +1,3 @@
-let near = 0
 let currentPoint = null
 
 let marker = null
@@ -18,13 +17,11 @@ mp.events.add("shop:rent:timeFinished", (vehicle) => {
 });
 
 mp.events.add("shop:rent:enter", ( point ) => {
-    near++
     currentPoint = point
     drawPoint(point)
 });
 
 mp.events.add("shop:rent:exit", ( ) => {
-    near--
     if (marker) {
         marker.destroy()
         marker = null
@@ -33,12 +30,11 @@ mp.events.add("shop:rent:exit", ( ) => {
 });
 
 mp.keys.bind(0x45, true, async() => {
-    if (near <=0) return
-    if (currentPoint == null) return
-    if (mp.players.local.position.subtract(new mp.Vector3(currentPoint.x, currentPoint.y, currentPoint.z)).length() >= 5.5) return
-    
+    if (currentPoint == null) return console.log(1)
+    if (mp.players.local.position.subtract(new mp.Vector3(currentPoint.x, currentPoint.y, currentPoint.z)).length() >= 5.5) return console.log(2)
     const data = {price: currentPoint.price, index: currentPoint.index, index2: currentPoint.index2}
-
+    
+    mp.events.call('shop:rent:exit')
     const {pay,time} = await mp.events.callRemoteProc('shop:rent:rentveh', JSON.stringify(data))
     
     mp.game.graphics.notify(`You have paid ${pay}$ for ${time} minutes of rent`)
