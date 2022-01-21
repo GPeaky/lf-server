@@ -13,8 +13,20 @@ mp.events.add({
     },
 
     'interactionMenu:optionSelected': option => {
-        mp.console.logInfo(option, true, true)
-    } 
+        setTimeout(() => {
+            mp.gui.chat.push(`Option selected: ${option}`)
+        }, 5)
+    },
+
+    'interactionMenu:optionClicked': option => {
+        browser.active = false
+        browser.call('interactionMenu:hideMenu')
+        
+        setTimeout(() => {
+            mp.gui.cursor.show(false, false)
+            mp.gui.chat.push(`Option Clicked: ${option}`)
+        }, 5)
+    }
 })
 
 mp.core.Menu = class {

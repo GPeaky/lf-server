@@ -42,7 +42,7 @@ mp.events.add('playerCommand', command => {
 
     if ( command === 'openMenu' ) {
         console.log('openMenu')
-        var menu = new mp.core.Menu( '<i class="fab fa-github"></i> Consencionario', [
+        const menu = new mp.core.Menu( '<i class="fab fa-github"></i> Consencionario', [
             {
                 value:'<i class="fab fa-github"></i>',
                 label:'<i class="fab fa-github"></i>',

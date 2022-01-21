@@ -30,9 +30,7 @@ export default function MenuSlider () {
     })
 
     window.addEventListener('keydown', event => {
-        if (event.keyCode === 27) {
-            window.mp?.trigger('interactionMenu:closeMenu')
-        }
+        if (event.keyCode === 27) window.mp?.trigger('interactionMenu:closeMenu')
     })
 
     return(
@@ -48,7 +46,7 @@ export default function MenuSlider () {
             </div>
             <div className="options">
                 {
-                    options.map(({ value: key, label: title, description, dataOption, options}, index) => {
+                    options.map(({ value: key, label: title, description, dataOption, options }, index) => {
                         return (
                             <Option 
                                 key={ key }

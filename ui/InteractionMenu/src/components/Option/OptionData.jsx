@@ -39,13 +39,20 @@ export default function OptionData({ data }) {
         }
     `
 
+    const handleSubmit = () => {
+        window.mp?.trigger('interactionMenu:optionClicked', JSON.stringify(data))
+    }
+
     return (
         <OptionDataStyled>
             <div className="info">
                 {
                     Object.keys(data).map(key => {
                         return(
-                            <div className="dataDiv" key={ key }>
+                            <div 
+                                className="dataDiv" 
+                                key={ key }
+                            >
                                 <p className="nameInfo" dangerouslySetInnerHTML={{ __html: key }}></p>
                                 <p className="infoP" dangerouslySetInnerHTML={{ __html: data[key] }}></p>
                             </div>
@@ -54,7 +61,11 @@ export default function OptionData({ data }) {
                 }
             </div>
 
-            <button className="locateButton" dangerouslySetInnerHTML={{__html: '<i class="fab fa-github"></i>'}}></button>
+            <button 
+                className="locateButton" 
+                dangerouslySetInnerHTML={{__html: 'Submit'}}
+                onClick={ handleSubmit }    
+            ></button>
         </OptionDataStyled>
     )
 }

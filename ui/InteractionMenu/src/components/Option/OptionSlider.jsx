@@ -96,31 +96,43 @@ export default function OptionSlider({ options, numberOption, onClick }) {
         }
     }
 
+    // const handleSubmit
+
+    const handleSubmit = () => {
+        window.mp?.trigger('interactionMenu:optionClicked', 'SliderOptionClicked')
+    }
+
     return (
         <OptionSliderStyled> 
             <div className="slider">
-                <button className={state === 0 ? `left list${numberOption} disabled` : `left list${numberOption}`} onClick={() => rotateSlider('left')}></button>
+                <button className={state === 0 ? `left list${numberOption} disabled` : `left list${numberOption}`} onClick={() => rotateSlider('left')}>{'<'}</button>
                 <div className="options">
                     <div className={ `optionsRotate list${numberOption}`} style={{ marginLeft: '-20px'}}>
-                        {options.map(data => {
-                            return (
-                                <p 
-                                    key={ data }
-                                    className={`option list${numberOption}`}
-                                    style={{
-                                        display: 'block',
-                                        width: '195px',
-                                        textAlign: 'center',
-                                    }}
-                                    dangerouslySetInnerHTML={{ __html: data }}
-                                ></p>
-                            )
-                        })}
+                        {
+                            options.map(data => {
+                                return (
+                                    <p 
+                                        key={ data }
+                                        className={`option list${numberOption}`}
+                                        style={{
+                                            display: 'block',
+                                            width: '195px',
+                                            textAlign: 'center',
+                                        }}
+                                        dangerouslySetInnerHTML={{ __html: data }}
+                                    ></p>
+                                )
+                            })
+                        }
                     </div>
                 </div>
                 <button className={state === options.length ? 'right list' + numberOption + ' disabled' : 'right list' + numberOption} onClick={() => rotateSlider('right')}>{'>'}</button>
             </div>
-            <button className='buttonBuy'>Dinero insuficiente</button>
+            <button 
+                className='buttonBuy' 
+                dangerouslySetInnerHTML={{__html: 'Submit'}}
+                onClick={ handleSubmit }
+            ></button>
         </OptionSliderStyled>
     )
 }
