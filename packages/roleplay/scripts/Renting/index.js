@@ -36,25 +36,19 @@ const GetRandomColor = () => {
     ]]
 }
 
-const RespawnVeh = (index2, index) => {
+const RespawnVeh = async(index2, index) => {
     let point = RentPoints[index2].vehicles[index]
     point.vehicle = mp.vehicles.new(point.model, new mp.Vector3(point.x, point.y, point.z), {
         heading: point.heading,
         numberPlate: `RENT${vehiclesRented}`,
-        color: GetRandomColor()
+        color: GetRandomColor(),
     })
     point.vehicle.exposition = true
     point.vehicle.rented = true
-    point.vehicle.alpha = 0
     vehiclesRented++ 
     point.used = false
-
-    RentPoints[index2].vehicles[index].vehicle = point.vehicle
-    setInterval(() => {
-        if(point.vehicle.alpha < 255) {
-            point.vehicle.alpha += 5
-        }
-    }, 250)
+    
+    RentPoints[index2].vehicles[index] = point
 }
 
 const Init = () => {
@@ -114,12 +108,13 @@ mp.events.addProc("shop:rent:rentveh", (player, data) => {
     const {vehicle} = RentPoints[index2].vehicles[index]
     RentPoints[index2].vehicles[index].used = true
     RentPoints[index2].vehicles[index].vehicle.exposition = undefined
+    vehicle.engine = true
     //TODO: Check if player has enough money
     // const playerMoney = 99999
     // if(price > playerMoney) return {err: 'not_enough_money'}
     
     //TODO: Select the quantity of time
-    const time = 1 //minutes
+    const time = 0.1 //minutes
 
     setTimeout(() => { 
         RentPoints[index2].vehicles[index].used = false
