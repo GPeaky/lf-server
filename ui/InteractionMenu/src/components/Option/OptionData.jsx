@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-export default function OptionData({ data }) {
+export default function OptionData({ data, submitLabel }) {
     const OptionDataStyled = styled.div`
         display: flex;
         flex-flow: column wrap;
@@ -63,7 +63,7 @@ export default function OptionData({ data }) {
 
             <button 
                 className="locateButton" 
-                dangerouslySetInnerHTML={{__html: 'Submit'}}
+                dangerouslySetInnerHTML={{__html: submitLabel}}
                 onClick={ handleSubmit }    
             ></button>
         </OptionDataStyled>

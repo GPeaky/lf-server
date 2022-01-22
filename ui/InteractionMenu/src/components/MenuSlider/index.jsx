@@ -46,12 +46,13 @@ export default function MenuSlider () {
             </div>
             <div className="options">
                 {
-                    options.map(({ value: key, label: title, description, dataOption, options }, index) => {
+                    options.map(({ value, label: title, description, dataOption, options, submitLabel }, index) => {
                         return (
                             <Option 
-                                key={ key }
+                                value={ value }
                                 title={ title }
                                 options={ options }
+                                submitLabel={ submitLabel }
                                 numberOption={ index }
                                 dataOption={ dataOption }
                                 description={ description }

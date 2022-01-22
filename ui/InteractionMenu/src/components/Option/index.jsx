@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import OptionData from './OptionData'
 import OptionSlider from './OptionSlider'
 
-export default function Option({ key, title, description, numberOption, options, dataOption }){
+export default function Option({ value, title, description, numberOption, options, dataOption, submitLabel }) {
     const OptionStyled = styled.div`
         padding: 10px;
         background: #1b1d23;
@@ -32,7 +32,7 @@ export default function Option({ key, title, description, numberOption, options,
     }
 
     const showOption = () => {
-        window.mp?.trigger('interactionMenu:optionSelected', title)
+        window.mp?.trigger('interactionMenu:optionSelected', value)
         const height = dataOption ? `${calculateHeight()}px` : '140px'
         const optionDiv = document.querySelector(`.optionDiv.option${numberOption}`)
         if ( !optionDiv ) return
@@ -59,13 +59,15 @@ export default function Option({ key, title, description, numberOption, options,
             { options && 
                 <OptionSlider 
                     numberOption={ numberOption } 
-                    options={ options } 
+                    options={ options }
+                    submitLabel={ submitLabel }
                 />
             }
 
             { dataOption &&
                 <OptionData
                     data={ dataOption }
+                    submitLabel={ submitLabel }
                 />
             }
 

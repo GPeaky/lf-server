@@ -1,31 +1,25 @@
 const browser = mp.browsers.new('package://Cef/InteractionMenu/index.html');
 browser.active = false
 mp.core = {}
+mp.core.currentMenu = null
 
 mp.events.add({
     'interactionMenu:closeMenu': () => {
         browser.active = false 
+        mp.core.currentMenu = null
         browser.call('interactionMenu:hideMenu')
 
-        setTimeout(() => {
-            mp.gui.cursor.show(false, false)
-        }, 5)
+        mp.gui.cursor.show(false, false)
     },
 
     'interactionMenu:optionSelected': option => {
-        setTimeout(() => {
-            mp.gui.chat.push(`Option selected: ${option}`)
-        }, 5)
+        if ( !mp?.core?.currentMenu?.callbacks?.optionSelected ) return
+        mp.core.currentMenu.callbacks.optionSelected(option)
     },
 
     'interactionMenu:optionClicked': option => {
-        browser.active = false
-        browser.call('interactionMenu:hideMenu')
-        
-        setTimeout(() => {
-            mp.gui.cursor.show(false, false)
-            mp.gui.chat.push(`Option Clicked: ${option}`)
-        }, 5)
+        mp.gui.cursor.show(false, false)
+        mp.gui.chat.push(`Option Clicked: ${option}`)
     }
 })
 
@@ -33,6 +27,8 @@ mp.core.Menu = class {
     constructor( title, options ) {
         this.title = title
         this.options = options
+        this.callbacks = {}
+        mp.core.currentMenu = this
         this.show()
     }
 
@@ -40,18 +36,11 @@ mp.core.Menu = class {
         browser.active = true
         browser.call('interactionMenu:setData', this.title, JSON.stringify(this.options))
 
-        setTimeout(() => {
-            mp.gui.cursor.show(true, true)
-        }, 5)
+        setTimeout(() => mp.gui.cursor.show(true, true), 5)
     }
 
     hide() {
-        browser.active = false
-        browser.call('interactionMenu:hideMenu')
-
-        setTimeout(() => {
-            mp.gui.cursor.show(false, false)
-        }, 5)
+        mp.events.call('interactionMenu:closeMenu')
     }
 
     update( options ) {
@@ -63,6 +52,13 @@ mp.core.Menu = class {
         }, 5)
     }
 
-    // on( event, callback ) {
-    // }
+    on( event, callback ) {
+        switch (event) {
+            case 'optionSelected':
+                this.callbacks.optionSelected = callback
+                break;
+            default:
+                break;
+        }
+    }
 }
