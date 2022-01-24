@@ -8,7 +8,6 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 const FormLogin = () => {
-    const localStorage = window.localStorage;
     const FormStyled = styled.form`
         display: flex;
         flex-flow: column wrap;
@@ -59,7 +58,6 @@ const FormLogin = () => {
     })
 
     const submitForm = ({ email, password }) => {
-        localStorage.setItem('email', email)
         window.mp.trigger('getInfo', email, password)
     }
     
@@ -75,7 +73,6 @@ const FormLogin = () => {
             <Input
                 type="email"
                 placeholder="example@email.com"
-                value={ localStorage.getItem('email') }
                 image={ arroba }
                 register={{ ...register("email") }}
             />
