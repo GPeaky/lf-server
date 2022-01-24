@@ -37,4 +37,4 @@ require('./Renting')
 require('./University')
 
 //VehicleDeal
-require('./VehicleDeal')
+require('./VehicleDealer')
