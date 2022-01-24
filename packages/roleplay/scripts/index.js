@@ -32,3 +32,6 @@ require('./TruckerJob')
 
 //Renting
 require('./Renting')
+
+//University
+require('./University')
