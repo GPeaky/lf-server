@@ -1,15 +1,19 @@
 mp.events.addCommandGroup('giveWep', ['superUser'], (player, _args, id,weapon, ammo) => {
-    mp.players.at(id) ? player = mp.players.at(id) : player
-    if ( !weapon ) return player.notify('Sorry, you need to enter a weapon name.')
+    const playerById = mp.players.at(id)
+    playerById ? player = playerById : player
 
-    player.giveWeapon(mp.joaat(`weapon_${weapon}`), parseInt(ammo) || 250)
-    player.notify(`You have been given ${weapon}`)
+    if ( weapon ){
+        player.giveWeapon(mp.joaat(`weapon_${weapon}`), parseInt(ammo) || 250);
+        player.notify(`You have been given ${weapon}`);
+    } else player.notify('Please enter a weapon name.');
 })
 
 mp.events.addCommandGroup('removeWep', ['superUser'], (player, _args, id, weapon) => {
-    mp.players.at(id) ? player = mp.players.at(id) : player
-    if ( !weapon ) return player.notify('Sorry, you need to enter a weapon name.');
+    const playerById = mp.players.at(id)
+    playerById ? player = playerById : player
     
-    player.removeWeapon(mp.joaat(`weapon_${weapon}`))
-    player.notify(`You have been removed ${weapon}`)
+    if( weapon ) {
+        player.removeWeapon(mp.joaat(`weapon_${weapon}`));
+        player.notify(`You have been removed ${weapon}`);
+    } else player.notify('Invalid Weapon')
 })

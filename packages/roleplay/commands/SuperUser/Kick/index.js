@@ -1,7 +1,8 @@
-mp.events.addCommandGroup('kick', ['superUser'], (player, id) => {
-    const playerTarget = mp.player.at(id)
-    if( !playerTarget ) return player.outputChatBox('kick command usage: /kick [playerId]')
-
-	playerTarget.outputChatBox("You have been kicked from the server.");
-	playerTarget.kick('Kicked.');
-})
+// mp.events.addCommandGroup('kick', ['superUser'], (player, id) => {
+//     const newTarget = mp.players.at(id)
+//     if(!newTarget) return player.outputChatBox("Syntax: /kick [playerID]");
+//     if(newTarget === null) return player.outputChatBox("There is no player online with the ID given.")
+//     console.log(`Player ${player.id} kicked ${id}`)
+// 	    newTarget.outputChatBox("You have been kicked from the server.");
+// 	    newTarget.kick('Kicked.');
+// })
