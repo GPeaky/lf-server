@@ -4,7 +4,7 @@ const UniversityPoints = [
         blip: {
             name: "Chamberlain Hill University",
             coords:{ x: -319.61,y: -1471.46,z: 30.12 },
-            sprite: 361,
+            sprite: 476,
             color: 29            
         },
         menu: new mp.Vector3(0,0,0),
@@ -44,7 +44,7 @@ mp.events.add("shop:university:action", async (player, {index}) => {
     //TODO (Menus) player.closeAllMenus()
     //* const menuData = UniversityPoints[index].licenses
     //* const menu = await player.openMenu(menuData)
-    
+
     //* menu.onAccept((option) => {
     //*     if(option.price > player.balance) return {status:false, err:'You need more money to pay this'}
     //*     if(player.shared.licenses == undefined){
