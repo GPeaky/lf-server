@@ -41,7 +41,6 @@ mp.events.add('playerCommand', command => {
     }
 
     if ( command === 'openMenu' ) {
-        console.log('openMenu')
         const menu = new mp.core.Menu( '<i class="fab fa-github"></i> Consencionario', [
             {
                 value:'ferrari',
@@ -51,8 +50,7 @@ mp.events.add('playerCommand', command => {
                     enrollment: '488 WNW',
                     state: 89,
                     price: 20.150
-                },
-                submitLabel: 'Spawn'
+                }
             },
             {
                 value:'p1',
@@ -62,26 +60,29 @@ mp.events.add('playerCommand', command => {
                     enrollment: '488 WNW',
                     state: 89,
                     price: 20.150
-                },
-                submitLabel: 'Spawn'
+                }
             },
             {
                 value:'senna',
                 label:'Mclaren Senna',
                 description:10500 ,
                 dataOption:{
-                    'Enrollment': '488 WNW',
-                    'State': 89,
-                    'Price': 20.150
-                },
-                submitLabel: 'Spawn'
+                    enrollment: '488 WNW',
+                    state: 89,
+                    price: 20.150
+                }
             }
         ])
-
-    menu.on('optionSelected', option => {
-        mp.gui.chat.push(`asdfasdfOption selected: ${option}`)
-    })
-
+        
+        menu.on('optionSelected', (option) => {
+            console.log(`optionSelected ${option}`)
+        })
+        menu.on('optionClicked', (option) => {
+            console.log(`optionClicked ${option}`)
+        })
+        menu.on('menuClosed', () => {
+            console.log('menu closed')
+        })
     } else if ( command === 'closeMenu') {
         console.log('closeMenu')
         menu.hide()

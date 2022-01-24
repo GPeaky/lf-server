@@ -6,21 +6,16 @@ mp.core.currentMenu = null
 mp.events.add({
     'interactionMenu:closeMenu': () => {
         browser.active = false 
-        mp.core.currentMenu = null
         browser.call('interactionMenu:hideMenu')
-
+        
         mp.gui.cursor.show(false, false)
+        mp?.core?.currentMenu?.callbacks?.menuClosed()
+        mp.core.currentMenu = null
     },
-
-    'interactionMenu:optionSelected': option => {
-        if ( !mp?.core?.currentMenu?.callbacks?.optionSelected ) return
-        mp.core.currentMenu.callbacks.optionSelected(option)
-    },
-
-    'interactionMenu:optionClicked': option => {
-        mp.gui.cursor.show(false, false)
-        mp.gui.chat.push(`Option Clicked: ${option}`)
-    }
+    
+    'interactionMenu:optionSelected': option => mp?.core?.currentMenu?.callbacks?.optionSelected(option),
+    
+    'interactionMenu:optionClicked': option => mp?.core?.currentMenu?.callbacks?.optionClicked(option)
 })
 
 mp.core.Menu = class {
@@ -56,6 +51,12 @@ mp.core.Menu = class {
         switch (event) {
             case 'optionSelected':
                 this.callbacks.optionSelected = callback
+                break;
+            case 'optionClicked':
+                this.callbacks.optionClicked = callback
+                break;
+            case 'menuClosed':
+                this.callbacks.menuClosed = callback
                 break;
             default:
                 break;
