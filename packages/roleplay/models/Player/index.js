@@ -227,9 +227,7 @@ mp.events.add('playerJoin', player => {
                 vehicleCreator: player.shared.identifier,
                 isOwner: true
             };
-            
             Instantiate(veh)
-            //TODO Return the vehicle
         } else player.notify('Vehicle not found.');
     }
 

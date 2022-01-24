@@ -27,6 +27,7 @@ require('./Scripts/Core.js')
 require('./Scripts/voice.js')
 require('./Scripts/Renting.js')
 require('./Scripts/vehicle.js')
+require('./Scripts/University.js')
 
 // Tests
 require('./tests')
