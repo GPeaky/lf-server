@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 fs.stat('./build', err => {
-    if (err) return  require('../roleplay')
-
+    if (err) return require('../roleplay')
     require('./build')
 })
