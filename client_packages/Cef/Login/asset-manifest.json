@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "./static/css/main.744ce5d4.css",
-    "main.js": "./static/js/main.964375e6.js",
+    "main.js": "./static/js/main.c64a346e.js",
     "static/media/Inter-Regular.ttf": "./static/media/Inter-Regular.2391725004ae05a27e8e.ttf",
     "static/media/UbuntuMono-Regular.ttf": "./static/media/UbuntuMono-Regular.f17c05937940e39c45d1.ttf",
     "static/media/arroba.png": "./static/media/arroba.64ca4e10915964a0f839.png",
@@ -10,10 +10,10 @@
     "static/media/logo.svg": "./static/media/logo.a664ae5e6c639903c2a0b2950fa94d05.svg",
     "index.html": "./index.html",
     "main.744ce5d4.css.map": "./static/css/main.744ce5d4.css.map",
-    "main.964375e6.js.map": "./static/js/main.964375e6.js.map"
+    "main.c64a346e.js.map": "./static/js/main.c64a346e.js.map"
   },
   "entrypoints": [
     "static/css/main.744ce5d4.css",
-    "static/js/main.964375e6.js"
+    "static/js/main.c64a346e.js"
   ]
 }
