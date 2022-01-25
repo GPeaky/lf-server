@@ -42,10 +42,32 @@ const Init = () => {
 
 mp.events.add("shop:university:action", async (player, {index}) => {
     //TODO (Menus) player.closeAllMenus()
-    //* const menuData = UniversityPoints[index].licenses
-    //* const menu = await player.openMenu(menuData)
+    //* let menuData = {}
 
-    //* menu.onAccept((option) => {
+    //* UniversityPoints[index].licenses.forEach(({name, label, description, price}, indx) => {
+    //*     menuData[`${indx}`] = {
+    //*         value:name,
+    //*         label,
+    //*         description,
+    //*         dataOption:{
+    //*             price
+    //*         },
+    //*         submitLabel: 'Buy license'
+    //*     }
+    //* })
+
+    //* if(menuData.length == 0){
+    //*     menuData.push({
+    //*         value:"None",
+    //*         label:"There are anything to see",
+    //*         description: "There are anything to see, go out!",
+    //*         submitLabel: 'Go out'
+    //*     })
+    //* }
+
+    //* const menu = await player.openMenu(UniversityPoints[index].name, menuData)
+
+    //* menu.on('optionClicked', (option) => {
     //*     if(option.price > player.balance) return {status:false, err:'You need more money to pay this'}
     //*     if(player.shared.licenses == undefined){
     //*         player.shared.licenses = {}
