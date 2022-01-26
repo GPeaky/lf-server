@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-export default function OptionData({ data, submitLabel }) {
+export default function OptionData({ value, data, submitLabel }) {
     const OptionDataStyled = styled.div`
         display: flex;
         flex-flow: column wrap;
@@ -40,7 +40,7 @@ export default function OptionData({ data, submitLabel }) {
     `
 
     const handleSubmit = () => {
-        window.mp?.trigger('interactionMenu:optionClicked', JSON.stringify(data))
+        window.mp?.trigger('interactionMenu:optionClicked', JSON.stringify({value, ...data}))
     }
 
     return (

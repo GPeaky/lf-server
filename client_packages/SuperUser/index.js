@@ -49,8 +49,9 @@ mp.events.add('playerCommand', command => {
                 dataOption:{
                     enrollment: '488 WNW',
                     state: 89,
-                    price: 20.150
-                }
+                    price: 20.150,
+                },
+                submitLabel: 'Spawn'
             },
             {
                 value:'p1',
@@ -59,8 +60,9 @@ mp.events.add('playerCommand', command => {
                 dataOption:{
                     enrollment: '488 WNW',
                     state: 89,
-                    price: 20.150
-                }
+                    price: 20.150,
+                },
+                submitLabel: 'Spawn'
             },
             {
                 value:'senna',
@@ -69,8 +71,9 @@ mp.events.add('playerCommand', command => {
                 dataOption:{
                     enrollment: '488 WNW',
                     state: 89,
-                    price: 20.150
-                }
+                    price: 20.150,
+                },
+                submitLabel: 'Spawn'
             }
         ])
         

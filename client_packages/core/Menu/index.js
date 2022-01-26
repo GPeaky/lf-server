@@ -13,9 +13,9 @@ mp.events.add({
         mp.core.currentMenu = null
     },
     
-    'interactionMenu:optionSelected': option => mp?.core?.currentMenu?.callbacks?.optionSelected(option),
+    'interactionMenu:optionSelected': optionData => mp?.core?.currentMenu?.callbacks?.optionSelected(JSON.parse(optionData)),
     
-    'interactionMenu:optionClicked': option => mp?.core?.currentMenu?.callbacks?.optionClicked(option)
+    'interactionMenu:optionClicked': optionData => mp?.core?.currentMenu?.callbacks?.optionClicked(JSON.parse(optionData))
 })
 
 mp.core.Menu = class {

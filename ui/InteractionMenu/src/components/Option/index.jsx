@@ -32,7 +32,7 @@ export default function Option({ value, title, description, numberOption, option
     }
 
     const showOption = () => {
-        window.mp?.trigger('interactionMenu:optionSelected', value)
+        window.mp?.trigger('interactionMenu:optionSelected', JSON.stringify({value, ...dataOption}))
         const height = dataOption ? `${calculateHeight()}px` : '140px'
         const optionDiv = document.querySelector(`.optionDiv.option${numberOption}`)
         if ( !optionDiv ) return
@@ -66,6 +66,7 @@ export default function Option({ value, title, description, numberOption, option
 
             { dataOption &&
                 <OptionData
+                    value={ value}
                     data={ dataOption }
                     submitLabel={ submitLabel }
                 />
