@@ -5,9 +5,9 @@ let cam = new Camera('loginCam', new mp.Vector3(24.48141, -255.5137, 141.269), n
 
 cam.startMoving(5000.0)
 
-// setTimeout(() => {
-//     mp.events.callRemote('submitLogin', 'cristian@dev.com', '123456')
-// }, 500);
+setTimeout(() => {
+    mp.events.callRemote('submitLogin', 'peaky@dev.com', 'Joven2020')
+}, 1);
 
 mp.events.add({
     'getInfo': (email, passwd) => {

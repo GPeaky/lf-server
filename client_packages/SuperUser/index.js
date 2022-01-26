@@ -15,7 +15,7 @@ mp.events.add('playerCommand', command => {
                     const oldpos = mp.players.local.position;
                     const coord = mp.game.ui.getBlipInfoIdCoord(i);
     
-                    coord.z = mp.game.gameplay.getGroundZFor3dCoord(coord.x, coord.y, i * 50, 0, false); // try calcualte Z
+                    coord.z = mp.game.gameplay.getGroundZFor3dCoord(coord.x, coord.y, i * 50, 0, false); // try calculate Z
                     mp.players.local.setCoordsKeepVehicle(coord.x, coord.y, coord.z);
                       
                     mp.players.local.freezePosition(true);
@@ -38,68 +38,5 @@ mp.events.add('playerCommand', command => {
                 }
             }
         }
-    }
-
-    if ( command === 'openMenu' ) {
-        const menu = new mp.core.Menu( '<i class="fab fa-github"></i> Consencionario', [
-            {
-                value:'ferrari',
-                label:'Ferrari',
-                description:1200000 ,
-                dataOption:{
-                    enrollment: '488 WNW',
-                    state: 89,
-                    price: 20.150,
-                },
-                submitLabel: 'Spawn'
-            },
-            {
-                value:'p1',
-                label:'Mclaren p1',
-                description:1850000 ,
-                dataOption:{
-                    enrollment: '488 WNW',
-                    state: 89,
-                    price: 20.150,
-                },
-                submitLabel: 'Spawn'
-            },
-            {
-                value:'senna',
-                label:'Mclaren Senna',
-                description:10500 ,
-                dataOption:{
-                    enrollment: '488 WNW',
-                    state: 89,
-                    price: 20.150,
-                },
-                submitLabel: 'Spawn'
-            }
-        ])
-        
-        menu.on('optionSelected', (option) => {
-            console.log(`optionSelected ${option}`)
-        })
-        menu.on('optionClicked', (option) => {
-            console.log(`optionClicked ${option}`)
-        })
-        menu.on('menuClosed', () => {
-            console.log('menu closed')
-        })
-    } else if ( command === 'closeMenu') {
-        console.log('closeMenu')
-        menu.hide()
-    } else if ( command === 'updateMenu') {
-        console.log('updateMenu')
-        menu.update([{
-            value:'ferrari',
-            label:'Ferrari',
-            description:1200000 ,
-            dataOption:{
-                enrollment: '488 WNW',
-                state: 89,
-                price: 20.150
-            }
-        }])
     }
 })

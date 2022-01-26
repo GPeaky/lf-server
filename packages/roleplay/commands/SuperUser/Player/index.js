@@ -14,15 +14,15 @@ mp.events.addCommand('refreshRole', async player => {
         if(player.internal.role === Player.role) return player.notify('Your role is the same as your account role')
         player.internal.role = Player.role
         player.notify(`You have been refreshed to ${Player.role}`)
-    } catch (err) {
+    } catch ( err ) {
         player.notify('An error occurred while refreshing your account')
     }
 })
 
 mp.events.addCommandGroup('setRole', ['superUser'], async (player, _args, id, role) => {
     const playerById = mp.players.at(id)
-    if(!playerById) return player.notify('Player not found')
-    if(!role) return player.notify('You must specify a role')
+    if( !playerById ) return player.notify('Player not found')
+    if( !role ) return player.notify('You must specify a role')
     if(!['superUser', 'user'].includes(role)) return player.notify('You must specify a valid role [superUser, user]')
 
     try {

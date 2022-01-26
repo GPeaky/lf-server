@@ -1,32 +1,33 @@
-const coordsBrowser = mp.browsers.new('package://Cef/Coords/index.html');
-coordsBrowser.active= false;
-coordsBrowser.cop = false;
-coordsBrowser.copv = false;
+const browser = mp.browsers.new('package://Cef/Coords/index.html');
+
+browser.active= false;
+browser.cop = false;
+browser.copv = false;
 
 mp.events.add({
     'viewCoords': () => {
-        coordsBrowser.active = !coordsBrowser.active;
+        browser.active = !browser.active;
     },
 
     'copyCoords': () => {
-        coordsBrowser.cop = true;
+        browser.cop = true;
     },
 
     'copyCoordsV': () => {
-        coordsBrowser.copv = true;
+        browser.copv = true;
     },
 
     'render': () => {
-        if (coordsBrowser.active) {
-            coordsBrowser.execute(`setCoords(${player.position.x.toFixed(2)}, ${player.position.y.toFixed(2)}, ${player.position.z.toFixed(2)})`);
+        if (browser.active) {
+            browser.execute(`setCoords(${player.position.x.toFixed(2)}, ${player.position.y.toFixed(2)}, ${player.position.z.toFixed(2)})`);
         }
-        if(coordsBrowser.cop){
-            coordsBrowser.execute(`copyCoords(${player.position.x.toFixed(2)}, ${player.position.y.toFixed(2)}, ${player.position.z.toFixed(2)}, ${player.getHeading().toFixed(2)})`);
-            coordsBrowser.cop = false;
+        if(browser.cop){
+            browser.execute(`copyCoords(${player.position.x.toFixed(2)}, ${player.position.y.toFixed(2)}, ${player.position.z.toFixed(2)}, ${player.getHeading().toFixed(2)})`);
+            browser.cop = false;
         }
-        if(coordsBrowser.copv){
-            coordsBrowser.execute(`copyCoords(${player.vehicle.position.x.toFixed(2)}, ${player.vehicle.position.y.toFixed(2)}, ${player.vehicle.position.z.toFixed(2)}, ${player.vehicle.getHeading().toFixed(2)})`);
-            coordsBrowser.copv = false;
+        if(browser.copv){
+            browser.execute(`copyCoords(${player.vehicle.position.x.toFixed(2)}, ${player.vehicle.position.y.toFixed(2)}, ${player.vehicle.position.z.toFixed(2)}, ${player.vehicle.getHeading().toFixed(2)})`);
+            browser.copv = false;
         }
     }
 })

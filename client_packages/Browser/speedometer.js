@@ -1,5 +1,4 @@
 let speedInterval = null
-const player = mp.players.local
 const browser = mp.browsers.new('package://Cef/Speedometer/index.html')
 browser.active = false
 

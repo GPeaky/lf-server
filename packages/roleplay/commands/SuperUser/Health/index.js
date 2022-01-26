@@ -1,9 +1,8 @@
 mp.events.addCommandGroup('heal', ['superUser'], (player, id) => {
-    const playerTarget = mp.players.at(id);
-    ( playerTarget ) ? player = playerTarget : player;
+    player = mp.players.at(id) ?? player
     
-    player.health = 100;
-    player.shared.status.hunger = 100;
-    player.shared.status.thirst = 100;
-    player.notify('You are healed')
+    player.health = 100
+    player.shared.status.hunger = 100
+    player.shared.status.thirst = 100
+    player.notify('You have been healed.')
 });

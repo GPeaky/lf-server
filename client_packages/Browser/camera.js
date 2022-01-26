@@ -1,7 +1,3 @@
-/*
-    Author : https://rage.mp/profile/32455-flashrex/
-*/
-
 const CLEAR_FOCUS = "0x31B73D1EA9F01DA2";
 
 class Camera {

@@ -1,9 +1,11 @@
 //* Here you can run tests for the server :)
 
-mp.events.add('fadeOut', () => {
-	mp.game.cam.doScreenFadeOut(0);
-})
+mp.events.add({
+	'fadeOut': (time = 0) => {
+		mp.game.cam.doScreenFadeOut(time)
+	},
 
-mp.events.add('fadeIn', () => {
-	mp.game.cam.doScreenFadeIn(1500);
+	'fadeIn': (time = 1500) => {
+		mp.game.cam.doScreenFadeIn(time)
+	}
 })

@@ -1,68 +1,24 @@
-mp.events.addCommandGroup('settime', ['superUser'], (player, args) => {
-    args = args.split(' ');
-    const hour = args[0]
-    const minute = args[1]
-    console.log(`${hour}:${minute}`);
-    if(hour && minute) {
-        mp.world.time.set(parseInt(hour), parseInt(minute), 0);
-        player.notify(`You have set the time to ${hour}:${minute}`);
-    } else player.notify('Please enter a time.');    
-    args = null
-    player = null
-});
+const Weathers = ['EXTRASUNNY', 'CLEAR', 'CLOUDS', 'SMOG', 'FOGGY', 'OVERCAST', 'RAIN', 'THUNDER', 'CLEARING', 'NEUTRAL', 'SNOW', 'BLIZZARD', 'SNOWLIGHT', 'XMAS', 'HALLOWEEN']
 
-mp.events.addCommandGroup('setweather', ['superUser'], (player, type) => {
-    const Weathers = [
-        'EXTRASUNNY',
-        'CLEAR',
-        'CLOUDS',
-        'SMOG',
-        'FOGGY',
-        'OVERCAST',
-        'RAIN',
-        'THUNDER',
-        'CLEARING',
-        'NEUTRAL',
-        'SNOW',
-        'BLIZZARD',
-        'SNOWLIGHT',
-        'XMAS',
-        'HALLOWEEN',
-    ];
-    if(type) {
-        if(Weathers.includes(type)) {
-            mp.world.weather = type;
-            player.notify(`You have set the weather to ${type}`);
-        } else player.notify('Invalid weather type.');
-    }else player.notify('Please enter a weather type.');
+mp.events.addCommandGroup('setTime', ['superUser'], (player, _args, hour, minute) => {
+    if ( !hour || !minute ) return player.outputChatBox('Usage: /setTime [hour] [minute]')
+
+    mp.world.time.set(parseInt(hour), parseInt(minute), 0);
+    player.notify(`You have set the time to ${hour}:${minute}`);
 })
 
-mp.events.addCommandGroup('startweather', ['superUser'], (player, args) => {
-    args = args.split(' ');
-    const type = args[0]
-    const delay = args[1]
-    const Weathers = [
-        'EXTRASUNNY',
-        'CLEAR',
-        'CLOUDS',
-        'SMOG',
-        'FOGGY',
-        'OVERCAST',
-        'RAIN',
-        'THUNDER',
-        'CLEARING',
-        'NEUTRAL',
-        'SNOW',
-        'BLIZZARD',
-        'SNOWLIGHT',
-        'XMAS',
-        'HALLOWEEN',
-    ];
-    if(type && delay) {
-        if(Weathers.includes(type)) {
-            mp.world.setWeatherTransition(type, parseInt(delay));
-            player.notify(`You have set the weather to ${type}`);
-        } else player.notify('Invalid weather type.');
-    }else player.notify('Please enter a weather type and time.');
-    args = null
+mp.events.addCommandGroup('setWeather', ['superUser'], (player, type) => {
+    if ( !type ) return player.outputChatBox('Usage: /setWeather [weather]')
+    if( !Weathers.includes(type) ) return player.outputChatBox('Weather not found')
+
+    mp.world.weather = type;
+    player.notify(`You have set the weather to ${type}`);
+})
+
+mp.events.addCommandGroup('startWeather', ['superUser'], (player, _args, type, delay) => {
+    if ( !type || !delay ) return player.outputChatBox('Usage: /startWeather [weather] [delay]')
+    if ( !Weathers.includes(type) ) return player.outputChatBox('Weather not found')
+
+    mp.world.setWeatherTransition(type, parseInt(delay));
+    player.notify(`You have set the weather to ${type}`);
 })

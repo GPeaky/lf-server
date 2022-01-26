@@ -11,23 +11,25 @@ mp.players.getByIdentifier = async(identifier) => {
 }
 
 mp.events.add('playerJoin', player => {
-    player.shared = {loaded: false}
+    player.shared = { loaded: false }
     player.internal = {}
-    // Player <=> Vehicles
 
     player.create = async(email, password) => {
-        if (player.shared.loaded) return
+        if ( player.shared.loaded ) return
         await mp.utils.wait(750)
         
         player.position = new mp.Vector3(-61.71 , -1218.14 , 28.7);
-        
         player.health = 100;
         player.dimension = 0;
         player.heading = 248.88;
         player.internal.isDead = false;
         player.shared.vehicleKeys = {};
-        player.shared.status = { hunger: 100, thirst: 100 }
         player.shared.wallet = 'unkown'
+        player.shared.status = { 
+            stamina: 100,
+            hunger: 100, 
+            thirst: 100
+        }
         
         // Set Default Data
         player.setClothes(0, 0, 0, 0);
@@ -54,7 +56,10 @@ mp.events.add('playerJoin', player => {
                 position: player.position,
                 dimension: 0, 
                 allWeapons: player.allWeapons,
-                lastVehicle: player.vehicle ? {numberPlate: player.vehicle.numberPlate, seat: player.seat} : false,
+                lastVehicle: player.vehicle ? {
+                    numberPlate: player.vehicle.numberPlate, 
+                    seat: player.seat
+                } : false,
             },
 
             shared: {
@@ -85,9 +90,9 @@ mp.events.add('playerJoin', player => {
     }
 
     player.save = async () => {
-        if (!player.shared.loaded) return
-        console.log(`Saved ${player.name}`)
+        if ( !player.shared.loaded ) return
         const { internal, shared } = player
+        console.log(`Saved ${player.name}`)
 
         const playerData = {
             internal: {
@@ -98,7 +103,10 @@ mp.events.add('playerJoin', player => {
                 position: player.position,
                 dimension: player.dimension, 
                 allWeapons: player.allWeapons,
-                lastVehicle: player.vehicle ? {numberPlate: player.vehicle.numberPlate, seat: player.seat} : false,
+                lastVehicle: player.vehicle ? {
+                    numberPlate: player.vehicle.numberPlate, 
+                    seat: player.seat
+                } : false,
             },
 
             shared: {
@@ -117,12 +125,15 @@ mp.events.add('playerJoin', player => {
                     [   player.getClothes(10)  ],
                     [   player.getClothes(11)  ]
                 ],
-                haircolor: [player.hairColor, player.hairHighlightColor],
+                haircolor: [ player.hairColor, player.hairHighlightColor ],
             }
         }
-        player.data.shared = {...playerData.shared}
-        
-        mp.database.Players.update({ data: JSON.stringify(playerData), balance: player.shared.balance }, {
+
+        player.data.shared = { ...playerData.shared }
+        mp.database.Players.update({ 
+            data: JSON.stringify(playerData), 
+            balance: player.shared.balance 
+        }, {
             where: {
                 identifier: player.shared.identifier
             }
@@ -130,14 +141,14 @@ mp.events.add('playerJoin', player => {
     }
 
     player.load = async (email) => {
-        if (player.shared.loaded) return
+        if ( player.shared.loaded ) return
         const { data, identifier, role, wallet, balance } = await mp.database.Players.findOne({
             where: {
                 email: email
             }
         })
         
-        if(player && data) {
+        if( player && data ) {
             const playerData = JSON.parse(data)
             const { internal, shared } = playerData;
 
@@ -194,14 +205,17 @@ mp.events.add('playerJoin', player => {
     }
 
     player.logout = async() => {
-        if (player.shared || player.internal) player.save()
-        player.shared = {loaded: false}
+        if ( player.shared || player.internal ) player.save()
+
         player.internal = {}
-        player.dimension = player.id + 5000
+        player.shared = { loaded: false }
         player.call('login:enable')
+        player.dimension = player.id + 5000
+
+        // TODO: Execute logout event
     }
 
-    player.exist = async (email) => {
+    player.exist = async email => {
         const PlayerDB = await mp.database.Players.findOne({
             where: {
                 email: email
@@ -213,40 +227,40 @@ mp.events.add('playerJoin', player => {
     }
 
     player.spawnVehicle = (vehicle, position, heading) => {
-        if (vehicle) {
-            const veh = mp.vehicles.new(mp.joaat(vehicle), new mp.Vector3(position), {
-                heading,
-                numberPlate: nanoid(),
-                dimension: player.dimension
-            })
+        if ( !vehicle ) return player.notify('Vehicle not found')
 
-            player.putIntoVehicle(veh, 0);
-            veh.vehicleCreator = player.shared.identifier;
-            veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
-            player.shared.vehicleKeys[veh.numberPlate] = {
-                vehicleCreator: player.shared.identifier,
-                isOwner: true
-            };
-            
-            Instantiate(veh)
-            //TODO Return the vehicle
-        } else player.notify('Vehicle not found.');
+        const veh = mp.vehicles.new(mp.joaat(vehicle), new mp.Vector3(position), {
+            heading,
+            numberPlate: nanoid(),
+            dimension: player.dimension
+        })
+
+        player.putIntoVehicle(veh, 0);
+        veh.vehicleCreator = player.shared.identifier;
+        veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
+        player.shared.vehicleKeys[veh.numberPlate] = {
+            vehicleCreator: player.shared.identifier,
+            isOwner: true
+        };
+        
+        Instantiate(veh)
+        //TODO Return the vehicle
     }
 
     player.repairVehicle = () => {
-        if (player.vehicle) {
-            player.vehicle.repair();
-            player.notify('Vehicle repaired.');
-        } else player.notify('You are not in a vehicle.');
+        if ( !player.vehicle ) return player.notify('You are not in a vehicle.');
+
+        player.vehicle.repair();
+        player.notify('Vehicle repaired.');
     }
 
     player.deleteVehicle = () => {
-        if(player.vehicle) {
-            const {vehicle} = player
-            Remove(vehicle)
-            vehicle.destroy(), player.notify('Vehicle Deleted.');
-        }
-        player.notify('You are not in a vehicle.');
+        if ( !player.vehicle ) return player.notify('You are not in a vehicle.');
+        const { vehicle } = player
+        
+        Remove(vehicle)
+        vehicle.destroy() 
+        player.notify('Vehicle Deleted.');
     }
 
     player.notify = (title, text) => {

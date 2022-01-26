@@ -7,7 +7,7 @@ setInterval(() => {
             } else {
                 player.health -= 2;
             }
-        }  
+        }
     });
 }, 2000);
 

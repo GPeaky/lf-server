@@ -7,7 +7,7 @@ mp.events.addCommand('hear', async(player) => {
 	});
 })
 
-mp.events.addCommand('defeand', async(player) => {
+mp.events.addCommand('defend', async(player) => {
 	mp.players.forEach((_player) => {
 		if(player == _player) return false;
 		

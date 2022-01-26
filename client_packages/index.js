@@ -1,5 +1,5 @@
-const player = mp.players.local;
 mp.utils = {}
+const player = mp.players.local;
 mp.utils.wait = async(ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Utils 
