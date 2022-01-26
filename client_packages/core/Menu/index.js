@@ -47,10 +47,7 @@ mp.core.Menu = class {
     update( options ) {
         this.options = options
         browser.call('interactionMenu:updateMenu', this.title, JSON.stringify(this.options))
-
-        setTimeout(() => {
-            mp.gui.cursor.show(true, true)
-        }, 5)
+        setTimeout(() => mp.gui.cursor.show(true, true), 5)
     }
 
     on( event, callback ) {
