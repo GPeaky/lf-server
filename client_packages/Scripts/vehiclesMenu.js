@@ -9,7 +9,7 @@ mp.events.add('vehiclesMenu', _vehicles => {
 		vehicles.map((vehicle, index) => {
 			index++
 			return {
-				value: vehicle.id,
+				value: vehicle,
 				label: `${index}. ${mp.game.vehicle.getDisplayNameFromVehicleModel(vehicle.model)}`,
 				dataOption: {
 					'<i class="fas fa-location-arrow" style="color:#D95F69"></i> Location': locateVehicle(vehicle.position),
@@ -24,10 +24,7 @@ mp.events.add('vehiclesMenu', _vehicles => {
 	)
 
 	menu.on('optionClicked', async option => {
-		const vehicle = await mp.vehicles.atRemoteId(option.value)
-		if (!vehicle) return
-
-		const blip = await mp.blips.new(225, vehicle.position, {
+		const blip = await mp.blips.new(225, option.value.position, {
 			name: 'Vehicle',
 			scale: '0.8',
 			alpha: 255,
@@ -35,7 +32,7 @@ mp.events.add('vehiclesMenu', _vehicles => {
 		})
 
 		const destroyBlip = setInterval(() => {
-			const { x: vehiclePositionX, y: vehiclePositionY, z: vehiclePositionZ} = vehicle.position
+			const { x: vehiclePositionX, y: vehiclePositionY, z: vehiclePositionZ} = option.value.position
 			const { x: playerPositionX, y: playerPositionY, z: playerPositionZ } = mp.players.local.position
 
 			if ( mp.game.gameplay.getDistanceBetweenCoords(playerPositionX, playerPositionY, playerPositionZ, vehiclePositionX, vehiclePositionY, vehiclePositionZ, false) < 5) {
