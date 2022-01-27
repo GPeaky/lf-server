@@ -1,0 +1,38 @@
+// [
+//     {
+//         "name": "testing1",
+//         "blip": {
+//             "name": "testing1",
+//             "coords": { "x": 0, "y": 0, "z": 0},
+//             "sprite": 110,
+//             "color": 29
+//         },
+//         "points": {
+
+//         }
+//     },
+//     {
+//         "name": "testing2",
+//         "blip": {
+//             "name": "testing1",
+//             "coords": { "x": 10, "y": 10, "z": 10},
+//             "sprite": 110,
+//             "color": 29
+//         },
+//         "points": {
+            
+//         }
+//     },
+//     {
+//         "name": "testing3",
+//         "blip": {
+//             "name": "testing1",
+//             "coords": { "x": 20, "y": 20, "z": 20},
+//             "sprite": 110,
+//             "color": 29
+//         },
+//         "points": {
+
+//         }
+//     }
+// ]

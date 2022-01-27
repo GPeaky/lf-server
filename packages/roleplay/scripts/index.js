@@ -38,3 +38,6 @@ require('./University')
 
 //VehicleDeal
 require('./VehicleDealer')
+
+// Badulake 
+require('./Badulake')
