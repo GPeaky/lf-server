@@ -9,6 +9,7 @@ mp.events.add({
         browser.call('interactionMenu:hideMenu')
         
         mp.gui.cursor.show(false, false)
+        if (!mp?.core?.currentMenu?.callbacks?.menuClosed) return mp.core.currentMenu = null
         mp?.core?.currentMenu?.callbacks?.menuClosed()
         mp.core.currentMenu = null
     },
@@ -47,7 +48,10 @@ mp.core.Menu = class {
     update( options ) {
         this.options = options
         browser.call('interactionMenu:updateMenu', this.title, JSON.stringify(this.options))
-        setTimeout(() => mp.gui.cursor.show(true, true), 5)
+
+        setTimeout(() => {
+            mp.gui.cursor.show(true, true)
+        }, 5)
     }
 
     on( event, callback ) {
