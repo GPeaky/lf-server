@@ -11,3 +11,8 @@ mp.events.add("entityCreated", entity => {
             break;
     }
 });
+
+mp.events.add('Keydown::10', player => {
+    if(!player.vehicle) return
+    player.vehicle.engine = !player.vehicle.engine
+})
