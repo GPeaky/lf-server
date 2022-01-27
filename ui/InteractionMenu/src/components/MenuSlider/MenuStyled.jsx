@@ -1,6 +1,11 @@
 import styled from '@emotion/styled'
 
 export default styled.div`
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
     background: rgba(10,9,18, 0.8);
     color: white;
     width: 400px;
@@ -30,9 +35,13 @@ export default styled.div`
     }
 
     .options {
+        ::-webkit-scrollbar {
+            display: none;
+        }
         border-radius: 10px;
-        overflow: hidden;
+        overflow-y: scroll;
         border: 1px solid #22252e;
         margin-top: 20px;
+        max-height: 500px;
     }
 `

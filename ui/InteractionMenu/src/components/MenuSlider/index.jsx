@@ -7,6 +7,13 @@ export default function MenuSlider () {
         title: 'Default Title',
         options: []
     })
+    
+    global.setMenu = (title, options) => {
+        setData({
+            title,
+            options
+        })
+    }
 
     window.mp?.events.add('interactionMenu:setData', (title, options) => {
         setData({
