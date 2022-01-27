@@ -10,11 +10,12 @@
   },
   "dependencies": {
     "argon2": "^0.28.3",
-    "dotenv": "^14.3.2",
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
     "mariadb": "^2.5.5",
     "nanoid": "^3.2.0",
     "pm2": "^5.1.2",
-    "sequelize": "^6.14.1",
+    "sequelize": "^7.0.0-alpha.4",
     "web3": "^1.7.0"
   },
   "devDependencies": {

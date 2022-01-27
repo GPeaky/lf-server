@@ -6,9 +6,9 @@ let cam = new Camera('loginCam', new mp.Vector3(24.48141, -255.5137, 141.269), n
 cam.startMoving(5000.0)
 
 mp.events.add({
-    'getInfo': (email, passwd) => {
-        mp.events.callRemote('submitLogin', email, passwd)
-        mp.console.logInfo(`${email} ${passwd}`)
+    'getInfo': (email, password) => {
+        mp.events.callRemote('submitLogin', email, password)
+        mp.console.logInfo(`${email} ${password}`)
     },
 
     'login:disable': () => {
