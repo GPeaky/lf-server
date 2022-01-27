@@ -1,6 +1,6 @@
 mp.utils = {}
-const player = mp.players.local;
-mp.utils.wait = async(ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const player = mp.players.local
+mp.utils.wait = async(ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 // Utils 
 require('./utils')
