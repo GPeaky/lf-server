@@ -1,4 +1,3 @@
-require('colors');
 require('dotenv').config();
 const syncDatabase = require('./database')
 
@@ -19,7 +18,7 @@ const main = async () => {
         // Tests
         require('./tests')
     } catch ( err ) {
-        console.log('[WARN] '.red + err);
+        console.log(`[WARN]${ err }`);
     }
 }
 
