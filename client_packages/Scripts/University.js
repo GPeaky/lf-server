@@ -21,7 +21,7 @@ mp.events.add("university:enter", ( point ) => {
     drawPoint(point)
 });
 
-mp.events.add("university:exit", ( ) => {
+mp.events.add("university:exit", () => {
     near--
     if (marker) {
         marker.destroy()
@@ -49,7 +49,7 @@ mp.keys.bind(0x45, true, async() => {
             dataOption:{
                 "Price": price
             },
-            submitLabel: 'Buy license'
+            submitLabel: '<i class="fas fa-sign-in-alt" style="color:#D99441"></i> Buy'
         }
     })
 

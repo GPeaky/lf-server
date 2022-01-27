@@ -1,8 +1,8 @@
 import './index.css'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 import Hud from './components/Hud'
 
-ReactDOM.render(
+render(
   <Hud />,
   document.getElementById('root')
 )
