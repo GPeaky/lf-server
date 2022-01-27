@@ -1,3 +1,7 @@
+* {
+  user-select: none;
+}
+
 #fondoTacometro{
   display: flex;
   background-image: url(../../../public/img/fondoTacometro.png);

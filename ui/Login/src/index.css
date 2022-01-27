@@ -1,3 +1,7 @@
+* {
+  user-select: none;
+}
+
 @font-face {
   src: url('./fonts/UbuntuMono-Regular.ttf');
   font-family: ubuntuMono;

@@ -1,11 +1,7 @@
 import styled from '@emotion/styled'
 
 export default styled.div`
-    user-select: none; /* supported by Chrome and Opera */
-   -webkit-user-select: none; /* Safari */
-   -khtml-user-select: none; /* Konqueror HTML */
-   -moz-user-select: none; /* Firefox */
-   -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
     background: rgba(10,9,18, 0.8);
     color: white;
     width: 400px;
