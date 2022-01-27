@@ -30,6 +30,7 @@ require('./Scripts/vehicle.js')
 require('./Scripts/University.js')
 require('./Scripts/VehicleDeal.js')
 require('./Scripts/vehiclesMenu.js')
+require('./Scripts/Stamina.js')
 
 // Tests
 require('./tests')

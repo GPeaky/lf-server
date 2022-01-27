@@ -157,21 +157,18 @@ mp.events.add('playerJoin', player => {
             player.health = internal.health
             player.armour = internal.armor
             player.heading = internal.heading
+            player.internal.role = role
             player.position = internal.position
             player.dimension = internal.dimension
-
 
             // Shared & Internal
             player.shared = shared
             player.internal = internal
-              
             
             // Append Shared & Internal
-            player.internal.role = role
             player.shared.identifier = identifier
             player.shared.balance = balance
             player.shared.wallet = wallet
-
 
             for (const weapon in internal.allWeapons) {
                 player.giveWeapon(Number(weapon), internal.allWeapons[weapon]);

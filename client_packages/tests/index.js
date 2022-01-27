@@ -1,4 +1,5 @@
-//* Here you can run tests for the server :)
+// * Here you can run tests for the server :)
+const player = mp.players.local
 
 mp.events.add({
 	'fadeOut': (time = 0) => {
