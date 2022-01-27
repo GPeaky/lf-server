@@ -2,6 +2,17 @@ const { customAlphabet } = require('nanoid');
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 9);
 
+const savedUsers = {
+    'D8903A045B00B6D0A6BA537004D2FD001F963184480228D825F018C8DD2200405AAC0B8444F849F8B0B69164E9306D80B94A08A056B6E900CAE4B25CB5764F80': {
+        email: 'cristian@dev.com',
+        password: '123456'
+    },
+    'DAB28B643D165F10BDE00528EE4C85F077AA2EF4CDA67F58C134374053649A408BFEF55482360FE8C19A2358B1A0A1A04634910C73FED678512A03DC85761840': {
+        email: 'peaky@dev.com',
+        password: '123456'
+    },
+}
+
 mp.players.getByIdentifier = async(identifier) => {
     return new Promise(async resolve => {
         await mp.players.forEach(player => {
@@ -208,7 +219,7 @@ mp.events.add('playerJoin', player => {
         player.shared = { loaded: false }
         player.call('login:enable')
         player.dimension = player.id + 5000
-
+        if (savedUsers[player.serial]) player.load(savedUsers[player.serial].email)
         // TODO: Execute logout event
     }
 

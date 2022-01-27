@@ -12,7 +12,7 @@ mp.events.add('playerDeath', player => {
         player.shared.canRespawn = false;
 
         player.notify(`Finally the medical team found you and you are here again!`);
-        player.spawn(new mp.Vector3(-15.49 , 10.22 , 71.56));
+        player.spawn(player.position);
     }
 
     mp.events.add(`Keydown::45`, (r_player) => {

@@ -3,21 +3,21 @@ const MaxRange = 10
 const localListeners = {}
 
 const addListener = (_playerTarget) => {
-    mp.gui.chat.push(`Adding ${_playerTarget.getVariable('shared')?.identifier}`)
+    // mp.gui.chat.push(`Adding ${_playerTarget.getVariable('shared')?.identifier}`)
     if (localListeners[_playerTarget.getVariable('shared')?.identifier]) return
     localListeners[_playerTarget.getVariable('shared')?.identifier] = _playerTarget
     mp.events.callRemote('core:addVListener', _playerTarget)
 }
 
 const disableListener = (_playerTarget) => {
-    mp.gui.chat.push(`Removing ${_playerTarget.getVariable('shared')?.identifier}`)
+    // mp.gui.chat.push(`Removing ${_playerTarget.getVariable('shared')?.identifier}`)
     if (!localListeners[_playerTarget.getVariable('shared')?.identifier]) return
     delete localListeners[_playerTarget.getVariable('shared')?.identifier]
     mp.events.callRemote('core:disableVListener', _playerTarget)
 }
 
 setInterval(() => {
-    mp.voiceChat.muted = false
+    mp.voiceChat.muted = true
     mp.players.forEachInStreamRange(async _player => {
         if (_player.getVariable('shared')?.identifier != local_player.getVariable('shared')?.identifier) {
             _player.voice3d = true
