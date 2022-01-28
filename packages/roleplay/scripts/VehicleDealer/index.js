@@ -25,6 +25,10 @@ const VehicleDealPoints = [
             {name:'t20', label:'Macaren P1', options:{
                 'Velocity': '120Km/h',
                 'Kilometers': '0Km'
+            }, price:3500},
+            {name:'blista', label:'F1 Fernando A.', options:{
+                'Velocity': '230Km/h',
+                'Kilometers': '0Km'
             }, price:3500}
         ]
     }

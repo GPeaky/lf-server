@@ -63,18 +63,31 @@ mp.keys.bind(0x45, true, async() => {
     const menu = new mp.core.Menu(currentPoint.name, menuData)
     
     let selected = null
+    let opens = 0
 
-    menu.on('optionSelected', ({value}) => {
-        if(selected == value){
+    menu.on('optionSelected', ({action, value}) => {
+        console.log(`${opens}, ${selected}, ${action}, ${value}`)
+        if(opens <= 1 && action == 'close'){
             mp.events.callRemote("shop:VehicleDeal:stopPreview");
             selected = null
-            return        
-        }else if(selected != null){
+            opens--
+            return
+        }
+        if(selected == value && action == 'close'){
+            mp.events.callRemote("shop:VehicleDeal:stopPreview");
+            selected = null
+            opens--
+            return
+        }
+        if(action == 'close') {opens--; return}
+        if(action == 'open') opens++
+        if(selected != null){
             selected = value 
             console.log(`optionSelected ${value}`)
             mp.events.callRemote("shop:VehicleDeal:updatePreview", value);
+            return
         }
-        selected = value 
+        selected = value
         console.log(`optionSelected ${value}`)
         mp.events.callRemote("shop:VehicleDeal:startPreview", value);
     })    
@@ -82,6 +95,7 @@ mp.keys.bind(0x45, true, async() => {
         mp.events.callRemote("shop:VehicleDeal:stopPreview");
         console.log(`optionClicked ${option}`)
         menuOpened = false
+        menu.close()
     })
     menu.on('menuClosed', () => {
         menuOpened = false
