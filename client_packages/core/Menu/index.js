@@ -41,7 +41,7 @@ mp.core.Menu = class {
         setTimeout(() => mp.gui.cursor.show(true, true), 5)
     }
 
-    hide() {
+    close() {
         mp.events.call('interactionMenu:closeMenu')
     }
 

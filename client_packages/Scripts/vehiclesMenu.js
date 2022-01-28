@@ -43,6 +43,6 @@ mp.events.add('vehiclesMenu', _vehicles => {
 
 		blip.setRoute(true)
 		blip.setRouteColour(35)
-		menu.hide() 
+		menu.close() 
 	})
 })
