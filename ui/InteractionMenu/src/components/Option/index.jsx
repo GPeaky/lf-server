@@ -52,7 +52,7 @@ export default function Option({ value, title, description, numberOption, option
 
     return(
         <OptionStyled className={`optionDiv option${numberOption}`}>
-            <div className="principalData" onClick={ showOption }>
+            <div className="principalData" onClick={ () => { showOption() } }>
                 <p className="nameOption" dangerouslySetInnerHTML={{__html: title}}></p>
                 { description && <div dangerouslySetInnerHTML={{__html: description}}></div> }
             </div>
