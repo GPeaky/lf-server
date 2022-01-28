@@ -104,6 +104,20 @@ mp.events.add("shop:VehicleDeal:updatePreview", (player, model) => {
 
 mp.events.add("shop:VehicleDeal:action", async (player, option) => {
     const data = JSON.parse(option)
+    const point = VehicleDealPoints.find( point => point.vehicles.find( pto => pto.name == data.value ) != undefined)
+    const veh = point.vehicles.find( pto => pto.name == data.value )
+    if( veh.price > player.balance ) return { status:false, err:'You need more money to pay this' }
+    //TODO player.removeMoney(veh.price)
+    const vehicle = player.spawnVehicle(veh.name, new mp.Vector3(point.vehiclePoint.coords.x, point.vehiclePoint.coords.y, point.vehiclePoint.coords.z), point.vehiclePoint.heading)  
+    setTimeout( () => {
+        veh.exposition = true
+        try {
+            player.putIntoVehicle(vehicle, 0);            
+        } catch (error) {
+            return            
+        }
+    }, 200);
+    return { status:true }
 })
 
 Init()

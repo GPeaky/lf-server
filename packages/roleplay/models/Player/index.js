@@ -11,6 +11,10 @@ const savedUsers = {
         email: 'peaky@dev.com',
         password: '123456'
     },
+    // 'DAB28B643D165F10BDE00528EE4C85F077AA2EF4CDA67F58C134374053649A408BFEF55482360FE8C19A2358B1A0A1A04634910C73FED678512A03DC85761840': {
+    //     email: 'nacho@dev.com',
+    //     password: 'seeyouagain'
+    // },
 }
 
 mp.players.getByIdentifier = async(identifier) => {
@@ -252,7 +256,7 @@ mp.events.add('playerJoin', player => {
         };
         
         Instantiate(veh)
-        //TODO Return the vehicle
+        return veh
     }
 
     player.repairVehicle = () => {
