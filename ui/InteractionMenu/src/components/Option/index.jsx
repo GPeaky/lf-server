@@ -32,16 +32,17 @@ export default function Option({ value, title, description, numberOption, option
     }
 
     const showOption = () => {
-        window.mp?.trigger('interactionMenu:optionSelected', JSON.stringify({value, ...dataOption}))
         const height = dataOption ? `${calculateHeight()}px` : '140px'
         const optionDiv = document.querySelector(`.optionDiv.option${numberOption}`)
         if ( !optionDiv ) return
-
+        
         if (optionDiv.style.height && optionDiv.style.height === height) {
+            window.mp?.trigger('interactionMenu:optionSelected', JSON.stringify({action: 'close', value, ...dataOption}))
             optionDiv.style.border = '1px solid #22252e'
             optionDiv.style.background = '#1b1d23'
             optionDiv.style.height = '50px'
         } else {
+            window.mp?.trigger('interactionMenu:optionSelected', JSON.stringify({action: 'open', value, ...dataOption}))
             optionDiv.style.border = '1px solid #223286'
             optionDiv.style.background = '#090e25'
             optionDiv.style.height = height
