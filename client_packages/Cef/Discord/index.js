@@ -1,0 +1,1 @@
+mp.discord.update('Shhhh is a secret', 'Development Server')

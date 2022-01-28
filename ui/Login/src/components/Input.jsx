@@ -1,28 +1,32 @@
 // import { useState } from 'react'
 import styled from '@emotion/styled'
 
-export default function Input ({type, placeholder, register, image, value}) {
+export default function Input ({type, placeholder, register, value, label}) {
     const InputStyled = styled.div`
         width: 100%;
         display: flex;
         justify-content: center;
 
+        .data {
+          width: 225px;
+          margin-top: 10px;
+          label {
+            color: white;
+          }
+        }
+
         .inputLogin {
-            background: #202b8b;
-            border-radius: 20px;
-            border: none;
-            padding: 10px;
-            padding-left: ${image ? '40px' : '10px'};
-            width: 90%;
-            height: 30px;
+            background: #2c2b32;
+            border-radius: 5px;
+            border: 2px solid #353539;
+            width: 205px;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 40px;
             outline: none;
             margin-top: 10px;
             font-size: 13px;
-            color: #3f6cff;
-        }
-
-        .inputLogin::placeholder {
-            color: #3f6cff;
+            color: white;
         }
         
         .inputImage {
@@ -45,14 +49,17 @@ export default function Input ({type, placeholder, register, image, value}) {
                     <img src={ image } alt='Logo of input'/>
                 </div>
             } */}
-
-            <input 
-                type={ type } 
-                { ...register }
-                value={ value }
-                className="inputLogin" 
-                placeholder={ placeholder } 
-            />
+            <div className="data">
+              <label htmlFor={label}>{label}</label>
+  
+              <input 
+                  type={ type } 
+                  { ...register }
+                  value={ value }
+                  className="inputLogin" 
+                  placeholder={ placeholder } 
+              />
+            </div>
         </InputStyled>
     )
 }

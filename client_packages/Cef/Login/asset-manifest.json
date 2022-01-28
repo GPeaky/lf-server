@@ -1,19 +1,18 @@
 {
   "files": {
-    "main.css": "./static/css/main.a973ebfd.css",
-    "main.js": "./static/js/main.4ab70ebb.js",
+    "main.css": "./static/css/main.2a7b6a4e.css",
+    "main.js": "./static/js/main.16a34e90.js",
+    "static/media/bottom.png": "./static/media/bottom.b34a300ce17fb5099503.png",
     "static/media/Inter-Regular.ttf": "./static/media/Inter-Regular.2391725004ae05a27e8e.ttf",
-    "static/media/UbuntuMono-Regular.ttf": "./static/media/UbuntuMono-Regular.f17c05937940e39c45d1.ttf",
     "static/media/arroba.png": "./static/media/arroba.64ca4e10915964a0f839.png",
     "static/media/candado.png": "./static/media/candado.a725d71aa6304ad8c961.png",
-    "static/media/gtaChrismas.jpeg": "./static/media/gtaChrismas.22b828b4a6121d64a3c1.jpeg",
-    "static/media/logo.svg": "./static/media/logo.a664ae5e6c639903c2a0b2950fa94d05.svg",
+    "static/media/logo.svg": "./static/media/logo.11e3eac78c7650b6bf3a5a0bc686a64b.svg",
     "index.html": "./index.html",
-    "main.a973ebfd.css.map": "./static/css/main.a973ebfd.css.map",
-    "main.4ab70ebb.js.map": "./static/js/main.4ab70ebb.js.map"
+    "main.2a7b6a4e.css.map": "./static/css/main.2a7b6a4e.css.map",
+    "main.16a34e90.js.map": "./static/js/main.16a34e90.js.map"
   },
   "entrypoints": [
-    "static/css/main.a973ebfd.css",
-    "static/js/main.4ab70ebb.js"
+    "static/css/main.2a7b6a4e.css",
+    "static/js/main.16a34e90.js"
   ]
 }

@@ -1,8 +1,8 @@
 import './index.css'
 import { render } from 'react-dom'
-import Login from './components/Login'
+import App from './App'
 
 render(
-  <Login />,
+  <App />,
   document.getElementById('root')
 )

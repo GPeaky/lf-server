@@ -12,38 +12,42 @@ const FormLogin = () => {
         display: flex;
         flex-flow: column wrap;
         align-items: center;
-        width: 300px;
-
+        width: 100%;
         .imageForm {
-            width: 32%;
-            margin-top: 20px;
+          width: 150px;
         }
-
-        .textRegister, .textProblem {
-            font-size: 12px;
-            text-align: center;
-            color: white;
-        }
-
-        .textProblem {
-            color: #414894;
+        
+        .textRegister {
+          color: #9a9a9e;
+          font-size: 14px;
+          width: 225px;
+          margin-bottom: 20px;
         }
 
         .submitLogin {
-            background: #1f2d76;
-            border-radius: 20px;
-            border: none;
-            padding: 5px;
-            width: 90%;
-            margin-top: 10px;
-            font-size: 15px;
-            color: #ccc;
-            cursor: pointer;
-            transition: 300ms all;
+          background: #f39327;
+          width: 225px;
+          padding: 15px;
+          border: none;
+          border-radius: 10px;
+          box-shadow: 0px 0px 4px #f39327;
+          margin-top: 10px;
+          color: white;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: 300ms all;
         }
-        
+
         .submitLogin:hover {
-            background: #2c41aa;
+          background: #995e1c;
+        }
+
+        .textProblem {
+          color: white;
+          font-size: 15px;
+          display: block;
+          margin-top: 5px;
         }
     `
 
@@ -68,19 +72,21 @@ const FormLogin = () => {
             </div>
             <p className="textRegister">
                 Hello! Enter your data to log in. <br />
-                If you do not have an account <a style={{ color: "#414894" }}>register</a>.
+                If you do not have an account <a style={{ color: "#f39327" }}>register</a>.
             </p>
             <Input
                 type="email"
                 placeholder="example@email.com"
                 image={ arroba }
                 register={{ ...register("email") }}
+                label='Email'
             />
             <Input
                 type="password"
                 placeholder="Password"
                 register={{ ...register("password") }}
                 image={ candado }
+                label='Password'
             />
             <p className="textProblem">Do you problems to signin?</p>
             {
@@ -89,7 +95,7 @@ const FormLogin = () => {
                 )
             }
             <button type="submit" className="submitLogin">
-                Login
+                Submit
             </button>
         </FormStyled>
     )

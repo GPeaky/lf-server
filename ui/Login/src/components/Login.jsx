@@ -1,15 +1,15 @@
 import styled from '@emotion/styled'
-import AdvertsLogin from './AdvertsLogin'
 import FormLogin from './FormLogin'
 
 const Login = () => {
     const LoginStyled = styled.div`
         position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
+        top: 25%;
+        bottom: 10%;
+        left: 2%;
         right: 0;
-        .divImage {
+        z-index: 3;
+        /*.divImage {
             position: absolute;
             top: 0;
             bottom: 0;
@@ -20,8 +20,8 @@ const Login = () => {
             * {
                 width: 100%;
                 height: 100%; 
-            }Co
-        }
+            }
+        }*/
         
         .contentLogin {
             display: flex;
@@ -33,17 +33,17 @@ const Login = () => {
             left: 0;
             right: 0;
             background: white;
-            height: 375px;
-            width: 500px;
+            height: 520px;
+            width: 300px;
             border-radius: 20px;
             overflow: hidden;
-            background: #090916;
+            z-index: 2;
+            background: transparent;
         }
     `
   return (
     <LoginStyled>
       <div className="contentLogin">
-        <AdvertsLogin />
         <FormLogin />
       </div>
     </LoginStyled>
