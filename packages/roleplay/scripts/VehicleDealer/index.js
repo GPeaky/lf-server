@@ -22,14 +22,24 @@ const VehicleDealPoints = [
             heading: 283.98
         },
         vehicles: [
-            {name:'t20', label:'Macaren P1', options:{
-                'Velocity': '120Km/h',
-                'Kilometers': '0Km'
-            }, price:3500},
-            {name:'blista', label:'F1 Fernando A.', options:{
-                'Velocity': '230Km/h',
-                'Kilometers': '0Km'
-            }, price:3500}
+            {
+                name:'t20', 
+                label:'Macaren P1', 
+                options:{
+                    'Velocity': '120Km/h',
+                    'Kilometers': '0Km'
+                }, 
+                price:3500
+            },
+            {
+                name:'blista', 
+                label:'F1 Fernando A.', 
+                options:{
+                    'Velocity': '230Km/h',
+                    'Kilometers': '0Km'
+                },
+                price:3500
+            }
         ]
     }
 ]
@@ -43,7 +53,6 @@ const Init = () => {
         
         function playerEnterColshapeHandler(player, shape) {
             if(shape == colshape) {
-                console.log("A")
                 player.call("shop:VehicleDeal:enter", [{index,menu, vehicles}])
             }
         }
@@ -53,7 +62,6 @@ const Init = () => {
         
         function playerExitColshapeHandler(player, shape) {
             if(shape == colshape) {
-                console.log("B")
                 player.call("shop:VehicleDeal:exit", [{index,menu}])
             }
         }
@@ -84,7 +92,6 @@ const PreviewVehicle = (model, {coords, heading}, player) => {
 }
 
 mp.events.add("shop:VehicleDeal:startPreview", (player, model) => {
-    console.log(model)
     player.dimension = player.id + 112
     playersViwing[player.id] = PreviewVehicle(model, VehicleDealPoints[0].vehiclePreview, player)
 })

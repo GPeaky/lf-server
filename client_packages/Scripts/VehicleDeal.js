@@ -96,7 +96,7 @@ mp.keys.bind(0x45, true, async() => {
         console.log(`optionClicked ${option}`)
         menuOpened = false
         menu.close()
-        mp.events.callRemote('shop:VehicleDeal:action', JSON.stringify(currentPoint));
+        mp.events.callRemote('shop:VehicleDeal:action', JSON.stringify(option));
     })
     menu.on('menuClosed', () => {
         menuOpened = false
