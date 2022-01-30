@@ -86,3 +86,4 @@ mp.core.Blips = class {
 }
 
 require('./Menu')
+require('./Dimensions')
