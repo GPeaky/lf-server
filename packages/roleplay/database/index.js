@@ -4,10 +4,13 @@ const Players = require('./models/Players');
 module.exports = async () => {
     try {
         mp.database = {
-            Players:Players,
+            Players: Players,
             Vehicles: require('./models/Vehicles'),
-            Transactions: require('./models/Transactions')
+            Transactions: require('./models/Transactions'),
+            Houses: require('./models/Houses'),
         }
+
+        Object.keys(mp.database).forEach(name => console.log(`[Database] Loaded ${name}`));
         
         mp.database.Players.getPlayerByWallet = async wallet => {
             return await Players.findOne({

@@ -41,3 +41,6 @@ require('./VehicleDealer')
 
 // Badulake 
 require('./Badulake')
+
+// Housing
+require('./Housing')
