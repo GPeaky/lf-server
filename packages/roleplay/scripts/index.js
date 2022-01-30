@@ -44,3 +44,6 @@ require('./Badulake')
 
 // Housing
 require('./Housing')
+
+
+require('./AntiAfk')
