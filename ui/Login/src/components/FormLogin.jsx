@@ -2,8 +2,6 @@ import * as yup from 'yup'
 import Input from './Input'
 import logo from '../img/logo.svg'
 import styled from '@emotion/styled'
-import arroba from '../img/arroba.png'
-import candado from '../img/candado.png'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -77,7 +75,6 @@ const FormLogin = () => {
             <Input
                 type="email"
                 placeholder="example@email.com"
-                image={ arroba }
                 register={{ ...register("email") }}
                 label='Email'
             />
@@ -85,17 +82,16 @@ const FormLogin = () => {
                 type="password"
                 placeholder="Password"
                 register={{ ...register("password") }}
-                image={ candado }
                 label='Password'
             />
-            <p className="textProblem">Do you problems to signin?</p>
+            <br/>
             {
                 (errors.email || errors.password) && (
                     <span className="msgError">Your email/password is incorrect</span>
                 )
             }
             <button type="submit" className="submitLogin">
-                Submit
+                Login
             </button>
         </FormStyled>
     )
