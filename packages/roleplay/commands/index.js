@@ -3,3 +3,6 @@ require('./SuperUser');
 
 // VehiclesMenu
 require('./VehiclesMenu')
+
+// LicensesMenu
+require('./LicensesMenu')
