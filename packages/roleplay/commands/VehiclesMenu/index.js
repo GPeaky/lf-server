@@ -11,5 +11,5 @@ mp.events.addCommand('vehicles', async player => {
             numberPlate: vehicle.numberPlate
         })
     })
-    player.call('vehiclesMenu', [JSON.stringify(vehicles)])
+    player.call('vehiclesMenu', [ vehicles ])
 })

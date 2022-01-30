@@ -3,8 +3,7 @@ const locateVehicle = position => {
 	return mp.game.ui.getStreetNameFromHashKey(streetName)
 }
 
-mp.events.add('vehiclesMenu', _vehicles => {
-	const vehicles = JSON.parse(_vehicles)
+mp.events.add('vehiclesMenu', vehicles => {
 	const menu = new mp.core.Menu(`<div style="color:#D95F69"> <i class="fas fa-car"></i> Vehicles </div>`,
 		vehicles.map((vehicle, index) => {
 			index++
