@@ -9,20 +9,26 @@ mp.events.add({
         browser.call('interactionMenu:hideMenu')
         
         mp.gui.cursor.show(false, false)
+        mp.events.callRemote('interactionMenu:menuClosed')
         if (!mp?.core?.currentMenu?.callbacks?.menuClosed) return mp.core.currentMenu = null
         mp?.core?.currentMenu?.callbacks?.menuClosed()
         mp.core.currentMenu = null
     },
     
     'interactionMenu:optionSelected': optionData => {
+        mp.events.callRemote('interactionMenu:optionSelected', optionData)
         if (!mp?.core?.currentMenu?.callbacks?.optionSelected) return
         mp?.core?.currentMenu?.callbacks?.optionSelected(JSON.parse(optionData))
     },
     
     'interactionMenu:optionClicked': optionData => {
+        mp.events.callRemote('interactionMenu:optionClicked', optionData)
         if (!mp?.core?.currentMenu?.callbacks?.optionClicked) return
         mp?.core?.currentMenu?.callbacks?.optionClicked(JSON.parse(optionData))
-    }
+    },
+
+    'interactionMenu:openMenu': (title, options) => new mp.core.Menu(title, options)
+    
 })
 
 mp.core.Menu = class {
