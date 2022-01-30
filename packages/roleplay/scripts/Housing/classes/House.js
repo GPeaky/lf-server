@@ -1,1 +1,7 @@
-console.log('Started housing')
+mp.housing.House = class House {
+    constructor({ id }) {
+        this.id = id;
+    }
+
+
+}
