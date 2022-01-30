@@ -1,5 +1,5 @@
 mp.events.addCommand('licenses', player => {
-    new mp.core.Menu(`Licenses Menu`, 
+    new mp.core.Menu(player, `Licenses Menu`, 
         Object.values( player.shared.licenses ).map(( license, index ) => {
             return {
                 value: license.name,

@@ -1,4 +1,4 @@
-mp.housing.House = class House {
+mp.housing.House = class {
     constructor({ id }) {
         this.id = id;
     }
