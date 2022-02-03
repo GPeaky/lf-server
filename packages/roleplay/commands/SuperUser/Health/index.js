@@ -10,7 +10,7 @@ mp.events.addCommandGroup('heal', ['superUser'], (player, id) => {
 
 mp.events.addCommandGroup('revive', ['superUser'], (player, id) => {
     player = mp.players.at(id) ?? player
-    if (!player.isDead) return player.notify('You are not death')
+    if (!player.shared.isDead) return player.notify('You are not death')
 
     player.spawn( player.position )
     player.shared.isDead = false
