@@ -32,6 +32,7 @@ require('./Scripts/VehicleDeal.js')
 require('./Scripts/vehiclesMenu.js')
 require('./Scripts/Stamina.js')
 require('./Scripts/AntiAfk')
+require('./Scripts/tags')
 
 // Tests
 require('./tests')
