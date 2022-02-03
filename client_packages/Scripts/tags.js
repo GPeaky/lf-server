@@ -3,10 +3,10 @@ mp.nametags.enabled = false;
 const maxDistance = 25*25
 
 mp.events.add('render', nametags => {
-    const { graphics: { screenRes, ...graphics } } = mp.game
+    const { graphics } = mp.game
 
-    nametags.forEach(nametag => {
-        const [player, x, y, distance] = nametag
+    nametags.forEach(nameTag => {
+        const [player, x, y, distance] = nameTag
 
         if (distance <= maxDistance) {
             let scale = (distance / maxDistance)
