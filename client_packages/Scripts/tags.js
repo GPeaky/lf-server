@@ -7,17 +7,13 @@ mp.events.add('render', nametags => {
 
     nametags.forEach(nameTag => {
         const [player, x, y, distance] = nameTag
+        if (distance > maxDistance) return
 
-        if (distance <= maxDistance) {
-            let scale = (distance / maxDistance)
-            if (scale < 0.6) scale = 0.6
-
-            graphics.drawText(player.name, [x, y], {
-                font: 4,
-                color: [ 255, 255, 255, 255 ],
-                scale: [0.4, 0.4],
-                outline: true
-            })
-        }
+        graphics.drawText(player.name, [x, y], {
+            font: 4,
+            color: [ 255, 255, 255, 255 ],
+            scale: [0.2, 0.2],
+            outline: true
+        })
     })
 })
