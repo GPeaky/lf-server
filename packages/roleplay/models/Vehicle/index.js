@@ -1,14 +1,9 @@
 mp.events.add("entityCreated", entity => {
-    switch (entity.type) {
-        case 'vehicle':
-            entity.getSpeed = () => {
-                let { velocity } = entity
-                velocity = Math.sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y) + (velocity.z * velocity.z)) * 3.6
-                return velocity;
-            }
-            break;
-        default:
-            break;
+    if ( !entity.type || entity.type !== "vehicle" ) return;
+
+    entity.getSpeed = () => {
+        const { velocity } = entity
+        return Math.sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y) + (velocity.z * velocity.z)) * 3.6;
     }
 });
 

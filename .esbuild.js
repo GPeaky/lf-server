@@ -2,7 +2,7 @@ const { buildSync } = require('esbuild')
 
 // Server Side Rendering
 buildSync({
-    entryPoints: './packages/roleplay/index.js',
+    entryPoints: ['./packages/roleplay/index.js'],
     minify: true,
     bundle: true,
     format: 'cjs',
