@@ -23,6 +23,6 @@ module.exports = async () => {
         await database.sync();
         console.log('Database Synced!'.green);
     } catch ( err ) {
-        console.log('Database Error: '.red, err );
+        console.log('Database Error: '.red );
     }
 }

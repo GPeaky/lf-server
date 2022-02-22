@@ -3,6 +3,6 @@ const { SQ_NAME, SQ_USER, SQ_PASS } = process.env;
 
 module.exports = new Sequelize(SQ_NAME, SQ_USER, SQ_PASS, {
     host: 'localhost',
-    dialect: 'mariadb',
+    dialect: 'postgres',
     logging: false
 })

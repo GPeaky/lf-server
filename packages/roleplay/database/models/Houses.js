@@ -15,7 +15,7 @@ const Houses = sequelize.define('houses', {
     },
 
     data: {
-        type: DataTypes.TEXT('long'),
+        type: DataTypes.TEXT,
         allowNull: false,
 
         validate: {

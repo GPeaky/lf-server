@@ -14,7 +14,7 @@ const Vehicles = sequelize.define('vehicles', {
     },
 
     data:{
-        type: DataTypes.TEXT('long'),
+        type: DataTypes.TEXT,
         allowNull: false,
 
         validate: {

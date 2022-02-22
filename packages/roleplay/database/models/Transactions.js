@@ -41,7 +41,7 @@ const Transactions = sequelize.define('transactions', {
     },
 
     confirmations: {
-        type: DataTypes.INTEGER(2),
+        type: DataTypes.INTEGER,
         defaultValue: 0,
         allowNull: false,
     },

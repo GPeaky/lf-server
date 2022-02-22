@@ -26,7 +26,7 @@ const Players = sequelize.define('player', {
     },
 
     data:{
-        type: DataTypes.TEXT('long'),
+        type: DataTypes.TEXT,
         allowNull: false,
 
         validate: {
