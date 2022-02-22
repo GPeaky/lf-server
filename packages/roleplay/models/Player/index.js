@@ -10,19 +10,15 @@ const savedUsers = {
     'DAB28B643D165F10BDE00528EE4C85F077AA2EF4CDA67F58C134374053649A408BFEF55482360FE8C19A2358B1A0A1A04634910C73FED678512A03DC85761840': {
         email: 'peaky@dev.com',
         password: '123456'
-    },
-    // 'DAB28B643D165F10BDE00528EE4C85F077AA2EF4CDA67F58C134374053649A408BFEF55482360FE8C19A2358B1A0A1A04634910C73FED678512A03DC85761840': {
-    //     email: 'nacho@dev.com',
-    //     password: 'seeyouagain'
-    // },
+    }
 }
 
-mp.players.getByIdentifier = async(identifier) => {
-    return new Promise(async resolve => {
-        await mp.players.forEach(player => {
-            if (player.shared?.identifier == identifier) resolve(player);
-        }); resolve(false)
+mp.players.getByIdentifier = async identifier => {
+    await mp.players.forEach(player => {
+        if ( player.shared?.identifier == identifier ) return player 
     })
+
+    return false
 }
 
 mp.events.add('playerJoin', player => {
