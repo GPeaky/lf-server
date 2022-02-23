@@ -15,7 +15,8 @@ const savedUsers = {
 
 mp.players.getByIdentifier = async identifier => {
     await mp.players.forEach(player => {
-        if ( player.shared?.identifier == identifier ) return player 
+        if ( player.shared?.identifier == identifier ) 
+            return player 
     })
 
     return false
