@@ -1,27 +1,21 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../config/database')
-const { nanoid } = require('nanoid');
+const { nanoid } = require('nanoid')
+const { Schema, model } = require('mongoose')
 
-const Houses = sequelize.define('houses', {
-    id: {
-        type: DataTypes.STRING(9),
-        primaryKey: true,
-        defaultValue: () => nanoid(9)
+const Houses = new Schema({
+    _id: {
+        type: String,
+        default: () => nanoid(9)
     },
-    
+
     owner: {
-        type: DataTypes.STRING(64),
-        allowNull: false,
+        type: String,
+        required: true
     },
 
     data: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-
-        validate: {
-            isJSON: true,
-        }
-    },
+        type: Object,
+        required: true
+    }
 })
 
-module.exports = Houses
+module.exports = model('Houses', Houses)

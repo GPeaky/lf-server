@@ -1,26 +1,20 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../config/database');
+const { Schema, model } = require('mongoose')
 
-const Vehicles = sequelize.define('vehicles', {
-    id: {
-        type: DataTypes.STRING(9),
-        allowNull: false,
-        primaryKey: true,
+const Vehicles = new Schema({
+    _id: {
+        type: String,
+        required: true
     },
 
     model: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String,
+        required: true
     },
 
-    data:{
-        type: DataTypes.TEXT,
-        allowNull: false,
-
-        validate: {
-            isJSON: true,
-        }
-    },
+    data: {
+        type: Object,
+        required: true
+    }
 })
 
-module.exports = Vehicles;
+module.exports = model('Vehicles', Vehicles)

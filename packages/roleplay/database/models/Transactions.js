@@ -1,50 +1,48 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../config/database')
+const { Schema, model } = require('mongoose')
 
-const Transactions = sequelize.define('transactions', {
-    id: {
-        type: DataTypes.STRING(360),
-        allowNull: false,
-        primaryKey: true
+const Transactions = new Schema({
+    _id: {
+        type: String,
     },
     
     wallet: {
-        type: DataTypes.STRING(64),
-        allowNull: false,
+        type: String,
+        required: true
     },
 
     amountWei: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String,
+        required: true
     },
 
     amountParsed: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String,
+        required: true
     },
 
-    nonce:{
-        type: DataTypes.STRING(64),
-        allowNull: false,
+    nonce: {
+        type: String,
+        required: true
     },
 
     type: {
-        type: DataTypes.STRING(256),
-        defaultValue: 'unkown',
-        allowNull: false,
+        type: String,
+        required: true,
+        default: 'unknown'
     },
 
     status: {
-        type: DataTypes.STRING(256),
-        defaultValue: 'unkown',
-        allowNull: false,
+        type: String,
+        required: true,
+        default: 'pending'
     },
 
     confirmations: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-    },
+        type: Number,
+        required: true,
+        default: 0
+    }
+
 })
 
-module.exports = Transactions
+module.exports = model('Transactions', Transactions)

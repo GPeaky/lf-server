@@ -1,8 +1,17 @@
-const Sequelize = require('sequelize');
-const { SQ_NAME, SQ_USER, SQ_PASS } = process.env;
+const mongoose = require('mongoose')
 
-module.exports = new Sequelize(SQ_NAME, SQ_USER, SQ_PASS, {
-    host: 'localhost',
-    dialect: 'postgres',
-    logging: false
-})
+const databaseConnection = async () => {
+    try {
+        await mongoose.connect(process.env.DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+            useFindAndModify: true
+        });
+        console.log('Database Connection Established');
+    } catch( err ) {
+        throw new Error('cant initialize database connection');
+    }
+}
+
+module.exports = databaseConnection

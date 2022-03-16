@@ -1,63 +1,50 @@
-const argon2 = require('argon2');
-const { nanoid } = require('nanoid');
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../config/database')
+const argon2 = require('argon2')
+const { nanoid } = require('nanoid')
+const { Schema, model } = require('mongoose')
 
-const Players = sequelize.define('player', {
-    identifier: {
-        type: DataTypes.STRING(9),
-        defaultValue: () => nanoid(9)
+const Players = new Schema({
+    _id: {
+        type: String,
+        default: () => nanoid(9)
     },
-    
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
 
-        validate: {
-            isEmail: true,
-            notEmpty: true
-        }
+    email: {
+        type: String,
+        required: true,
+        unique: true
     },
 
     password: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String,
+        required: true
     },
 
-    data:{
-        type: DataTypes.TEXT,
-        allowNull: false,
-
-        validate: {
-            isJSON: true,
-        }
+    data: {
+        type: Object,
+        required: true
     },
 
     role: {
-        type: DataTypes.ENUM('user', 'superUser'),
-        defaultValue: 'user',
-        allowNull: false
+        type: String,
+        required: true,
+
+        enum: ['player', 'admin']
     },
 
     balance: {
-        type: DataTypes.STRING(256),
-        allowNull: false,
-        defaultValue: '0'
+        type: String,
+        required: true
     },
 
     wallet: {
-        type: DataTypes.STRING(64),
-        allowNull: false,
-        defaultValue: 'unkown',
-    }
-
-}, {
-    hooks: {
-        beforeCreate: async (player) => {
-            player.password = await argon2.hash(player.password);
-        }
+        type: String,
+        required: true,
+        default: 'unknown'
     }
 })
 
-module.exports = Players
+Players.passwordHashing = async (password) => {
+    return await argon2.hash(password)
+}
+
+module.exports = model('Players', Players)
