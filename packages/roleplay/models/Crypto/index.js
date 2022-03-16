@@ -1,3 +1,4 @@
+/* eslint-disable no-async-promise-executor */
 const Web3 = require('web3')
 
 mp.crypto = {}
@@ -9,9 +10,9 @@ mp.crypto.accountSecret = 'e1d97451b0d89d38d3c1f324e880b97b03fc2779c6a5805175f88
 
 mp.crypto.Transfer = async (to, amount, playerId) => {
     return new Promise(async resolve => {
-        mp.crypto.nonce++; let cachedNonce = mp.crypto.nonce;
+        mp.crypto.nonce++; const cachedNonce = mp.crypto.nonce;
         const Transaction = await mp.database.Transactions.create({
-            id: `${cachedNonce}-${playerId}`,
+            _id: `${cachedNonce}-${playerId}`,
             wallet: to,
             amountWei: amount,
             amountParsed: mp.crypto.web3.utils.fromWei(amount, 'ether'),
@@ -40,7 +41,7 @@ mp.crypto.Transfer = async (to, amount, playerId) => {
                 }
                 Transaction.save()
             })
-            .on("error", async (error) => {
+            .on("error", async () => {
                 console.log(`Error for ID: ${playerId}-${cachedNonce}`);
                 Transaction.status = 'failed'
                 Transaction.save()
@@ -62,7 +63,7 @@ const Init = async () => {
             const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
             if (!playerDB?.wallet) return
             const Transaction = await mp.database.Transactions.create({
-                id: event.transactionHash,
+                _id: event.transactionHash,
                 wallet: event.returnValues.from,
                 amountWei: event.returnValues.value,
                 amountParsed: mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether'),
@@ -71,7 +72,7 @@ const Init = async () => {
             })
             console.log(playerDB.identifier)
             const playerConnected = await mp.players.getByIdentifier(playerDB.identifier);
-            let awaitConfirmationInterval = setInterval(async () => {
+            const awaitConfirmationInterval = setInterval(async () => {
                 const tx = await mp.crypto.web3.eth.getTransaction(event.transactionHash)
                 const currentBlock = await mp.crypto.web3.eth.getBlockNumber(); const currentConfirmations = currentBlock - tx.blockNumber
                 if (currentConfirmations > 8) {
@@ -82,9 +83,7 @@ const Init = async () => {
                     const playerDB = await mp.database.Players.getPlayerByWallet(event.returnValues.from)
                     console.log(`tX Approved, Player: ${playerDB.email} deposited ${mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether')}ELP CONFIRMED With ${currentConfirmations} blocks`)
                     if (!playerConnected) return mp.database.Players.update({ balance: Number(playerDB.balance) + Number(event.returnValues.value) }, {
-                        where: {
-                            identifier: player.shared.identifier
-                        }
+                        identifier: playerDB.shared.identifier
                     });
                     mp.players.at(playerConnected.id).shared.balance = Number(playerConnected.shared.balance) + Number(event.returnValues.value)
                     playerConnected.notify(`You have successfully deposited ${mp.crypto.web3.utils.fromWei(event.returnValues.value, 'ether')}ELP into your account.`)

@@ -1,17 +1,18 @@
+const argon2 = require('argon2');
 const { customAlphabet } = require('nanoid');
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 9);
 
-const savedUsers = {
-    'D8903A045B00B6D0A6BA537004D2FD001F963184480228D825F018C8DD2200405AAC0B8444F849F8B0B69164E9306D80B94A08A056B6E900CAE4B25CB5764F80': {
-        email: 'cristian@dev.com',
-        password: '123456'
-    },
-    'DAB28B643D165F10BDE00528EE4C85F077AA2EF4CDA67F58C134374053649A408BFEF55482360FE8C19A2358B1A0A1A04634910C73FED678512A03DC85761840': {
-        email: 'peaky@dev.com',
-        password: '123456'
-    }
-}
+// const savedUsers = {
+//     'D8903A045B00B6D0A6BA537004D2FD001F963184480228D825F018C8DD2200405AAC0B8444F849F8B0B69164E9306D80B94A08A056B6E900CAE4B25CB5764F80': {
+//         email: 'cristian@dev.com',
+//         password: '123456'
+//     },
+//     'DAB28B643D165F10BDE00528EE4C85F077AA2EF4CDA67F58C134374053649A408BFEF55482360FE8C19A2358B1A0A1A04634910C73FED678512A03DC85761840': {
+//         email: 'peaky@dev.com',
+//         password: '123456'
+//     }
+// }
 
 mp.players.getByIdentifier = async identifier => {
     await mp.players.forEach(player => {
@@ -59,7 +60,7 @@ mp.events.add('playerJoin', player => {
         
         await mp.utils.wait(500)
         
-        const playerData = JSON.stringify({
+        const playerData = {
             internal: {
                 ...player.internal,
                 health: player.health,
@@ -92,8 +93,8 @@ mp.events.add('playerJoin', player => {
                 ],
                 haircolor: [player.hairColor, player.hairHighlightColor],
             },
-        })
-          
+        }
+
         mp.database.Players.create({
             email: email,
             password: password,
@@ -142,26 +143,19 @@ mp.events.add('playerJoin', player => {
         }
 
         player.data.shared = { ...playerData.shared }
-        mp.database.Players.update({ 
-            data: JSON.stringify(playerData), 
-            balance: player.shared.balance 
-        }, {
-            where: {
-                identifier: player.shared.identifier
-            }
-        })
+
+        mp.database.Players.update(player.shared.identifier, playerData)
     }
 
     player.load = async (email) => {
         if ( player.shared.loaded ) return
-        const { data, identifier, role, wallet, balance } = await mp.database.Players.findOne({
-            where: {
-                email: email
-            }
+
+        const { data, identifier, role, wallet, balance } = mp.database.Player.find({
+            email: email
         })
         
         if( player && data ) {
-            const playerData = JSON.parse(data)
+            const playerData = data
             const { internal, shared } = playerData;
 
             // Essentials vars
@@ -220,15 +214,13 @@ mp.events.add('playerJoin', player => {
         player.shared = { loaded: false }
         player.call('login:enable')
         player.dimension = player.id + 5000
-        if (savedUsers[player.serial]) player.load(savedUsers[player.serial].email)
+        // if (savedUsers[player.serial]) player.load(savedUsers[player.serial].email)
         // TODO: Execute logout event
     }
 
     player.exist = async email => {
-        const PlayerDB = await mp.database.Players.findOne({
-            where: {
-                email: email
-            }
+        const PlayerDB = await mp.database.Players.find({
+            email: email
         })
         
         if (PlayerDB) return PlayerDB

@@ -42,7 +42,6 @@ const Transactions = new Schema({
         required: true,
         default: 0
     }
-
 })
 
 module.exports = model('Transactions', Transactions)

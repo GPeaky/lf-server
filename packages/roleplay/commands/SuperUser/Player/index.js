@@ -5,10 +5,8 @@ mp.events.addCommand('logout', player => {
 
 mp.events.addCommand('refreshRole', async player => {
     try {
-        const Player = await mp.database.Players.findOne({
-            where: {
-                identifier: player.shared.identifier
-            }
+        const Player = await mp.database.Players.find({
+            identifier: player.shared.identifier
         })
 
         if(player.internal.role === Player.role) return player.notify('Your role is the same as your account role')
@@ -27,9 +25,7 @@ mp.events.addCommandGroup('setRole', ['superUser'], async (player, _args, id, ro
 
     try {
         mp.database.Players.update({ role }, {
-            where: {
-                identifier: playerById.shared.identifier
-            }
+            identifier: playerById.shared.identifier
         })
         
         playerById.internal.role = role
