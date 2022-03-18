@@ -13,7 +13,7 @@ module.exports = async () => {
         }
         
         mp.database.Players.getPlayerByWallet = async wallet => {
-            return await Players.find({
+            return await Players.findOne({
                 wallet: wallet
             })
         }

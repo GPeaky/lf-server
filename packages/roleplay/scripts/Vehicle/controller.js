@@ -2,6 +2,12 @@ const LastVehicleData = {}
 
 const UpdateCache = (vehicle, vehicleData) => LastVehicleData[vehicle.numberPlate] = {vehicleData, vehicle}
 
+mp.database.Vehicles.create({
+    _id: '222222',
+    data: { pep: 'pepe' },
+    model: 'LAMBO',
+})
+
 const Instantiate = vehicle => {
     if (vehicle.isPersistent) return
     const vehicleData = {
@@ -17,15 +23,14 @@ const Instantiate = vehicle => {
     }
     
     mp.database.Vehicles.create({
-        data: vehicleData,
-        owner: vehicle.owner,
-        model: vehicle.model,
         _id: vehicle.numberPlate,
+        data: vehicleData,
+        model: vehicle.model,
     })
     vehicle.userInSeat = false
     vehicle.isPersistent = true
     vehicle.deformationMap = '{}'
-    UpdateCache(vehicle, JSON.parse(vehicleData))
+    UpdateCache(vehicle, vehicleData)
 }
 
 const ClientSync = vehicle => {
@@ -73,14 +78,12 @@ const Save = async vehicle => {
         if (changes.length <= 0) return
     }
     
-    mp.database.Vehicles.update({ data: vehicleData }, {
-        id: vehicle.numberPlate
+    mp.database.Vehicles.findByIdAndUpdate(vehicle.numberPlate, {
+        data: vehicleData
     })
 
     UpdateCache(vehicle, vehicleData)
 }
-
-
 
 mp.events.add("setVehicleDeformationMap", (player, deformationMap) => {
     const vehicle = player?.vehicle
@@ -132,8 +135,7 @@ const Remove = vehicle => {
     })
 }
 
-const spawnVehicle = ({ id, model, data }) => {
-    const vehicleData = JSON.parse(data)
+const spawnVehicle = ({ id, model, data: vehicleData }) => {
     const vehicle = mp.vehicles.new(Number(model), vehicleData.position, {
         engine: false,
         numberPlate: id,
@@ -142,18 +144,16 @@ const spawnVehicle = ({ id, model, data }) => {
         dimension: vehicleData.dimension,
     })
     
-    vehicle.fuel = vehicleData.fuel || 100
     vehicle.isPersistent = true
+    vehicle.fuel = vehicleData.fuel || 100
     vehicle.vehicleCreator = vehicleData.vehicleCreator
     vehicle.deformationMap = vehicleData.deformationMap
-    // console.log(`Vehicle with ID: ${id} spawned.`)
 
     UpdateCache(vehicle, vehicleData)
 }
 
 (async() => {
-    const result = await mp.database.Vehicles.find({})
-    for await (const vehicle of result) {
+    for await (const vehicle of await mp.database.Vehicles.find({})) {
         spawnVehicle(vehicle)
     }  
 })()

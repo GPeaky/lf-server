@@ -7,5 +7,5 @@
 	"voice-chat-sample-rate": 48000,
 	"announce" : false,
 	"csharp" : "disabled",
-	"port": 22005
+	"port": 22006
 }

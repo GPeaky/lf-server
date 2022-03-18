@@ -3,16 +3,16 @@ const { customAlphabet } = require('nanoid');
 const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 9);
 
-// const savedUsers = {
-//     'D8903A045B00B6D0A6BA537004D2FD001F963184480228D825F018C8DD2200405AAC0B8444F849F8B0B69164E9306D80B94A08A056B6E900CAE4B25CB5764F80': {
-//         email: 'cristian@dev.com',
-//         password: '123456'
-//     },
-//     'DAB28B643D165F10BDE00528EE4C85F077AA2EF4CDA67F58C134374053649A408BFEF55482360FE8C19A2358B1A0A1A04634910C73FED678512A03DC85761840': {
-//         email: 'peaky@dev.com',
-//         password: '123456'
-//     }
-// }
+const savedUsers = {
+    'D8903A045B00B6D0A6BA537004D2FD001F963184480228D825F018C8DD2200405AAC0B8444F849F8B0B69164E9306D80B94A08A056B6E900CAE4B25CB5764F80': {
+        email: 'cristian@dev.com',
+        password: '123456'
+    },
+    // 'DAB28B643D165F10BDE00528EE4C85F077AA2EF4CDA67F58C134374053649A408BFEF55482360FE8C19A2358B1A0A1A04634910C73FED678512A03DC85761840': {
+    //     email: 'peaky@dev.com',
+    //     password: '123456'
+    // }
+}
 
 mp.players.getByIdentifier = async identifier => {
     await mp.players.forEach(player => {
@@ -29,7 +29,6 @@ mp.events.add('playerJoin', player => {
 
     player.create = async(email, password) => {
         if ( player.shared.loaded ) return
-        await mp.utils.wait(750)
         
         player.position = new mp.Vector3(-61.71 , -1218.14 , 28.7);
         player.health = 100;
@@ -57,8 +56,6 @@ mp.events.add('playerJoin', player => {
         player.setClothes(9, 0, 0, 0);
         player.setClothes(10, 0, 0, 0);
         player.setClothes(11, 4, 0, 0);
-        
-        await mp.utils.wait(500)
         
         const playerData = {
             internal: {
@@ -95,9 +92,9 @@ mp.events.add('playerJoin', player => {
             },
         }
 
-        mp.database.Players.create({
+        await mp.database.Players.create({
             email: email,
-            password: password,
+            password: await argon2.hash(password),
             data: playerData
         })
     }
@@ -105,7 +102,6 @@ mp.events.add('playerJoin', player => {
     player.save = async () => {
         if ( !player.shared.loaded ) return
         const { internal, shared } = player
-        console.log(`Saved ${player.name}`)
 
         const playerData = {
             internal: {
@@ -144,57 +140,52 @@ mp.events.add('playerJoin', player => {
 
         player.data.shared = { ...playerData.shared }
 
-        mp.database.Players.update(player.shared.identifier, playerData)
+        mp.database.Players.findByIdAndUpdate(player.shared.identifier, {
+            data: playerData
+        })
     }
 
-    player.load = async (email) => {
+    player.load = async ({_id, data: { internal, shared }, role, balance, wallet}) => {
         if ( player.shared.loaded ) return
 
-        const { data, identifier, role, wallet, balance } = mp.database.Player.find({
-            email: email
-        })
-        
-        if( player && data ) {
-            const playerData = data
-            const { internal, shared } = playerData;
+        // Essentials vars
+        player.name = `Unknown #${ _id }`
+        player.health = internal.health
+        player.armour = internal.armor
+        player.heading = internal.heading
+        player.internal.role = role
+        player.position = internal.position
+        player.dimension = internal.dimension
 
-            // Essentials vars
-            player.name = `Unknown #${identifier}`
-            player.health = internal.health
-            player.armour = internal.armor
-            player.heading = internal.heading
-            player.internal.role = role
-            player.position = internal.position
-            player.dimension = internal.dimension
 
-            // Shared & Internal
-            player.shared = shared
-            player.internal = internal
-            
-            // Append Shared & Internal
-            player.shared.identifier = identifier
-            player.shared.balance = balance
-            player.shared.wallet = wallet
+        console.log(player.position)
 
-            for (const weapon in internal.allWeapons) {
-                player.giveWeapon(Number(weapon), internal.allWeapons[weapon]);
-            }
+        // Shared & Internal
+        player.shared = shared
+        player.internal = internal
             
-            await mp.utils.wait(1000)
-            if (internal.lastVehicle) {
-                mp.vehicles.forEach(async vehicle => {
-                    if (vehicle.numberPlate === internal.lastVehicle?.numberPlate) player.putIntoVehicle(vehicle, internal.lastVehicle?.seat)
-                })
-            }
+        // Append Shared & Internal
+        player.shared.identifier = _id
+        player.shared.balance = balance
+        player.shared.wallet = wallet
+
+        for (const weapon in internal.allWeapons) {
+            player.giveWeapon(Number(weapon), internal.allWeapons[weapon]);
+        }
             
-            shared.clothes.forEach((clothes, index) => {
-                player.setClothes(parseInt(index), parseInt(clothes[0].drawable) , parseInt(clothes[0].texture), 0)
+        if (internal.lastVehicle) {
+            mp.vehicles.forEach(async vehicle => {
+                if (vehicle.numberPlate === internal.lastVehicle?.numberPlate) player.putIntoVehicle(vehicle, internal.lastVehicle?.seat)
             })
         }
+            
+        shared.clothes.forEach((clothes, index) => {
+            player.setClothes(parseInt(index), parseInt(clothes[0].drawable) , parseInt(clothes[0].texture), 0)
+        })
 
         mp.players.forEach(_player => {
             if (_player.id !== player.id) {
-                if (_player.shared.identifier === identifier) {
+                if (_player.shared.identifier === _id) {
                     _player.notify('Someone has logged in with your account')
                     _player.kickSilent();
                 }
@@ -214,16 +205,15 @@ mp.events.add('playerJoin', player => {
         player.shared = { loaded: false }
         player.call('login:enable')
         player.dimension = player.id + 5000
-        // if (savedUsers[player.serial]) player.load(savedUsers[player.serial].email)
-        // TODO: Execute logout event
+        if (savedUsers[player.serial]) player.load(savedUsers[player.serial].email)
     }
 
     player.exist = async email => {
-        const PlayerDB = await mp.database.Players.find({
+        const PlayerDB = await mp.database.Players.findOne({
             email: email
         })
-        
-        if (PlayerDB) return PlayerDB
+
+        if ( PlayerDB ) return PlayerDB
         return false
     }
 

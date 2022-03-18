@@ -5,7 +5,7 @@ mp.events.addCommand('logout', player => {
 
 mp.events.addCommand('refreshRole', async player => {
     try {
-        const Player = await mp.database.Players.find({
+        const Player = await mp.database.Players.findOne({
             identifier: player.shared.identifier
         })
 

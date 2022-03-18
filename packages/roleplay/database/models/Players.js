@@ -1,4 +1,3 @@
-const argon2 = require('argon2')
 const { nanoid } = require('nanoid')
 const { Schema, model } = require('mongoose')
 
@@ -27,13 +26,14 @@ const Players = new Schema({
     role: {
         type: String,
         required: true,
-
-        enum: ['player', 'admin']
+        default: 'user',
+        enum: ['user', 'superUser']
     },
 
     balance: {
         type: String,
-        required: true
+        required: true,
+        default: '0'
     },
 
     wallet: {
@@ -42,9 +42,5 @@ const Players = new Schema({
         default: 'unknown'
     }
 })
-
-Players.passwordHashing = async (password) => {
-    return await argon2.hash(password)
-}
 
 module.exports = model('Players', Players)
