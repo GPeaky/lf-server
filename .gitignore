@@ -9,3 +9,6 @@ linux_x64.tar.gz
 package-lock.json
 packages/dist/build
 client_packages/.listcache
+ragemp-server.exe
+ragemp-server
+BugTrap-x64.dll
