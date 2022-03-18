@@ -5,12 +5,10 @@ mp.events.add('playerReady', async player => player.logout())
 
 mp.events.add('submitLogin', async (player, email, password)  => {
     try {
-        console.log(`${player.name} is trying to login`)
+        const Player = await player.exist(email, password)
+        if (!Player) return player.create(email, password)
 
-        const PlayerDB = await player.exist(email, password)
-        if (!PlayerDB) return player.create(email, password)
-
-        if (await argon2.verify(PlayerDB.password, password)) player.load(PlayerDB)
+        if (await argon2.verify(Player.password, password)) player.load(Player)
     } catch (err) {
         console.log(err)
     }

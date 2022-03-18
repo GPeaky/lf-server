@@ -24,7 +24,7 @@ mp.events.addCommandGroup('setRole', ['superUser'], async (player, _args, id, ro
     if(!['superUser', 'user'].includes(role)) return player.notify('You must specify a valid role [superUser, user]')
 
     try {
-        mp.database.Players.update({ role }, {
+        await mp.database.Players.update({ role }, {
             identifier: playerById.shared.identifier
         })
         

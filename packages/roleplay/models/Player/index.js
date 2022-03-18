@@ -35,7 +35,6 @@ mp.events.add('playerJoin', player => {
         player.dimension = 0;
         player.heading = 248.88;
         player.internal.isDead = false;
-        player.shared.vehicleKeys = {};
         player.shared.wallet = 'unkown'
         player.shared.status = { 
             stamina: 100,
@@ -74,6 +73,11 @@ mp.events.add('playerJoin', player => {
 
             shared: {
                 ...player.shared,
+                vehicleKeys: {
+                    'default': {
+                        numberPlate: 'default',
+                    }
+                },
                 clothes: [
                     [   player.getClothes(0)   ],
                     [   player.getClothes(1)   ],
@@ -140,7 +144,7 @@ mp.events.add('playerJoin', player => {
 
         player.data.shared = { ...playerData.shared }
 
-        mp.database.Players.findByIdAndUpdate(player.shared.identifier, {
+        await mp.database.Players.findByIdAndUpdate(player.shared.identifier, {
             data: playerData
         })
     }
@@ -157,9 +161,6 @@ mp.events.add('playerJoin', player => {
         player.position = internal.position
         player.dimension = internal.dimension
 
-
-        console.log(player.position)
-
         // Shared & Internal
         player.shared = shared
         player.internal = internal
@@ -172,13 +173,13 @@ mp.events.add('playerJoin', player => {
         for (const weapon in internal.allWeapons) {
             player.giveWeapon(Number(weapon), internal.allWeapons[weapon]);
         }
-            
+        
         if (internal.lastVehicle) {
             mp.vehicles.forEach(async vehicle => {
                 if (vehicle.numberPlate === internal.lastVehicle?.numberPlate) player.putIntoVehicle(vehicle, internal.lastVehicle?.seat)
             })
         }
-            
+        
         shared.clothes.forEach((clothes, index) => {
             player.setClothes(parseInt(index), parseInt(clothes[0].drawable) , parseInt(clothes[0].texture), 0)
         })
@@ -193,7 +194,7 @@ mp.events.add('playerJoin', player => {
         })
 
         player.shared.loaded = true
-        player.data.shared = {...player.shared}
+        player.data.shared = { ...player.shared }
         player.call('login:disable')
         player.call('userLoaded')
     }
@@ -209,11 +210,11 @@ mp.events.add('playerJoin', player => {
     }
 
     player.exist = async email => {
-        const PlayerDB = await mp.database.Players.findOne({
+        const Player = await mp.database.Players.findOne({
             email: email
         })
 
-        if ( PlayerDB ) return PlayerDB
+        if ( Player ) return Player
         return false
     }
 
@@ -229,6 +230,7 @@ mp.events.add('playerJoin', player => {
         player.putIntoVehicle(veh, 0);
         veh.vehicleCreator = player.shared.identifier;
         veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
+
         player.shared.vehicleKeys[veh.numberPlate] = {
             vehicleCreator: player.shared.identifier,
             isOwner: true
