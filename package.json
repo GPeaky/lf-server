@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node .esbuild.js && pm2 start ragemp-server.exe --watch",
-    "start:dev": "pm2 start ragemp-server.exe --watch && pm2 logs 0",
+    "start:dev": "pm2 restart ragemp-server.exe --watch && pm2 logs 0",
     "stop:dev": "pm2 delete ragemp-server.exe"
   },
   "dependencies": {
