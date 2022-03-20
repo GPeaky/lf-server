@@ -2,7 +2,13 @@ const LastVehicleData = {}
 
 const UpdateCache = (vehicle, vehicleData) => LastVehicleData[vehicle.numberPlate] = {vehicleData, vehicle}
 
-const Instantiate = async vehicle => {
+// mp.database.Vehicles.create({
+//     _id: '222222',
+//     data: { pep: 'pepe' },
+//     model: 'LAMBO',
+// })
+
+const Instantiate = vehicle => {
     if (vehicle.isPersistent) return
     const vehicleData = {
         deformationMap: '{}',
@@ -16,7 +22,7 @@ const Instantiate = async vehicle => {
         vehicleCreator: vehicle.vehicleCreator
     }
     
-    await mp.database.Vehicles.create({
+    mp.database.Vehicles.create({
         _id: vehicle.numberPlate,
         data: vehicleData,
         model: vehicle.model,
@@ -72,7 +78,7 @@ const Save = async vehicle => {
         if (changes.length <= 0) return
     }
     
-    await mp.database.Vehicles.findByIdAndUpdate(vehicle.numberPlate, {
+    mp.database.Vehicles.findByIdAndUpdate(vehicle.numberPlate, {
         data: vehicleData
     })
 
@@ -122,10 +128,10 @@ mp.events.add("playerStartExitVehicle", async player => {
     player.vehicle.userInSeat = false
 });
 
-const Remove = async vehicle => {
+const Remove = vehicle => {
     console.log(`Vehicle with ID: ${vehicle.numberPlate} removed.`)
-    await mp.database.Vehicles.deleteOne({
-        _id: vehicle.numberPlate
+    mp.database.Vehicles.deleteOne({
+        id: vehicle.numberPlate
     })
 }
 

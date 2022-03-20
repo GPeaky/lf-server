@@ -69,5 +69,5 @@ mp.events.add('vehicleSync::Client', async (vehicleId, vehicleData) => {
 mp.events.add("playerLeaveVehicle", () => vehicleActive = false)
 
 setTimeout(() => {
-    mp.system.notify({ title: 'Welcome to LifeExperience', text: `Enjoy the server`, attribute: 'LifeExperience - CryptoCurrency Server', duration: 5, silent: true })
+    mp.system.notify({ title: 'Welcome to LifeExperience', text: `Enjoy the server`, attribute: 'LifeExperience', duration: 5, silent: true })
 }, 8500);
