@@ -6,6 +6,7 @@
 	"voice-chat": true,
 	"voice-chat-sample-rate": 48000,
 	"announce" : false,
+	"allow-cef-debugging": true,
 	"csharp" : "disabled",
 	"port": 22006
 }

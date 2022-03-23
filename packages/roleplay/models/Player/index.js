@@ -27,7 +27,7 @@ mp.events.add('playerJoin', player => {
     console.log(player.serial)
     player.shared = { loaded: false }
     player.internal = {}
-
+    
     player.create = async(email, password) => {
         if ( player?.shared?.loaded ) return
         
@@ -178,7 +178,7 @@ mp.events.add('playerJoin', player => {
         if (internal.lastVehicle) {
             mp.vehicles.forEach(async vehicle => {
                 if (vehicle.numberPlate === internal.lastVehicle?.numberPlate) {
-                    await mp.utils.wait(1500)
+                    await mp.utils.wait(100)
                     player.putIntoVehicle(vehicle, internal.lastVehicle?.seat)
                 }
             })
@@ -210,10 +210,7 @@ mp.events.add('playerJoin', player => {
         player.shared = { loaded: false }
         player.call('login:enable')
         player.dimension = player.id + 5000
-        if (savedUsers[player.serial]) {
-            console.log('hereeeee')
-            player.load(await player.exist(savedUsers[player.serial].email))
-        }
+        if (savedUsers[player.serial]) player.load(await player.exist(savedUsers[player.serial].email))
     }
 
     player.exist = async email => {
