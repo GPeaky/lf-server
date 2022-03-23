@@ -1,1 +1,1 @@
-mp.discord.update('Shhhh is a secret', 'Development Server')
+mp.discord.update('🐈🐈🐈🐈🐈🐈', 'Cats are cool, cats dominate the world')

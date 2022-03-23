@@ -4,7 +4,7 @@ const { Instantiate, Remove } = require('../../scripts/Vehicle/controller')
 const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 9);
 
 const savedUsers = {
-    'D8903A045B00B6D0A6BA537004D2FD001F963184480228D825F018C8DD2200405AAC0B8444F849F8B0B69164E9306D80B94A08A056B6E900CAE4B25CB5764F80': {
+    'CE96347C60DC9398DCD83AE00D0E1D10B99A6058CA4A5C381E9ED464604C8B607C788AA02526E5A891126028FAB2BC706EA6744C60BC83281C18DA603DAC1440': {
         email: 'cristian@dev.com',
         password: '123456'
     },
@@ -24,11 +24,12 @@ mp.players.getByIdentifier = async identifier => {
 }
 
 mp.events.add('playerJoin', player => {
+    console.log(player.serial)
     player.shared = { loaded: false }
     player.internal = {}
 
     player.create = async(email, password) => {
-        if ( player.shared.loaded ) return
+        if ( player?.shared?.loaded ) return
         
         player.position = new mp.Vector3(-61.71 , -1218.14 , 28.7);
         player.health = 100;
@@ -104,7 +105,7 @@ mp.events.add('playerJoin', player => {
     }
 
     player.save = async () => {
-        if ( !player.shared.loaded ) return
+        if ( !player?.shared?.loaded ) return
         const { internal, shared } = player
 
         const playerData = {
@@ -150,7 +151,7 @@ mp.events.add('playerJoin', player => {
     }
 
     player.load = async ({_id, data: { internal, shared }, role, balance, wallet}) => {
-        if ( player.shared.loaded ) return
+        if ( player?.shared?.loaded ) return
 
         // Essentials vars
         player.name = `Unknown #${ _id }`
@@ -176,7 +177,10 @@ mp.events.add('playerJoin', player => {
         
         if (internal.lastVehicle) {
             mp.vehicles.forEach(async vehicle => {
-                if (vehicle.numberPlate === internal.lastVehicle?.numberPlate) player.putIntoVehicle(vehicle, internal.lastVehicle?.seat)
+                if (vehicle.numberPlate === internal.lastVehicle?.numberPlate) {
+                    await mp.utils.wait(1500)
+                    player.putIntoVehicle(vehicle, internal.lastVehicle?.seat)
+                }
             })
         }
         
@@ -206,7 +210,10 @@ mp.events.add('playerJoin', player => {
         player.shared = { loaded: false }
         player.call('login:enable')
         player.dimension = player.id + 5000
-        if (savedUsers[player.serial]) player.load(savedUsers[player.serial].email)
+        if (savedUsers[player.serial]) {
+            console.log('hereeeee')
+            player.load(await player.exist(savedUsers[player.serial].email))
+        }
     }
 
     player.exist = async email => {
