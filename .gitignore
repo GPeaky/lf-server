@@ -7,7 +7,7 @@ node_modules/
 logs/database/
 linux_x64.tar.gz
 package-lock.json
-packages/dist/build
+packages/life-experience
 client_packages/.listcache
 ragemp-server.exe
 ragemp-server

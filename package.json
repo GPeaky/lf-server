@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc && ragemp-server.exe",
+    "dev": "pm2 start ./ecosystem.config.js && tsc -w"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/LifeExpenrience/server-files/issues"
   },
-  "homepage": "https://github.com/LifeExpenrience/server-files#readme"
+  "homepage": "https://github.com/LifeExpenrience/server-files#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.19",
+    "pm2": "^5.2.0",
+    "typescript": "^4.8.2"
+  }
 }

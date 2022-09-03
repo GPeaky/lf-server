@@ -1,9 +1,17 @@
 {
+	"port": 22005,
+	"sync-rate": 10,
+	"language": "en",
 	"maxplayers" : 100,
-	"name" : "RAGE:MP Unofficial server", 
-	"gamemode" : "freeroam", 
+	"gamemode" : "roleplay", 
+	"name" : "LF: Development Server", 
 	"stream-distance" : 500.0,
-	"announce" : false,
+	"steam-distance": 500.0,
 	"csharp" : "disabled",
-	"port": 22005
+	"announce" : false,
+	"nodejs": true,
+	"resouce-scan-thread-limit": 8,
+	"server-side-weapons-only-mode": true,
+	"api-threading-debugging": true,
+	"trigger-compression-logging": true
 }
