@@ -1,36 +1,28 @@
 {
-  "display": "Life Experience Development",
+    "display": "Life Experience Development",
 
-  "compilerOptions": {
-    "lib": [ 
-      "ES7", 
-      "DOM" 
-    ],
-    "outDir": "./packages/life-experience",
-    "removeComments": true,
-    "target": "ES6",
+    "compilerOptions": {
+        "lib": ["ES7", "DOM"],
+        "outDir": "./packages/life-experience",
+        "removeComments": true,
+        "target": "ES6",
 
-    // Module resolution
-    "baseUrl": "./",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "paths": {}, // Abreviations
+        // Module resolution
+        "baseUrl": "./",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "paths": {}, // Abreviations
 
-    "allowUnreachableCode": false,
-    "strictNullChecks": true,
+        "allowUnreachableCode": false,
+        "strictNullChecks": true,
 
-    "noImplicitReturns": true,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-  },
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
+    },
 
-  "include": [
-    "development/**/*.ts",
-  ],
+    "include": ["development/**/*.ts"],
 
-  "exclude": [
-    "node_modules/**/*",
-    "client_packages/**/*",
-  ]
+    "exclude": ["node_modules/**/*", "client_packages/**/*"]
 }
