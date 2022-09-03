@@ -1,1 +1,0 @@
-mp.discord.update('🐈🐈🐈🐈🐈🐈', 'Cats are cool, cats dominate the world')

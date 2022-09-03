@@ -1,12 +1,9 @@
 {
-	"maxplayers" : 1,
-	"name" : "Development Server", 
-	"gamemode" : "dist", 
+	"maxplayers" : 100,
+	"name" : "RAGE:MP Unofficial server", 
+	"gamemode" : "freeroam", 
 	"stream-distance" : 500.0,
-	"voice-chat": true,
-	"voice-chat-sample-rate": 48000,
 	"announce" : false,
-	"allow-cef-debugging": true,
 	"csharp" : "disabled",
-	"port": 22006
+	"port": 22005
 }
