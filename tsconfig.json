@@ -5,6 +5,7 @@
         "lib": ["ES7", "DOM"],
         "outDir": "./packages/life-experience",
         "removeComments": true,
+        "module": "commonjs",
         "target": "ES6",
 
         // Module resolution
@@ -13,8 +14,11 @@
         "moduleResolution": "node",
         "paths": {}, // Abreviations
 
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
         "allowUnreachableCode": false,
         "strictNullChecks": true,
+
 
         "noImplicitReturns": true,
         "noUncheckedIndexedAccess": true,
