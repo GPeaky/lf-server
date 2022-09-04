@@ -4,10 +4,9 @@
    "description": "",
    "main": "index.js",
    "scripts": {
-      "start": "ts-node src/index.ts",
+      "start": "tsc && ragemp-server.exe",
       "dev": "pm2 start ./pm2.config.js && tsc -w",
-      "stop:dev": "pm2 stop ./pm2.config.js",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "stop:dev": "pm2 stop ./pm2.config.js"
    },
    "repository": {
       "type": "git",

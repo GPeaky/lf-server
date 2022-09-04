@@ -14,5 +14,5 @@ const main = async() => {
         throw new Error(`Unexpected error has occurred \n${ e }`)
     }
 }
-
+ 
 main();

@@ -12,7 +12,8 @@ module.exports = {
 	},
 	
 	global: {
-		process: true
+		process: true,
+		mp: true
 	},
 
 	plugins: ['@typescript-eslint'],
