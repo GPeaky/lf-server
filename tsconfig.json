@@ -24,10 +24,15 @@
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
+        "types": [
+            "node_modules/@ragempcommunity/types-server/index.d.ts"
+        ]
     },    
 
     "include": [
-      "development/**/*.ts"
+        "development/**/*.ts",
+        "node_modules/@ragempcommunity/types-server/index.d.ts"
     ],
-    "exclude": ["node_modules/**/*", "client_packages/**/*"]
+
+    "exclude": ["client_packages/**/*"]
 }
