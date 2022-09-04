@@ -1,3 +1,7 @@
+import config from '@config/config'
+import { customAlphabet } from "nanoid"
+const nanoid = customAlphabet(config.utils.numberPlateAlphabet)
+
 mp.utils = {
     wait: function (ms: number): Promise<void> {
         return new Promise((resolve) => setTimeout(resolve, ms))
@@ -18,6 +22,9 @@ mp.utils = {
         player.setClothes(11, 4, 0, 0);
     },
 
+    generateNumberPlate(){
+        return nanoid()
+    },
 
     PlayerData(player: PlayerMp) {
         return {

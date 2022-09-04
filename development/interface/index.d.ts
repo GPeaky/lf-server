@@ -4,6 +4,7 @@ declare interface UtilsMp {
     wait(ms: number): Promise<void>
     setDefaultClothes(player: PlayerMp): void
     PlayerData(player: PlayerMp): PlayerData
+    generateNumberPlate(): string
 }
 
 declare interface DatabaseMp {
@@ -51,10 +52,6 @@ declare interface PlayerShared {
     canRespawn: boolean
 }
 
-declare interface UnloadedPlayerShared {
-    loaded: boolean
-}
-
 declare interface PlayerData {
     internal: PlayerInternal
     shared: PlayerShared
@@ -74,6 +71,9 @@ declare global {
         load( player: LoadPlayer ): void
         logout(): Promise<void>
         exist(email: string): Promise<IPlayer | boolean>
+        spawnVehicle(vehicle: string, position: Vector3, heading: number): VehicleMp
+        repairVehicle(): void
+        deleteVehicle(): void
     }
 }
 

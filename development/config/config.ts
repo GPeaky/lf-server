@@ -6,6 +6,10 @@ const Config: IConfig  = {
 
     logout: {
         dimension: 1945
+    },
+
+    utils: {
+        numberPlateAlphabet: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     }
 }
 

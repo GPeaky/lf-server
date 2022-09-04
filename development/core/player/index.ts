@@ -1,5 +1,6 @@
 import argon2 from 'argon2'
 import config from '@config/config'
+import vehicle from "../../database/models/Vehicle";
 
 mp.events.add('playerJoin', player => {
     player.create = async( email: string, password: string ) => {
@@ -91,5 +92,51 @@ mp.events.add('playerJoin', player => {
 
         if ( !dbPlayer ) return false
         return dbPlayer
+    }
+
+    player.spawnVehicle = (vehicle: string, position: Vector3, heading: number) => {
+        const spawnedVehicle = mp.vehicles.new(mp.joaat(vehicle), new mp.Vector3(position), {
+            heading,
+            numberPlate: mp.utils.generateNumberPlate(),
+            dimension: player.dimension
+        })
+
+        player.putIntoVehicle(spawnedVehicle, 0)
+
+        // TODO: add additional data to vehicle and initialize
+        /*
+            veh.vehicleCreator = player.shared.identifier;
+            veh.position = {x: position.x, y: position.y, z: position.z - 0.3};
+
+            player.shared.vehicleKeys[veh.numberPlate] = {
+                vehicleCreator: player.shared.identifier,
+                isOwner: true
+            };
+
+            Instantiate(veh)
+         */
+
+        return spawnedVehicle
+    }
+
+    player.repairVehicle = () => {
+        // TODO: Add In Game notifications
+        if (!player.vehicle) return console.log('You Are not in a vehicle')
+
+        player.vehicle.repair()
+        console.log('Vehicle repaired')
+    }
+
+    player.deleteVehicle = () => {
+        if ( !player.vehicle ) return console.log('You are not in a vehicle')
+
+        /*
+            TODO: Add remove vehicle in vehicle controller
+            Remove(player.vehicle)
+         */
+
+        player.vehicle.destroy()
+        // TODO: Add in game notification
+        console.log('Vehicle Deleted')
     }
 })
