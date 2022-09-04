@@ -1,15 +1,19 @@
 import { Model } from "mongoose";
 
-declare interface UtilsMp {
-    wait(ms: number): Promise<void>
-    setDefaultClothes(player: PlayerMp): void
-    PlayerData(player: PlayerMp): PlayerData
-    generateNumberPlate(): string
+declare interface PlayerSharedStatus {
+    hunger: number
+    thirst: number
+    stamina: number
 }
 
-declare interface DatabaseMp {
-    player: Model<IPlayer>
-    vehicle: Model<IVehicle>
+declare interface PlayerData {
+    internal: PlayerInternal
+    shared: PlayerShared
+}
+
+declare interface LastVehicle {
+    numberPlate: string
+    seat: RageEnums.VehicleSeat
 }
 
 declare interface LoadPlayer {
@@ -20,9 +24,14 @@ declare interface LoadPlayer {
     role: PlayerRole
 }
 
-declare interface LastVehicle {
-    numberPlate: string
-    seat: RageEnums.VehicleSeat
+declare interface PlayerShared {
+    clothes: any
+    hairColor: number[]
+    isDead: boolean
+    status: PlayerSharedStatus
+    identifier: string
+    loaded: boolean
+    canRespawn: boolean
 }
 
 declare interface PlayerInternal {
@@ -36,25 +45,16 @@ declare interface PlayerInternal {
     lastVehicle: LastVehicle | false
 }
 
-declare interface PlayerSharedStatus {
-    hunger: number
-    thirst: number
-    stamina: number
+declare interface UtilsMp {
+    wait(ms: number): Promise<void>
+    setDefaultClothes(player: PlayerMp): void
+    PlayerData(player: PlayerMp): PlayerData
+    generateNumberPlate(): string
 }
 
-declare interface PlayerShared {
-    clothes: any
-    hairColor: number[]
-    isDead: boolean
-    status: PlayerSharedStatus
-    identifier: string
-    loaded: boolean
-    canRespawn: boolean
-}
-
-declare interface PlayerData {
-    internal: PlayerInternal
-    shared: PlayerShared
+declare interface DatabaseMp {
+    player: Model<IPlayer>
+    vehicle: Model<IVehicle>
 }
 
 declare global {
