@@ -83,4 +83,13 @@ mp.events.add('playerJoin', player => {
         player.dimension = config.logout.dimension
         // player.call('login:logout')
     }
+
+    player.exist = async (email: string) => {
+        const dbPlayer = await mp.database.player.findOne({
+            email
+        })
+
+        if ( !dbPlayer ) return false
+        return dbPlayer
+    }
 })

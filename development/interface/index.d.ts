@@ -73,6 +73,7 @@ declare global {
         save(): Promise<void>
         load( player: LoadPlayer ): void
         logout(): Promise<void>
+        exist(email: string): Promise<IPlayer | boolean>
     }
 }
 
