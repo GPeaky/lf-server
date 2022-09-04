@@ -1,5 +1,5 @@
 import argon2 from 'argon2'
-import config from '@config/config'
+import config from '../../config/config'
 
 mp.events.add('playerJoin', player => {
     player.create = async( email: string, password: string ) => {

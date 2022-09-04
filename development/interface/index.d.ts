@@ -63,6 +63,10 @@ declare global {
         database: DatabaseMp
     }
 
+    interface EntityMp {
+        getSpeed(): number
+    }
+
     interface PlayerMp {
         internal: PlayerInternal
         shared: PlayerShared

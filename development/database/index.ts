@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import player from './models/Player'
 import vehicle from "./models/Vehicle"
-import { DATABASE_URL } from '@config/variables'
+import { DATABASE_URL } from '../config/variables'
 
 export const databaseConnection = async () => {
     try {

@@ -1,4 +1,4 @@
-import config from '@config/config'
+import config from '../config/config'
 import { customAlphabet } from "nanoid"
 const nanoid = customAlphabet(config.utils.numberPlateAlphabet)
 
