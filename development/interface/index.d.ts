@@ -11,6 +11,14 @@ declare interface DatabaseMp {
     vehicle: Model<IVehicle>
 }
 
+declare interface LoadPlayer {
+    _id: string
+    email: string
+    password: string
+    data: PlayerData
+    role: PlayerRole
+}
+
 declare interface LastVehicle {
     numberPlate: string
     seat: RageEnums.VehicleSeat
@@ -21,6 +29,7 @@ declare interface PlayerInternal {
     armor: number
     heading: number
     position: Vector3
+    role: PlayerRole
     dimension: number
     allWeapons: number[]
     lastVehicle: LastVehicle | false
@@ -58,6 +67,7 @@ declare global {
         shared: PlayerShared
         create(email: string, password: string): void
         save(): void
+        load( player: LoadPlayer ): void
     }
 }
 
