@@ -1,6 +1,5 @@
 import argon2 from 'argon2'
 import config from '@config/config'
-import vehicle from "../../database/models/Vehicle";
 
 mp.events.add('playerJoin', player => {
     player.create = async( email: string, password: string ) => {
@@ -139,4 +138,6 @@ mp.events.add('playerJoin', player => {
         // TODO: Add in game notification
         console.log('Vehicle Deleted')
     }
+
+    // TODO: create player.notify function
 })
