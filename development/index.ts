@@ -6,6 +6,8 @@ const main = async() => {
 
         require('./ipl')
 
+        require('./utils')
+
     } catch (e) {
         throw new Error(`Unexpected error has occurred \n${ e }`)
     }
