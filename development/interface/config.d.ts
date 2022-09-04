@@ -3,6 +3,11 @@ declare interface SpawnConfig {
     heading: number
 }
 
+declare interface LogoutConfig {
+    dimension: number
+}
+
 declare interface IConfig {
     spawn: SpawnConfig
+    logout: LogoutConfig
 }

@@ -51,6 +51,10 @@ declare interface PlayerShared {
     canRespawn: boolean
 }
 
+declare interface UnloadedPlayerShared {
+    loaded: boolean
+}
+
 declare interface PlayerData {
     internal: PlayerInternal
     shared: PlayerShared
@@ -65,9 +69,10 @@ declare global {
     interface PlayerMp {
         internal: PlayerInternal
         shared: PlayerShared
-        create(email: string, password: string): void
-        save(): void
+        create(email: string, password: string): Promise<void>
+        save(): Promise<void>
         load( player: LoadPlayer ): void
+        logout(): Promise<void>
     }
 }
 

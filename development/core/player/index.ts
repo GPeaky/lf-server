@@ -18,18 +18,7 @@ mp.events.add('playerJoin', player => {
         })
     }
 
-    player.save = async() => {
-        if ( player.shared?.loaded ) return
-        const playerData = mp.utils.PlayerData(player)
-
-        player.data.shared = { ...playerData.shared }
-
-        await mp.database.player.findByIdAndUpdate(player.shared.identifier, {
-            data: playerData
-        })
-    }
-
-    player.load = async({ _id, data: { internal, shared }, role }) => {
+    player.load = ({ _id, data: { internal, shared }, role }) => {
         if ( player.shared?.loaded ) return
 
         // Principal Variables
@@ -73,5 +62,25 @@ mp.events.add('playerJoin', player => {
         player.call('login:logged')
         player.call('userLoaded')
         */
+    }
+
+    player.save = async() => {
+        if ( player.shared?.loaded ) return
+        const playerData = mp.utils.PlayerData(player)
+
+        player.data.shared = { ...playerData.shared }
+
+        await mp.database.player.findByIdAndUpdate(player.shared.identifier, {
+            data: playerData
+        })
+    }
+
+    player.logout = async() => {
+        if ( player.shared || player.internal ) await player.save()
+
+        // before remove all internal and shared data
+        player.shared.loaded = false
+        player.dimension = config.logout.dimension
+        // player.call('login:logout')
     }
 })
