@@ -10,6 +10,11 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: 'latest'
 	},
+	
+	global: {
+		process: true
+	},
+
 	plugins: ['@typescript-eslint'],
 	rules: {
 		'func-style': [
