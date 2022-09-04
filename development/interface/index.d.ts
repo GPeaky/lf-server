@@ -57,6 +57,7 @@ declare global {
         internal: PlayerInternal
         shared: PlayerShared
         create(email: string, password: string): void
+        save(): void
     }
 }
 

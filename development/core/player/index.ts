@@ -17,4 +17,15 @@ mp.events.add('playerJoin', player => {
             data: mp.utils.PlayerData(player)
         })
     }
+
+    player.save = async() => {
+        // TODO: Check if player is already loaded
+        const playerData = mp.utils.PlayerData(player)
+
+        player.data.shared = { ...playerData.shared }
+
+        await mp.database.player.findByIdAndUpdate(player.shared.identifier, {
+            data: playerData
+        })
+    }
 })
