@@ -12,18 +12,20 @@
         "baseUrl": "./",
         "esModuleInterop": true,
         "moduleResolution": "node",
-        "paths": {}, // Abreviation
 
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "allowUnreachableCode": false,
         "strictNullChecks": true,
 
-
         "noImplicitReturns": true,
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
+
+        "paths": {
+            "@config/*": ["./development/config/*"]
+        }
     },    
 
     "include": [

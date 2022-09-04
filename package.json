@@ -34,6 +34,7 @@
       "typescript": "^4.7.4"
    },
    "dependencies": {
+      "argon2": "^0.29.1",
       "mongoose": "^6.5.4",
       "nanoid": "3"
    }

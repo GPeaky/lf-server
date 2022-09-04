@@ -8,6 +8,8 @@ const main = async() => {
 
         require('./utils')
 
+        require('./core')
+
     } catch (e) {
         throw new Error(`Unexpected error has occurred \n${ e }`)
     }
