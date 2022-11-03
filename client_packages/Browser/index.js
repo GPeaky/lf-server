@@ -5,7 +5,7 @@ require('./Browser/coords')
 require('./Browser/login')
 
 // Bank
-require('./Browser/bank')
+// require('./Browser/bank')
 
 // Speedometer 
 require('./Browser/speedometer')
