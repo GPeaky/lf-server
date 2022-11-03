@@ -1,7 +1,7 @@
 import argon2 from 'argon2'
 import config from '../../config/config'
 
-mp.events.add('playerJoin', player => {
+mp.events.add('playerJoin', (player: PlayerMp) => {
     player.create = async( email: string, password: string ) => {
         if ( player.shared?.loaded ) return
 
