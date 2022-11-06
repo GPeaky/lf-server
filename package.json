@@ -1,41 +1,55 @@
 {
-   "name": "server-files",
-   "version": "1.0.0",
-   "description": "",
-   "main": "index.js",
+   "version": "0.1.0",
+   "name": "lf-server",
+   "description": "Roleplay server in RageMP",
+   "keywords": [],
+   "private": true,
+   "license": "MIT",
+   "author": "Life Experience",
+
+   "homepage": "https://github.com/LifeExpenrience/server-files#readme",
+
+   "bugs": {
+      "url": "https://github.com/LifeExpenrience/server-files/issues"
+   },
+
    "scripts": {
       "start": "tsc && ragemp-server.exe",
       "build": "tsc",
       "dev": "pm2 start ./pm2.config.js && tsc -w",
       "stop:dev": "pm2 stop ./pm2.config.js"
    },
+
    "repository": {
       "type": "git",
       "url": "git+https://github.com/LifeExpenrience/server-files.git"
    },
-   "keywords": [],
-   "author": "",
-   "license": "ISC",
-   "bugs": {
-      "url": "https://github.com/LifeExpenrience/server-files/issues"
-   },
-   "homepage": "https://github.com/LifeExpenrience/server-files#readme",
+
    "devDependencies": {
-      "@ragempcommunity/types-server": "^2.0.6",
-      "@types/node": "^16.11.56",
-      "@typescript-eslint/eslint-plugin": "^5.36.1",
-      "@typescript-eslint/parser": "^5.36.1",
-      "dotenv": "^16.0.2",
-      "eslint": "^8.23.0",
-      "nodemon": "^2.0.19",
-      "pm2": "^5.2.0",
+      "@ragempcommunity/types-server": "^2.1.1",
+      "@types/node": "^18.11.9",
+      "@typescript-eslint/eslint-plugin": "^5.42.0",
+      "@typescript-eslint/parser": "^5.42.0",
+      "dotenv": "^16.0.3",
+      "eslint": "^8.27.0",
+      "nodemon": "^2.0.20",
+      "pm2": "^5.2.2",
       "prettier": "2.7.1",
-      "ts-node": "10.7.0",
-      "typescript": "^4.7.4"
+      "ts-node": "10.9.1",
+      "typescript": "^4.8.4"
    },
+
    "dependencies": {
-      "argon2": "^0.29.1",
-      "mongoose": "^6.5.4",
+      "argon2": "^0.30.1",
+      "mongoose": "^6.7.1",
       "nanoid": "^3.3.4"
-   }
+   },
+
+   "engines": {
+      "node": ">=19",
+      "npm": ">=8"
+   },
+
+   "os": ["win32", "linux"],
+   "cpu": ["x64"]
 }

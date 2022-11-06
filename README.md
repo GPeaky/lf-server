@@ -1,7 +1,3 @@
-# Awesome Project Build with TypeORM
+# Life Experience Development Branch
 
-Steps to run this project:
-
-1. Run `npm i` command
-2. Setup database settings inside `data-source.ts` file
-3. Run `npm start` command
+This is a branch of the Life Experience project that is being used to develop the project. It is not intended to be used by anyone other than the developers.
