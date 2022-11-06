@@ -4,11 +4,11 @@ const main = async() => {
     try {
         await databaseConnection()
 
-        require('./ipl')
+        import('./utils')
 
-        require('./utils')
+        import('./utils')
 
-        require('./core')
+        import('./core')
 
     } catch (e) {
         throw new Error(`Unexpected error has occurred \n${ e }`)

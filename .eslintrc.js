@@ -10,7 +10,7 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: 'latest'
 	},
-	
+
 	global: {
 		process: true,
 		mp: true
@@ -33,6 +33,7 @@ module.exports = {
 		'prefer-numeric-literals': 'error',
 		'prefer-rest-params': 'error',
 		'prefer-spread': 'error',
-		'no-undef': 'error'
+		'no-undef': 'error',
+		'no-multi-spaces': 'error'
 	}
 }

@@ -1,1 +1,1 @@
-require('./player')
+import './player'

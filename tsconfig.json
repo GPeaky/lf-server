@@ -3,7 +3,7 @@
 
     "compilerOptions": {
         "lib": ["ES7", "DOM"],
-        "outDir": "./packages/life-experience",
+        "outDir": "./packages/roleplay",
         "removeComments": true,
         "module": "commonjs",
         "target": "ES2022",
@@ -13,8 +13,6 @@
         "esModuleInterop": true,
         "moduleResolution": "node",
 
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
         "allowUnreachableCode": false,
         "strictNullChecks": true,
 
@@ -24,7 +22,7 @@
         "noUnusedParameters": true,
 
         "paths": {
-            "@config/*": ["./development/config/*"]
+            "@config/*": ["development/config/*"]
         }
     },    
 
