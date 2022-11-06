@@ -18,8 +18,9 @@
       "build": "tsc",
       "prepare": "npm shrinkwrap",
       "start": "tsc && ragemp-server.exe",
+      "start:linux": "tsc && ./ragemp-server",
       "dev": "pm2 start ./pm2.config.js && tsc -w",
-      "stop:dev": "pm2 stop ./pm2.config.js"
+      "dev:stop": "pm2 stop ./pm2.config.js"
    },
 
    "repository": {
