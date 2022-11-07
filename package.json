@@ -11,12 +11,12 @@
     "url": "https://github.com/LifeExpenrience/server-files/issues"
   },
   "scripts": {
-    "test": "tsc",
-    "build": "tsc && tsc-alias",
+    "test": "npm run build",
+    "build": "swc development -d ./packages/roleplay",
     "prepare": "npm shrinkwrap",
-    "start": "tsc && ragemp-server.exe",
+    "start": "npm run build && ragemp-server.exe",
     "start:linux": "npm run build && ./ragemp-server",
-    "dev": "pm2 start ./pm2.config.js && tsc -w",
+    "dev": "pm2 start ./pm2.config.js && npm run build -w",
     "dev:stop": "pm2 stop ./pm2.config.js"
   },
   "repository": {
@@ -25,16 +25,19 @@
   },
   "devDependencies": {
     "@ragempcommunity/types-server": "^2.1.1",
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.3.14",
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
+    "chokidar": "^3.5.3",
+    "concurrently": "^7.5.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.27.0",
     "nodemon": "^2.0.20",
     "pm2": "^5.2.2",
     "prettier": "2.7.1",
     "ts-node": "10.9.1",
-    "tsc-alias": "^1.7.0",
     "typescript": "^4.8.4"
   },
   "dependencies": {
