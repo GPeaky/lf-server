@@ -1416,6 +1416,8 @@
     "ws" "^7.0.0"
 
 "@pm2/pm2-version-check@latest":
+  "integrity" "sha512-SXsM27SGH3yTWKc2fKR4SYNxsmnvuBQ9dd6QHtEWmiZ/VqaOYPAIlS8+vMcn27YLtAEBGvNRSh3TPNvtjZgfqA=="
+  "resolved" "https://registry.npmjs.org/@pm2/pm2-version-check/-/pm2-version-check-1.0.4.tgz"
   "version" "1.0.4"
   dependencies:
     "debug" "^4.3.1"
@@ -4086,43 +4088,6 @@
     "pidusage" "^2.0.21"
     "systeminformation" "^5.7"
     "tx2" "~1.0.4"
-
-"pm2@^5.2.2":
-  "integrity" "sha512-mASxgh/MZhtVze/wijGf+tE6JKdA3lEq64FOfXVhhArkuk9Qxl4ePw9XgFJaArOXnU3bde+KbeAJHYxppVvYBQ=="
-  "resolved" "https://registry.npmjs.org/pm2/-/pm2-5.2.2.tgz"
-  "version" "5.2.2"
-  dependencies:
-    "@pm2/agent" "~2.0.0"
-    "@pm2/io" "~5.0.0"
-    "@pm2/js-api" "~0.6.7"
-    "@pm2/pm2-version-check" "latest"
-    "async" "~3.2.0"
-    "blessed" "0.1.81"
-    "chalk" "3.0.0"
-    "chokidar" "^3.5.3"
-    "cli-tableau" "^2.0.0"
-    "commander" "2.15.1"
-    "croner" "~4.1.92"
-    "dayjs" "~1.11.5"
-    "debug" "^4.3.1"
-    "enquirer" "2.3.6"
-    "eventemitter2" "5.0.1"
-    "fclone" "1.0.11"
-    "mkdirp" "1.0.4"
-    "needle" "2.4.0"
-    "pidusage" "~3.0"
-    "pm2-axon" "~4.0.1"
-    "pm2-axon-rpc" "~0.7.1"
-    "pm2-deploy" "~1.0.2"
-    "pm2-multimeter" "^0.1.2"
-    "promptly" "^2"
-    "semver" "^7.2"
-    "source-map-support" "0.5.21"
-    "sprintf-js" "1.1.2"
-    "vizion" "~2.2.1"
-    "yamljs" "0.3.0"
-  optionalDependencies:
-    "pm2-sysmonit" "^1.2.8"
 
 "prelude-ls@^1.2.1":
   "integrity" "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="

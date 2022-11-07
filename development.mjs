@@ -1,22 +1,40 @@
 import chokidar from 'chokidar'
-import { execFile } from "node:child_process";
+import { exec } from "node:child_process"
+
+const ragempProcessName =  process.platform === 'win32' ? 'ragemp-server.exe' : 'ragemp-server' 
+
+let restarting = false
+let ragemp = exec(ragempProcessName)
+const listenExec = exec => {
+    exec.stdout.on('data', (data) => {
+        process.stdout.write(data)
+    })
+}
 
 const watcher = chokidar.watch('./packages', {
     ignored: /(^|[\/\\])\../, // ignore dotfiles
     persistent: true
 })
 
-watcher.on('change', path => {
-    console.log('File', path, 'has been changed')
-})
+listenExec(ragemp)
+watcher.on('change', _ => {
+    if (!restarting) {
+        restarting = true
+        
+        if (process.platform === 'win32') {
+            exec('taskkill /F /IM ragemp-server* /T')
+        } else {
+            exec('killall ragemp-server')
+        }
 
-watcher.close().then(() => {
-    console.log('Watcher closed')
-})
+        console.clear()
 
-execFile('ragemp-server', (error, stdout, stderr) => {
-    if (error) {
-        throw error;
+        setTimeout(() => {
+            ragemp = exec(ragempProcessName)
+            setTimeout(() => {
+                listenExec(ragemp)
+                restarting = false
+            }, 0)
+        }, 250)
     }
-    console.log(stdout);
 })
