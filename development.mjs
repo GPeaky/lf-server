@@ -1,13 +1,15 @@
 import chokidar from 'chokidar'
 import { exec } from "node:child_process"
 
-const ragempProcessName =  process.platform === 'win32' ? 'ragemp-server.exe' : 'ragemp-server' 
+const ragempProcessName =  process.platform === 'win32' ? 'ragemp-server.exe' : './ragemp-server' 
 
 let restarting = false
 let ragemp = exec(ragempProcessName)
+
 const listenExec = exec => {
     exec.stdout.on('data', (data) => {
         process.stdout.write(data)
+
     })
 }
 
