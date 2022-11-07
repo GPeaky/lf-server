@@ -16,7 +16,6 @@
     },
 
     "minify": true,
-    "exclude": "tests/",
     "module": {
         "type": "commonjs"
     }
