@@ -7,7 +7,6 @@ bin/
 .env
 *.log
 dotnet/
-yarn.lock
 node_modules/
 logs/database/
 linux_x64.tar.gz
