@@ -1,4 +1,4 @@
-import argon2 from 'argon2'
+import bcrypt from 'bcryptjs'
 import config from '../../config/config'
 
 mp.events.add('playerJoin', (player: PlayerMp) => {
@@ -13,7 +13,7 @@ mp.events.add('playerJoin', (player: PlayerMp) => {
 
         await mp.database.player.create({
             email: email,
-            password: await argon2.hash( password ),
+            password: await bcrypt.hash( password, config.core.passwordSalts ),
             data: mp.utils.PlayerData(player)
         })
     }

@@ -11,7 +11,12 @@ declare interface UtilsConfig {
     numberPlateAlphabet: string
 }
 
+declare interface CoreConfig {
+    passwordSalts: number
+}
+
 declare interface IConfig {
+    core: CoreConfig
     spawn: SpawnConfig
     logout: LogoutConfig
     utils: UtilsConfig
