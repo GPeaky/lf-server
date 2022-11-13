@@ -3,13 +3,13 @@
         "parser": {
             "syntax": "typescript",
             "tsx": false,
-            "decorators": true,
-            "dynamicImport": true
+            "decorators": false,
+            "dynamicImport": false
         },
 
         "transform": {
-            "legacyDecorator": true,
-            "decoratorMetadata": true,
+            "legacyDecorator": false,
+            "decoratorMetadata": false,
 
             "optimizer": {
                 "simplify": true,
@@ -35,7 +35,7 @@
             "@config/*": ["development/config/*"]
         },
 
-        "baseUrl": "."
+        "baseUrl": "./"
     },
 
     "sourceMaps": false,
