@@ -8,6 +8,9 @@
         },
 
         "transform": {
+            "legacyDecorator": true,
+            "decoratorMetadata": true,
+
             "optimizer": {
                 "simplify": true,
                 "globals": {
@@ -27,7 +30,7 @@
             "mangle": true
         },
 
-        "target": "es2020",
+        "target": "es2022",
         "paths": {
             "@config/*": ["development/config/*"]
         },
@@ -35,6 +38,7 @@
         "baseUrl": "."
     },
 
+    "sourceMaps": false,
     "minify": true,
     "module": {
         "type": "commonjs"

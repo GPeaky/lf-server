@@ -1,5 +1,5 @@
 import chokidar from 'chokidar'
-import { exec } from "node:child_process"
+import { exec } from 'node:child_process'
 
 const ragempProcessName = process.platform === 'win32' ? 'ragemp-server.exe' : './ragemp-server'
 
@@ -9,7 +9,6 @@ let ragemp = exec(ragempProcessName)
 const listenExec = exec => {
     exec.stdout.on('data', (data) => {
         process.stdout.write(data)
-
     })
 }
 
@@ -22,21 +21,14 @@ listenExec(ragemp)
 watcher.on('change', _ => {
     if (!restarting) {
         restarting = true
-
-        if (process.platform === 'win32') {
-            exec('taskkill /F /IM ragemp-server* /T')
-        } else {
-            exec('killall ragemp-server')
-        }
-
-        console.clear()
+        ragemp.kill("SIGINT")
 
         setTimeout(() => {
             ragemp = exec(ragempProcessName)
             setTimeout(() => {
                 listenExec(ragemp)
                 restarting = false
-            }, 0)
-        }, 250)
+            }, 1)
+        }, 2000)
     }
 })
