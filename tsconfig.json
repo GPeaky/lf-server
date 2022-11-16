@@ -2,20 +2,16 @@
     "display": "Life Experience Development",
 
     "compilerOptions": {
-        "lib": ["ES7", "DOM"],
-        "outDir": "./packages/roleplay",
-        "removeComments": true,
-        "module": "commonjs",
+        "allowJs": false,
+        "module": "ESNext",
         "target": "ES2022",
-
-        // Module resolution
+        "strict": true,
+        "noEmit": true,
         "baseUrl": "./",
         "esModuleInterop": true,
         "moduleResolution": "node",
-
         "allowUnreachableCode": false,
         "strictNullChecks": true,
-
         "noImplicitReturns": true,
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": true,
@@ -29,6 +25,5 @@
     "include": [
         "development/**/*.ts",
         "node_modules/@ragempcommunity/types-server/index.d.ts"
-    ],
-    "exclude": ["client_packages/**/*"]
+    ]
 }

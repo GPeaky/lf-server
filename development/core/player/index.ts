@@ -41,7 +41,7 @@ mp.events.add('playerJoin', (player: PlayerMp) => {
         }
 
         // Loading Clothes
-        shared.clothes.forEach((clothes, index) => {
+        shared.clothes.forEach((clothes: any, index: any) => {
             player.setClothes(parseInt(index), parseInt(clothes[0].drawable) , parseInt(clothes[0].texture), 0)
         })
 
