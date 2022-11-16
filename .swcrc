@@ -35,7 +35,7 @@
             "@config/*": ["development/config/*"]
         },
 
-        "baseUrl": "."
+        "baseUrl": "./"
     },
 
     "sourceMaps": false,
