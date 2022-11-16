@@ -11,6 +11,9 @@ node_modules/
 logs/database/
 linux_x64.tar.gz
 package-lock.json
+bun.lockb
+yarn.lock
+pnpm-lock.yaml
 packages/
 client_packages/.listcache
 ragemp-server.exe
