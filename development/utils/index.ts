@@ -1,10 +1,10 @@
-import config from '../config/config'
-import { customAlphabet } from "nanoid"
-const nanoid = customAlphabet(config.utils.numberPlateAlphabet)
+import config from '../config/config';
+import {customAlphabet} from 'nanoid';
+const nanoid = customAlphabet(config.utils.numberPlateAlphabet);
 
 mp.utils = {
-    wait: function (ms: number): Promise<void> {
-        return new Promise((resolve) => setTimeout(resolve, ms))
+    wait: async function (ms: number): Promise<void> {
+        return await new Promise((resolve) => setTimeout(resolve, ms));
     },
 
     setDefaultClothes(player: PlayerMp) {
@@ -22,8 +22,8 @@ mp.utils = {
         player.setClothes(11, 4, 0, 0);
     },
 
-    generateNumberPlate(){
-        return nanoid()
+    generateNumberPlate() {
+        return nanoid();
     },
 
     PlayerData(player: PlayerMp) {
@@ -36,34 +36,33 @@ mp.utils = {
                 position: player.position,
                 dimension: player.dimension,
                 allWeapons: player.allWeapons,
-                lastVehicle: player.vehicle ? {
-                    numberPlate: player.vehicle.numberPlate,
-                    seat: player.seat
-                } : false
+                lastVehicle: player.vehicle
+                    ? {
+                          numberPlate: player.vehicle.numberPlate,
+                          seat: player.seat,
+                      }
+                    : false,
             },
 
             shared: {
                 ...player.shared,
                 clothes: [
-                    [   player.getClothes(0)   ],
-                    [   player.getClothes(1)   ],
-                    [   player.getClothes(2)   ],
-                    [   player.getClothes(3)   ],
-                    [   player.getClothes(4)   ],
-                    [   player.getClothes(5)   ],
-                    [   player.getClothes(6)   ],
-                    [   player.getClothes(7)   ],
-                    [   player.getClothes(8)   ],
-                    [   player.getClothes(9)   ],
-                    [   player.getClothes(10)  ],
-                    [   player.getClothes(11)  ]
+                    [player.getClothes(0)],
+                    [player.getClothes(1)],
+                    [player.getClothes(2)],
+                    [player.getClothes(3)],
+                    [player.getClothes(4)],
+                    [player.getClothes(5)],
+                    [player.getClothes(6)],
+                    [player.getClothes(7)],
+                    [player.getClothes(8)],
+                    [player.getClothes(9)],
+                    [player.getClothes(10)],
+                    [player.getClothes(11)],
                 ],
 
-                hairColor: [
-                    player.hairColor,
-                    player.hairHighlightColor
-                ]
-            }
-        }
-    }
-}
+                hairColor: [player.hairColor, player.hairHighlightColor],
+            },
+        };
+    },
+};

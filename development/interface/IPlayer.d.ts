@@ -1,16 +1,16 @@
 declare enum PlayerRole {
     'user' = 'user',
-    'superUser' = 'superUser'
+    'superUser' = 'superUser',
 }
 
 declare interface PlayerData {
-    test: string
+    test: string;
 }
 
 declare interface IPlayer {
-    _id: string
-    email: string
-    password: string
-    data: PlayerData
-    role: PlayerRole
+    _id: string;
+    email: string;
+    password: string;
+    data: PlayerData;
+    role: PlayerRole;
 }

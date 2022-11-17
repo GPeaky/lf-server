@@ -1,15 +1,15 @@
-import { Schema, model } from 'mongoose'
+import {Schema, model} from 'mongoose';
 
 const Vehicle = new Schema({
     model: {
         type: String,
-        required: true
+        required: true,
     },
 
     data: {
         type: Object,
-        required: true
-    }
-})
+        required: true,
+    },
+});
 
-export default model<IVehicle>('Vehicle', Vehicle)
+export default model<IVehicle>('Vehicle', Vehicle);

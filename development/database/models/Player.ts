@@ -1,30 +1,30 @@
-import { Schema, model } from 'mongoose'
+import {Schema, model} from 'mongoose';
 
 const Player = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
 
     password: {
         type: String,
-        required: true
+        required: true,
     },
 
     data: {
         type: Object,
-        required: true
+        required: true,
     },
 
     role: {
         type: String,
         required: true,
         default: 'user',
-        enum: ['user', 'superUser']
+        enum: ['user', 'superUser'],
     },
 
     // Pending Crypto balance and waller
-})
+});
 
-export default model<IPlayer>('Player', Player)
+export default model<IPlayer>('Player', Player);

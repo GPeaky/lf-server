@@ -20,7 +20,7 @@
         "paths": {
             "@config/*": ["development/config/*"]
         }
-    },    
+    },
 
     "include": [
         "development/**/*.ts",

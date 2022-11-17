@@ -1,0 +1,15 @@
+bin
+dotnet
+.swcrc
+.github
+plugins
+packages
+conf.json
+README.md
+node_modules
+package.json
+tsconfig.json
+jest.config.js
+.eslintrc.yaml
+.prettierrc.yaml
+npm-shrinkwrap.json

@@ -1,18 +1,17 @@
-import { databaseConnection } from "./database";
+import {databaseConnection} from './database';
 
-const main = async() => {
+const main = async () => {
     try {
-        await databaseConnection()
+        await databaseConnection();
 
-        import('./utils')
+        import('./utils');
 
-        import('./utils')
+        import('./utils');
 
-        import('./core')
-
+        import('./core');
     } catch (e) {
-        throw new Error(`Unexpected error has occurred \n${ e }`)
+        throw new Error(`Unexpected error has occurred \n${e}`);
     }
-}
- 
+};
+
 main();
