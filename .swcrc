@@ -32,7 +32,7 @@
 
         "target": "es2022",
         "paths": {
-            "@config/*": ["development/config/*"]
+            "@config/*": ["src/server/config/*"]
         },
 
         "baseUrl": "./"

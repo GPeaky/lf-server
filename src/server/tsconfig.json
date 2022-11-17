@@ -1,0 +1,15 @@
+{
+    "extends": "../../tsconfig.json",
+
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "@config/*": ["config/*"]
+        },
+    },
+
+    "include": [
+        "**/*.ts",
+        "../../node_modules/@ragempcommunity/types-server/index.d.ts"
+    ]
+}

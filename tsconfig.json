@@ -1,13 +1,10 @@
 {
-    "display": "Life Experience Development",
-
     "compilerOptions": {
         "allowJs": false,
         "module": "ESNext",
         "target": "ES2022",
         "strict": true,
         "noEmit": true,
-        "baseUrl": "./",
         "esModuleInterop": true,
         "moduleResolution": "node",
         "allowUnreachableCode": false,
@@ -15,15 +12,6 @@
         "noImplicitReturns": true,
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": true,
-        "noUnusedParameters": true,
-
-        "paths": {
-            "@config/*": ["development/config/*"]
-        }
-    },
-
-    "include": [
-        "development/**/*.ts",
-        "node_modules/@ragempcommunity/types-server/index.d.ts"
-    ]
+        "noUnusedParameters": true
+    }
 }
