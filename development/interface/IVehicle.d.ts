@@ -1,8 +1,8 @@
 declare interface IVehicleData {
-    test: string;
+    test: string
 }
 
 declare interface IVehicle {
-    model: string;
-    data: IVehicleData;
+    model: string
+    data: IVehicleData
 }

@@ -1,23 +1,23 @@
 declare interface SpawnConfig {
-    position: [x: number, y: number, z: number];
-    heading: number;
+    position: [x: number, y: number, z: number]
+    heading: number
 }
 
 declare interface LogoutConfig {
-    dimension: number;
+    dimension: number
 }
 
 declare interface UtilsConfig {
-    numberPlateAlphabet: string;
+    numberPlateAlphabet: string
 }
 
 declare interface CoreConfig {
-    passwordSalts: number;
+    passwordSalts: number
 }
 
 declare interface IConfig {
-    core: CoreConfig;
-    spawn: SpawnConfig;
-    logout: LogoutConfig;
-    utils: UtilsConfig;
+    core: CoreConfig
+    spawn: SpawnConfig
+    logout: LogoutConfig
+    utils: UtilsConfig
 }

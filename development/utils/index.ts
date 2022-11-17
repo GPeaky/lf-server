@@ -1,29 +1,29 @@
-import config from '../config/config';
-import {customAlphabet} from 'nanoid';
-const nanoid = customAlphabet(config.utils.numberPlateAlphabet);
+import config from '../config/config'
+import {customAlphabet} from 'nanoid'
+const nanoid = customAlphabet(config.utils.numberPlateAlphabet)
 
 mp.utils = {
     wait: async function (ms: number): Promise<void> {
-        return await new Promise((resolve) => setTimeout(resolve, ms));
+        return await new Promise((resolve) => setTimeout(resolve, ms))
     },
 
     setDefaultClothes(player: PlayerMp) {
-        player.setClothes(0, 0, 0, 0);
-        player.setClothes(1, 0, 0, 0);
-        player.setClothes(2, 12, 0, 0);
-        player.setClothes(3, 8, 0, 0);
-        player.setClothes(4, 4, 0, 0);
-        player.setClothes(5, 0, 0, 0);
-        player.setClothes(6, 10, 0, 0);
-        player.setClothes(7, 0, 0, 0);
-        player.setClothes(8, 4, 0, 0);
-        player.setClothes(9, 0, 0, 0);
-        player.setClothes(10, 0, 0, 0);
-        player.setClothes(11, 4, 0, 0);
+        player.setClothes(0, 0, 0, 0)
+        player.setClothes(1, 0, 0, 0)
+        player.setClothes(2, 12, 0, 0)
+        player.setClothes(3, 8, 0, 0)
+        player.setClothes(4, 4, 0, 0)
+        player.setClothes(5, 0, 0, 0)
+        player.setClothes(6, 10, 0, 0)
+        player.setClothes(7, 0, 0, 0)
+        player.setClothes(8, 4, 0, 0)
+        player.setClothes(9, 0, 0, 0)
+        player.setClothes(10, 0, 0, 0)
+        player.setClothes(11, 4, 0, 0)
     },
 
     generateNumberPlate() {
-        return nanoid();
+        return nanoid()
     },
 
     PlayerData(player: PlayerMp) {
@@ -63,6 +63,6 @@ mp.utils = {
 
                 hairColor: [player.hairColor, player.hairHighlightColor],
             },
-        };
+        }
     },
-};
+}

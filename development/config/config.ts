@@ -16,6 +16,6 @@ const Config: IConfig = {
         numberPlateAlphabet:
             '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
     },
-};
+}
 
-export default Config;
+export default Config

@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose';
+import {Schema, model} from 'mongoose'
 
 const Player = new Schema({
     email: {
@@ -25,6 +25,6 @@ const Player = new Schema({
     },
 
     // Pending Crypto balance and waller
-});
+})
 
-export default model<IPlayer>('Player', Player);
+export default model<IPlayer>('Player', Player)

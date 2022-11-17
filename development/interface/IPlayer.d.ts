@@ -4,13 +4,13 @@ declare enum PlayerRole {
 }
 
 declare interface PlayerData {
-    test: string;
+    test: string
 }
 
 declare interface IPlayer {
-    _id: string;
-    email: string;
-    password: string;
-    data: PlayerData;
-    role: PlayerRole;
+    _id: string
+    email: string
+    password: string
+    data: PlayerData
+    role: PlayerRole
 }
