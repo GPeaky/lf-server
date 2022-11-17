@@ -36,12 +36,12 @@ mp.events.add('playerJoin', (player: PlayerMp) => {
         player.shared.identifier = _id
 
         // Loading Weapons
-        for (const weapon in internal.allWeapons) {
+        internal.allWeapons.forEach((weapon: number) => {
             player.giveWeapon(
                 Number(weapon) as HashOrNumberOrString<number>,
                 internal.allWeapons[weapon] as number,
             )
-        }
+        })
 
         // Loading Clothes
         shared.clothes.forEach((clothes: any, index: any) => {

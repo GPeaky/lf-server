@@ -13,7 +13,7 @@
     "scripts": {
         "test": "jest",
         "prepare": "npm shrinkwrap",
-        "lint": "eslint development",
+        "lint": "prettier --write ./development && eslint development",
         "build": "swc development --config-file .swcrc -d ./packages/roleplay",
         "start": "concurrently \"npm run build\" \"( sleep 2 && ragemp-server.exe )\"",
         "start:linux": "concurrently \"npm run build\" \"( sleep 2 && ./ragemp-server )\"",

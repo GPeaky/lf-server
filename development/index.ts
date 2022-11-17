@@ -1,6 +1,6 @@
 import {databaseConnection} from './database'
 
-const main = async () => {
+const main = async (): Promise<string> => {
     try {
         await databaseConnection()
 
@@ -10,12 +10,17 @@ const main = async () => {
 
         import('./core')
 
-        return 'Main Runtime Finished'
-    } catch (e) {
-        throw new Error(`Unexpected error has occurred \n${e}`)
+        return 'Server started successfully'
+    } catch (e: any) {
+        return e
     }
 }
 
-main().then((msg: string) => {
-    console.log(msg)
-})
+void main()
+    .then((msg: string) => {
+        console.log(msg)
+    })
+    .catch((e: Error) => {
+        // @ts-expect-error
+        throw new Error(e)
+    })
