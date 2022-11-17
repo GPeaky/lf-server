@@ -8,6 +8,8 @@ bin/
 *.log
 dotnet/
 node_modules/
+packages/
+client_packages/
 logs/database/
 linux_x64.tar.gz
 package-lock.json
